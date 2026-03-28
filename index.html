@@ -8,6 +8,17 @@
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0f0f0f;color:#e8e8e8;min-height:100vh;padding:20px 16px}
+    #lock-screen{position:fixed;inset:0;background:#0f0f0f;display:flex;align-items:center;justify-content:center;z-index:9999}
+    #lock-screen.hidden{display:none}
+    .lock-box{width:100%;max-width:320px;padding:32px 24px;background:#181818;border-radius:16px;border:1px solid #222;text-align:center}
+    .lock-icon{font-size:36px;margin-bottom:16px}
+    .lock-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+    .lock-sub{font-size:12px;color:#555;margin-bottom:20px}
+    .lock-input{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:8px;color:#e8e8e8;font-size:15px;padding:12px 14px;text-align:center;letter-spacing:.2em;outline:none;font-family:inherit}
+    .lock-input:focus{border-color:#7c6fcd}
+    .lock-btn{margin-top:12px;width:100%;background:#7c6fcd;border:none;color:#fff;font-size:14px;font-weight:700;padding:11px;border-radius:8px;cursor:pointer;transition:background .2s}
+    .lock-btn:hover{background:#6a5eb8}
+    .lock-error{font-size:12px;color:#ff6060;margin-top:10px;min-height:18px}
     .container{max-width:680px;margin:0 auto}
     nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
     nav button{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;color:#888;border:1px solid #2a2a2a;background:transparent;transition:all .2s}
@@ -66,6 +77,17 @@
   </style>
 </head>
 <body>
+<div id="lock-screen">
+  <div class="lock-box">
+    <div class="lock-icon">🔒</div>
+    <div class="lock-title">タスク管理</div>
+    <div class="lock-sub">パスワードを入力してください</div>
+    <input class="lock-input" id="lock-input" type="password" placeholder="••••••••"
+      onkeydown="if(event.key==='Enter')unlock()">
+    <button class="lock-btn" onclick="unlock()">入る</button>
+    <div class="lock-error" id="lock-error"></div>
+  </div>
+</div>
 <div class="container">
   <nav>
     <button onclick="show('today',this)" class="active">📋 今日</button>
@@ -119,6 +141,14 @@
 </div>
 
 <script>
+var PASS="sugar2026";
+function unlock(){
+  var v=document.getElementById("lock-input").value;
+  if(v===PASS){localStorage.setItem("auth","1");document.getElementById("lock-screen").classList.add("hidden");}
+  else{document.getElementById("lock-error").textContent="パスワードが違います";document.getElementById("lock-input").value="";}
+}
+if(localStorage.getItem("auth")==="1"){document.getElementById("lock-screen").classList.add("hidden");}
+
 const REPO="sugarsssss/tasks";
 const RAW="https://raw.githubusercontent.com/"+REPO+"/main";
 const API="https://api.github.com/repos/"+REPO;
