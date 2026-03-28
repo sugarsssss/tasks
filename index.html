@@ -38,9 +38,12 @@
     .x-post-label{font-size:10px;color:#1d9bf0;font-weight:700;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
     .x-post-text{font-size:13px;line-height:1.7;color:#e8e8e8;white-space:pre-wrap;word-break:break-all}
     .x-char-count{font-size:11px;color:#555;margin-top:6px;text-align:right}
-    .copy-btn{margin-top:10px;background:#1d9bf0;border:none;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
+    .x-post-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .copy-btn{background:#1d9bf0;border:none;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
     .copy-btn:hover{background:#1a8cd8}
     .copy-btn.copied{background:#4caf7d}
+    .tweet-btn{background:#000;border:1px solid #333;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
+    .tweet-btn:hover{background:#111;border-color:#1d9bf0}
     .qa-box{background:#111;border:1px solid #222;border-radius:8px;padding:14px;margin-top:12px}
     .qa-label{font-size:10px;color:#f0a500;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
     .qa-question{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:10px}
@@ -168,7 +171,10 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="x-post-label">𝕏 今日のX投稿案</div>'+
         '<div class="x-post-text" id="xpost-text">'+escHtml(d.xPost)+'</div>'+
         '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
-        '<button class="copy-btn" id="copy-btn" onclick="copyPost()">コピー</button>'+
+        '<div class="x-post-btns">'+
+          '<button class="copy-btn" id="copy-btn" onclick="copyPost()">コピー</button>'+
+          '<button class="tweet-btn" onclick="openXPost()">𝕏 Xに投稿</button>'+
+        '</div>'+
       '</div>';
     }
     if(d.dailyQuestion){
@@ -187,6 +193,13 @@ fetch(RAW+"/data/today.json?t="+Date.now())
     document.getElementById("today-plabel").textContent="";});
 
 function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+
+function openXPost(){
+  var el=document.getElementById("xpost-text");
+  if(!el)return;
+  var text=el.innerText;
+  window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text),"_blank");
+}
 
 function copyPost(){
   var el=document.getElementById("xpost-text");
@@ -295,3 +308,4 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
