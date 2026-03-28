@@ -202,8 +202,22 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="x-post-text" id="xpost-text">'+escHtml(d.xPost)+'</div>'+
         '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
         '<div class="x-post-btns">'+
-          '<button class="copy-btn" id="copy-btn" onclick="copyPost()">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost()">𝕏 Xに投稿</button>'+
+          '<button class="copy-btn" id="copy-btn" onclick="copyPost(\'xpost-text\',\'copy-btn\')">コピー</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'xpost-text\')">𝕏 Xに投稿</button>'+
+        '</div>'+
+      '</div>';
+    }
+    if(d.newsPost){
+      var nc=(d.newsPost||"").length;
+      var ncColor=nc>140?"#ff6060":nc>120?"#f0a500":"#555";
+      html+='<div class="x-post-box" style="border-color:#2a3a2a;margin-top:8px">'+
+        '<div class="x-post-label" style="color:#4ecdc4">📰 時事ニュース投稿案</div>'+
+        (d.newsSource?'<div style="font-size:11px;color:#445;margin-bottom:6px">ソース：'+escHtml(d.newsSource)+'</div>':'')+
+        '<div class="x-post-text" id="newspost-text">'+escHtml(d.newsPost)+'</div>'+
+        '<div class="x-char-count" style="color:'+ncColor+'">'+nc+' / 140文字</div>'+
+        '<div class="x-post-btns">'+
+          '<button class="copy-btn" id="news-copy-btn" onclick="copyPost(\'newspost-text\',\'news-copy-btn\')">コピー</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'newspost-text\')">𝕏 Xに投稿</button>'+
         '</div>'+
       '</div>';
     }
@@ -224,18 +238,17 @@ fetch(RAW+"/data/today.json?t="+Date.now())
 
 function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 
-function openXPost(){
-  var el=document.getElementById("xpost-text");
+function openXPost(elId){
+  var el=document.getElementById(elId||"xpost-text");
   if(!el)return;
-  var text=el.innerText;
-  window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(text),"_blank");
+  window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(el.innerText),"_blank");
 }
 
-function copyPost(){
-  var el=document.getElementById("xpost-text");
+function copyPost(elId,btnId){
+  var el=document.getElementById(elId||"xpost-text");
+  var btn=document.getElementById(btnId||"copy-btn");
   if(!el)return;
   navigator.clipboard.writeText(el.innerText).then(function(){
-    var btn=document.getElementById("copy-btn");
     btn.textContent="✓ コピーしました";
     btn.classList.add("copied");
     setTimeout(function(){btn.textContent="コピー";btn.classList.remove("copied");},2000);
