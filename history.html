@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タスク詳細</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0f0f0f;color:#e8e8e8;min-height:100vh;padding:20px 16px}
+    .container{max-width:680px;margin:0 auto}
+    .back{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#666;text-decoration:none;margin-bottom:20px;padding:6px 12px;border:1px solid #2a2a2a;border-radius:20px}
+    .back:hover{color:#fff;border-color:#7c6fcd}
+    .page-date{font-size:12px;color:#555;margin-bottom:4px}
+    .page-title{font-size:20px;font-weight:700;color:#fff;margin-bottom:8px}
+    .progress-label{font-size:11px;color:#666;margin-bottom:4px}
+    .progress-bar{height:4px;background:#1e1e1e;border-radius:2px;overflow:hidden;margin-bottom:24px}
+    .progress-fill{height:100%;background:#7c6fcd;border-radius:2px}
+    .block-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#666;text-transform:uppercase;margin-bottom:8px;margin-top:20px}
+    .task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121}
+    .check{width:15px;height:15px;border-radius:3px;border:1px solid #333;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#7c6fcd;background:transparent}
+    .check.done{background:#7c6fcd;border-color:#7c6fcd;color:#fff}
+    .task-text{font-size:13px;line-height:1.5;flex:1}
+    .task-text.done{text-decoration:line-through;color:#555}
+    .task-time{font-size:11px;color:#333;white-space:nowrap;padding-left:8px}
+    .must-do{background:#14112a;border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:20px}
+    .must-do-label{font-size:10px;color:#7c6fcd;font-weight:700;letter-spacing:.12em;margin-bottom:5px}
+    .must-do-text{font-size:13px;color:#b8aaff;line-height:1.5}
+    .quote-box{background:#111;border-left:3px solid #333;padding:10px 12px;border-radius:0 6px 6px 0;margin-top:12px}
+    .quote-label{font-size:10px;color:#444;font-weight:600;letter-spacing:.1em;margin-bottom:3px}
+    .quote-text{font-size:13px;color:#888;font-style:italic}
+    .priority-badge{color:#ff6060;font-size:10px;font-weight:700;margin-left:6px}
+    .spinner{text-align:center;color:#333;padding:40px;font-size:13px}
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back">← 戻る</a>
+  <div class="page-date" id="page-date"></div>
+  <div class="page-title">タスク詳細</div>
+  <div class="progress-label" id="prog-label">読み込み中...</div>
+  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
+  <div id="content"><div class="spinner">読み込み中...</div></div>
+</div>
+<script>
+var date=new URLSearchParams(location.search).get("date");
+var REPO="sugarsssss/tasks";
+var RAW="https://raw.githubusercontent.com/"+REPO+"/main";
+if(!date){document.getElementById("content").innerHTML='<div class="spinner">日付が指定されていません</div>';}
+else{
+  document.title=date+" のタスク";
+  fetch(RAW+"/data/archive/"+date+".json?t="+Date.now())
+    .then(function(r){return r.json()}).then(function(d){
+      document.getElementById("page-date").textContent=d.dateJa||d.date||"";
+      var doneMap=JSON.parse(localStorage.getItem("done-"+date)||"{}");
+      var all=0,done=0,html="";
+      var secs=d.sections||{};
+      Object.keys(secs).forEach(function(k){
+        var sec=secs[k];
+        html+='<div class="block-title">'+sec.label+(sec.priority?'<span class="priority-badge">最優先</span>':'')+' </div>';
+        (sec.tasks||[]).forEach(function(t){
+          all++;
+          var isDone=!!doneMap[t.id];
+          if(isDone)done++;
+          html+='<div class="task-item">'+
+            '<div class="check'+(isDone?" done":"")+'>'+(isDone?"✓":"")+'</div>'+
+            '<span class="task-text'+(isDone?" done":"")+'">'+(t.text||"")+'</span>'+
+            '<span class="task-time">'+(t.time||"")+'</span></div>';
+        });
+      });
+      if(d.mustDo) html+='<div class="must-do"><div class="must-do-label">⚡ MUST DO</div><div class="must-do-text">'+d.mustDo+'</div></div>';
+      if(d.quote)  html+='<div class="quote-box"><div class="quote-label">💬 今日の一言</div><div class="quote-text">'+d.quote+'</div></div>';
+      document.getElementById("content").innerHTML=html;
+      var pct=all?Math.round(done/all*100):0;
+      document.getElementById("prog-label").textContent=done+" / "+all+" 完了 ("+pct+"%)";
+      document.getElementById("prog-fill").style.width=pct+"%";
+    }).catch(function(){document.getElementById("content").innerHTML='<div class="spinner">データが見つかりません</div>';
+      document.getElementById("prog-label").textContent="";});
+}
+</script>
+</body>
+</html>
