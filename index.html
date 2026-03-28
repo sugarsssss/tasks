@@ -3,60 +3,212 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>今日のタスク</title>
+  <title>タスク管理</title>
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; padding: 24px 16px; }
-    .container { max-width: 640px; margin: 0 auto; }
-    .header { border-bottom: 1px solid #2a2a2a; padding-bottom: 16px; margin-bottom: 24px; }
-    .date { font-size: 13px; color: #666; letter-spacing: 0.05em; margin-bottom: 6px; }
-    .title { font-size: 22px; font-weight: 700; color: #fff; }
-    .section { margin-bottom: 24px; }
-    .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #888; text-transform: uppercase; margin-bottom: 10px; }
-    .task-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: #1a1a1a; border-radius: 8px; margin-bottom: 6px; border: 1px solid #222; }
-    .task-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: #7c6fcd; margin-top: 2px; flex-shrink: 0; cursor: pointer; }
-    .task-text { font-size: 14px; line-height: 1.5; }
-    .task-time { margin-left: auto; font-size: 11px; color: #555; white-space: nowrap; padding-left: 8px; }
-    .must-do { background: #1a1530; border: 1px solid #3d3070; border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
-    .must-do .label { font-size: 11px; color: #7c6fcd; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 6px; }
-    .must-do .content { font-size: 14px; color: #c8c0ff; }
-    .quote { background: #111; border-left: 3px solid #444; padding: 10px 14px; border-radius: 0 6px 6px 0; }
-    .quote .label { font-size: 11px; color: #555; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 4px; }
-    .quote .content { font-size: 14px; color: #aaa; font-style: italic; }
-    .priority { color: #ff6b6b; font-size: 11px; font-weight: 600; margin-left: 4px; }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0f0f0f;color:#e8e8e8;min-height:100vh;padding:20px 16px}
+    .container{max-width:680px;margin:0 auto}
+    nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+    nav button{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;color:#888;border:1px solid #2a2a2a;background:transparent;transition:all .2s}
+    nav button.active,nav button:hover{color:#fff;border-color:#7c6fcd;background:#1a1530}
+    .section{display:none;animation:fadeIn .2s ease}
+    .section.active{display:block}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .page-header{margin-bottom:24px}
+    .page-date{font-size:12px;color:#555;margin-bottom:4px}
+    .page-title{font-size:20px;font-weight:700;color:#fff}
+    .progress-bar-wrap{margin-top:8px}
+    .progress-label{font-size:11px;color:#666;margin-bottom:4px}
+    .progress-bar{height:4px;background:#1e1e1e;border-radius:2px;overflow:hidden}
+    .progress-fill{height:100%;background:#7c6fcd;border-radius:2px;transition:width .4s ease}
+    .block-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#666;text-transform:uppercase;margin-bottom:8px;margin-top:20px}
+    .task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;transition:border-color .2s}
+    .task-item input[type=checkbox]{width:15px;height:15px;accent-color:#7c6fcd;margin-top:2px;flex-shrink:0;cursor:pointer}
+    .task-text{font-size:13px;line-height:1.5;flex:1}
+    .task-time{font-size:11px;color:#444;white-space:nowrap;padding-left:8px}
+    .must-do{background:#14112a;border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:20px}
+    .must-do-label{font-size:10px;color:#7c6fcd;font-weight:700;letter-spacing:.12em;margin-bottom:5px}
+    .must-do-text{font-size:13px;color:#b8aaff;line-height:1.5}
+    .quote-box{background:#111;border-left:3px solid #333;padding:10px 12px;border-radius:0 6px 6px 0;margin-top:12px}
+    .quote-label{font-size:10px;color:#444;font-weight:600;letter-spacing:.1em;margin-bottom:3px}
+    .quote-text{font-size:13px;color:#888;font-style:italic}
+    .priority-badge{color:#ff6060;font-size:10px;font-weight:700;margin-left:6px}
+    .goal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;transition:border-color .2s}
+    .goal-item input[type=checkbox]{width:15px;height:15px;accent-color:#4caf7d;margin-top:2px;flex-shrink:0;cursor:pointer}
+    .goal-text{font-size:13px;line-height:1.5;flex:1}
+    .cat-badge{font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600}
+    .cat-booth{background:#1a1530;color:#9b8bff}.cat-sns{background:#0d2020;color:#4ecdc4}.cat-biz{background:#1a1200;color:#f0a500}.cat-revenue{background:#1a0f0f;color:#ff6b6b}
+    .history-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;cursor:pointer;transition:border-color .2s}
+    .history-item:hover{border-color:#7c6fcd}
+    .history-date{font-size:13px}
+    .history-rate{font-size:12px;color:#7c6fcd;font-weight:600}
+    .empty{color:#444;font-size:13px;padding:20px 0;text-align:center}
+    .spinner{text-align:center;color:#333;padding:40px;font-size:13px}
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="header">
-      <div class="date">2026年03月28日 (Sat)</div>
-      <div class="title">今日のタスク</div>
+<div class="container">
+  <nav>
+    <button onclick="show('today',this)" class="active">📋 今日</button>
+    <button onclick="show('week',this)">📅 今週</button>
+    <button onclick="show('month',this)">🗓 今月</button>
+    <button onclick="show('history',this)">📂 履歴</button>
+  </nav>
+
+  <div id="sec-today" class="section active">
+    <div class="page-header">
+      <div class="page-date" id="today-date"></div>
+      <div class="page-title">今日のタスク</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label" id="today-plabel">読み込み中...</div>
+        <div class="progress-bar"><div class="progress-fill" id="today-pfill" style="width:0%"></div></div>
+      </div>
     </div>
-    <div class="section">
-      <div class="section-label">🎯 BOOTH素材 <span class="priority">最優先</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">Photoshopを開き、ネオン発光系スタイル1個目を完成させる（青系グロー）。レイヤーエフェクト：外光彩・内光彩・ドロップシャドウの3点セット構成で仕上げる</span><span class="task-time">45分</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">完成したスタイルを「.asl」形式で保存し、ファイル名ルール（neon_01_blue.asl）で管理フォルダに格納</span><span class="task-time">10分</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">色変え（ピンク・グリーン・オレンジ）でバリエ3個を量産。スタイルの色値だけ変更して5分/個ペースで展開</span><span class="task-time">20分</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">4個分のプレビュー画像（1000×1000px）をJPEGで書き出し、BOOTHの商品ページ用フォルダに保存</span><span class="task-time">15分</span></div>
-    </div>
-    <div class="section">
-      <div class="section-label">📦 外注化 / その他事業</div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">サムネ外注マニュアルの目次を作る。「①依頼方法②品質基準③NG事例④修正フロー」の4章構成でNotionに箇条書き展開</span><span class="task-time">25分</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">既存クライアント1社に来月の継続確認メッセージを送る（3行以内・返信不要形式）</span><span class="task-time">10分</span></div>
-    </div>
-    <div class="section">
-      <div class="section-label">📣 発信</div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">X投稿の下書き1本を書く。テーマ：「19歳・サムネ制作で月9万稼いだ話（時給13,200円の仕組み）」。フック→数字→結論の3段構成、300文字以内</span><span class="task-time">20分</span></div>
-      <div class="task-item"><input type="checkbox"><span class="task-text">今日作ったネオンスタイルをBeforeAfter形式でスクショ撮影。Instagramリール素材として保存（投稿は後日可）</span><span class="task-time">10分</span></div>
-    </div>
-    <div class="must-do">
-      <div class="label">⚡ MUST DO</div>
-      <div class="content">ネオン系スタイル1個を今日中に完成・保存する。バリエ展開より「1個完璧に仕上げる」を優先。これだけでOK。</div>
-    </div>
-    <div class="quote">
-      <div class="label">💬 今日の一言</div>
-      <div class="content">最初の1個が一番重い。完成した瞬間、残り99個の道が開く。</div>
-    </div>
+    <div id="today-body"><div class="spinner">読み込み中...</div></div>
   </div>
+
+  <div id="sec-week" class="section">
+    <div class="page-header">
+      <div class="page-date" id="week-date"></div>
+      <div class="page-title">今週の目標</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label" id="week-plabel">読み込み中...</div>
+        <div class="progress-bar"><div class="progress-fill" id="week-pfill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div id="week-body"><div class="spinner">読み込み中...</div></div>
+  </div>
+
+  <div id="sec-month" class="section">
+    <div class="page-header">
+      <div class="page-date" id="month-date"></div>
+      <div class="page-title">今月の目標</div>
+      <div class="progress-bar-wrap">
+        <div class="progress-label" id="month-plabel">読み込み中...</div>
+        <div class="progress-bar"><div class="progress-fill" id="month-pfill" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div id="month-body"><div class="spinner">読み込み中...</div></div>
+  </div>
+
+  <div id="sec-history" class="section">
+    <div class="page-header">
+      <div class="page-title">過去のタスク履歴</div>
+    </div>
+    <div id="history-body"><div class="spinner">読み込み中...</div></div>
+  </div>
+</div>
+
+<script>
+const REPO="sugarsssss/tasks";
+const RAW="https://raw.githubusercontent.com/"+REPO+"/main";
+const API="https://api.github.com/repos/"+REPO;
+
+function show(name,btn){
+  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
+  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("sec-"+name).classList.add("active");
+  if(name==="history") loadHistory();
+}
+
+function getDone(k){return JSON.parse(localStorage.getItem("done-"+k)||"{}")}
+function setDone(k,id,v){var d=getDone(k);d[id]=v;localStorage.setItem("done-"+k,JSON.stringify(d))}
+
+function calcPct(k,cls){
+  var total=document.querySelectorAll("."+cls).length;
+  var done=Object.values(getDone(k)).filter(Boolean).length;
+  return{total:total,done:done,pct:total?Math.round(done/total*100):0};
+}
+function updateBar(k,cls,prefix){
+  var r=calcPct(k,cls);
+  document.getElementById(prefix+"-plabel").textContent=r.done+" / "+r.total+" 完了 ("+r.pct+"%)";
+  document.getElementById(prefix+"-pfill").style.width=r.pct+"%";
+}
+
+// TODAY
+fetch(RAW+"/data/today.json?t="+Date.now())
+  .then(function(r){return r.json()}).then(function(d){
+    document.getElementById("today-date").textContent=d.dateJa||d.date||"";
+    var html="";
+    var secs=d.sections||{};
+    Object.keys(secs).forEach(function(k){
+      var sec=secs[k];
+      html+='<div class="block-title">'+sec.label+(sec.priority?'<span class="priority-badge">最優先</span>':'')+' </div>';
+      (sec.tasks||[]).forEach(function(t){
+        var done=getDone(d.date)[t.id];
+        html+='<div class="task-item"><input type="checkbox" class="t-today" id="t'+t.id+'" '+(done?"checked":"")+
+          ' onchange="setDone(\''+d.date+'\',\''+t.id+'\',this.checked);updateBar(\''+d.date+'\',\'t-today\',\'today\')">'+
+          '<label class="task-text" for="t'+t.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(t.text||"")+'</label>'+
+          '<span class="task-time">'+(t.time||"")+'</span></div>';
+      });
+    });
+    if(d.mustDo) html+='<div class="must-do"><div class="must-do-label">⚡ MUST DO</div><div class="must-do-text">'+d.mustDo+'</div></div>';
+    if(d.quote)  html+='<div class="quote-box"><div class="quote-label">💬 今日の一言</div><div class="quote-text">'+d.quote+'</div></div>';
+    document.getElementById("today-body").innerHTML=html;
+    updateBar(d.date,"t-today","today");
+  }).catch(function(){document.getElementById("today-body").innerHTML='<div class="empty">明日の朝9時に最初のタスクが生成されます。</div>';
+    document.getElementById("today-plabel").textContent="";});
+
+// WEEK
+fetch(RAW+"/data/week.json?t="+Date.now())
+  .then(function(r){return r.json()}).then(function(d){
+    document.getElementById("week-date").textContent=d.weekJa||"";
+    var wk="week-"+(d.weekStart||"");
+    var html="";
+    (d.goals||[]).forEach(function(g){
+      var done=getDone(wk)[g.id];
+      html+='<div class="goal-item"><input type="checkbox" class="t-week" id="w'+g.id+'" '+(done?"checked":"")+
+        ' onchange="setDone(\''+wk+'\',\''+g.id+'\',this.checked);updateBar(\''+wk+'\',\'t-week\',\'week\')">'+
+        '<label class="goal-text" for="w'+g.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(g.text||"")+
+        '<span class="cat-badge cat-'+(g.category||"")+'">'+(g.category||"")+'</span></label></div>';
+    });
+    document.getElementById("week-body").innerHTML=html||'<div class="empty">月曜朝9時に更新されます。</div>';
+    updateBar(wk,"t-week","week");
+  }).catch(function(){document.getElementById("week-body").innerHTML='<div class="empty">月曜朝9時に更新されます。</div>';
+    document.getElementById("week-plabel").textContent="";});
+
+// MONTH
+fetch(RAW+"/data/month.json?t="+Date.now())
+  .then(function(r){return r.json()}).then(function(d){
+    document.getElementById("month-date").textContent=d.monthJa||"";
+    var mk="month-"+(d.month||"");
+    var html="";
+    (d.goals||[]).forEach(function(g){
+      var done=getDone(mk)[g.id];
+      html+='<div class="goal-item"><input type="checkbox" class="t-month" id="m'+g.id+'" '+(done?"checked":"")+
+        ' onchange="setDone(\''+mk+'\',\''+g.id+'\',this.checked);updateBar(\''+mk+'\',\'t-month\',\'month\')">'+
+        '<label class="goal-text" for="m'+g.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(g.text||"")+
+        '<span class="cat-badge cat-'+(g.category||"")+'">'+(g.category||"")+'</span></label></div>';
+    });
+    document.getElementById("month-body").innerHTML=html||'<div class="empty">毎月1日朝9時に更新されます。</div>';
+    updateBar(mk,"t-month","month");
+  }).catch(function(){document.getElementById("month-body").innerHTML='<div class="empty">毎月1日朝9時に更新されます。</div>';
+    document.getElementById("month-plabel").textContent="";});
+
+// HISTORY
+var histLoaded=false;
+function loadHistory(){
+  if(histLoaded)return; histLoaded=true;
+  fetch(API+"/contents/data/archive")
+    .then(function(r){return r.json()}).then(function(files){
+      var items=(files||[]).filter(function(f){return f.name&&f.name.endsWith(".json")})
+        .sort(function(a,b){return b.name.localeCompare(a.name)});
+      if(!items.length){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';return;}
+      var html="";
+      items.forEach(function(f){
+        var date=f.name.replace(".json","");
+        var done=getDone(date);
+        var doneN=Object.values(done).filter(Boolean).length;
+        var totalN=Object.keys(done).length;
+        var pct=totalN?Math.round(doneN/totalN*100):null;
+        html+='<div class="history-item" onclick="location.href=\'history.html?date='+date+'\'">'+
+          '<span class="history-date">'+date+'</span>'+
+          '<span class="history-rate">'+(pct!==null?pct+"% 達成":"未記録")+'</span></div>';
+      });
+      document.getElementById("history-body").innerHTML=html;
+    }).catch(function(){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';});
+}
+</script>
 </body>
 </html>
