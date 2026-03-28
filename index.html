@@ -6,88 +6,22 @@
   <title>今日のタスク</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
-      background: #0f0f0f;
-      color: #e8e8e8;
-      min-height: 100vh;
-      padding: 24px 16px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif; background: #0f0f0f; color: #e8e8e8; min-height: 100vh; padding: 24px 16px; }
     .container { max-width: 640px; margin: 0 auto; }
-    .header {
-      border-bottom: 1px solid #2a2a2a;
-      padding-bottom: 16px;
-      margin-bottom: 24px;
-    }
-    .date {
-      font-size: 13px;
-      color: #666;
-      letter-spacing: 0.05em;
-      margin-bottom: 6px;
-    }
+    .header { border-bottom: 1px solid #2a2a2a; padding-bottom: 16px; margin-bottom: 24px; }
+    .date { font-size: 13px; color: #666; letter-spacing: 0.05em; margin-bottom: 6px; }
     .title { font-size: 22px; font-weight: 700; color: #fff; }
     .section { margin-bottom: 24px; }
-    .section-label {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      color: #888;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .task-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 14px;
-      background: #1a1a1a;
-      border-radius: 8px;
-      margin-bottom: 6px;
-      border: 1px solid #222;
-    }
-    .task-item input[type="checkbox"] {
-      width: 16px; height: 16px;
-      accent-color: #7c6fcd;
-      margin-top: 2px;
-      flex-shrink: 0;
-      cursor: pointer;
-    }
+    .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; color: #888; text-transform: uppercase; margin-bottom: 10px; }
+    .task-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; background: #1a1a1a; border-radius: 8px; margin-bottom: 6px; border: 1px solid #222; }
+    .task-item input[type="checkbox"] { width: 16px; height: 16px; accent-color: #7c6fcd; margin-top: 2px; flex-shrink: 0; cursor: pointer; }
     .task-text { font-size: 14px; line-height: 1.5; }
-    .task-time {
-      margin-left: auto;
-      font-size: 11px;
-      color: #555;
-      white-space: nowrap;
-      padding-left: 8px;
-    }
-    .must-do {
-      background: #1a1530;
-      border: 1px solid #3d3070;
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-bottom: 24px;
-    }
-    .must-do .label {
-      font-size: 11px;
-      color: #7c6fcd;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-bottom: 6px;
-    }
+    .task-time { margin-left: auto; font-size: 11px; color: #555; white-space: nowrap; padding-left: 8px; }
+    .must-do { background: #1a1530; border: 1px solid #3d3070; border-radius: 8px; padding: 12px 14px; margin-bottom: 24px; }
+    .must-do .label { font-size: 11px; color: #7c6fcd; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 6px; }
     .must-do .content { font-size: 14px; color: #c8c0ff; }
-    .quote {
-      background: #111;
-      border-left: 3px solid #444;
-      padding: 10px 14px;
-      border-radius: 0 6px 6px 0;
-    }
-    .quote .label {
-      font-size: 11px;
-      color: #555;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      margin-bottom: 4px;
-    }
+    .quote { background: #111; border-left: 3px solid #444; padding: 10px 14px; border-radius: 0 6px 6px 0; }
+    .quote .label { font-size: 11px; color: #555; font-weight: 600; letter-spacing: 0.1em; margin-bottom: 4px; }
     .quote .content { font-size: 14px; color: #aaa; font-style: italic; }
     .priority { color: #ff6b6b; font-size: 11px; font-weight: 600; margin-left: 4px; }
   </style>
@@ -95,58 +29,34 @@
 <body>
   <div class="container">
     <div class="header">
-      <div class="date" id="date-display"></div>
+      <div class="date">2026年03月28日 (Sat)</div>
       <div class="title">今日のタスク</div>
     </div>
-
     <div class="section">
       <div class="section-label">🎯 BOOTH素材 <span class="priority">最優先</span></div>
-      <div id="booth-tasks">
-        <div class="task-item">
-          <input type="checkbox">
-          <span class="task-text">明日からタスクが自動生成されます</span>
-          <span class="task-time">--分</span>
-        </div>
-      </div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">Photoshopを開き、ネオン発光系スタイル1個目を完成させる（青系グロー）。レイヤーエフェクト：外光彩・内光彩・ドロップシャドウの3点セット構成で仕上げる</span><span class="task-time">45分</span></div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">完成したスタイルを「.asl」形式で保存し、ファイル名ルール（neon_01_blue.asl）で管理フォルダに格納</span><span class="task-time">10分</span></div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">色変え（ピンク・グリーン・オレンジ）でバリエ3個を量産。スタイルの色値だけ変更して5分/個ペースで展開</span><span class="task-time">20分</span></div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">4個分のプレビュー画像（1000×1000px）をJPEGで書き出し、BOOTHの商品ページ用フォルダに保存</span><span class="task-time">15分</span></div>
     </div>
-
     <div class="section">
       <div class="section-label">📦 外注化 / その他事業</div>
-      <div id="biz-tasks">
-        <div class="task-item">
-          <input type="checkbox">
-          <span class="task-text">設定完了。明日から更新されます</span>
-          <span class="task-time">--分</span>
-        </div>
-      </div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">サムネ外注マニュアルの目次を作る。「①依頼方法②品質基準③NG事例④修正フロー」の4章構成でNotionに箇条書き展開</span><span class="task-time">25分</span></div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">既存クライアント1社に来月の継続確認メッセージを送る（3行以内・返信不要形式）</span><span class="task-time">10分</span></div>
     </div>
-
     <div class="section">
       <div class="section-label">📣 発信</div>
-      <div id="sns-tasks">
-        <div class="task-item">
-          <input type="checkbox">
-          <span class="task-text">X / Instagram 投稿タスク</span>
-          <span class="task-time">--分</span>
-        </div>
-      </div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">X投稿の下書き1本を書く。テーマ：「19歳・サムネ制作で月9万稼いだ話（時給13,200円の仕組み）」。フック→数字→結論の3段構成、300文字以内</span><span class="task-time">20分</span></div>
+      <div class="task-item"><input type="checkbox"><span class="task-text">今日作ったネオンスタイルをBeforeAfter形式でスクショ撮影。Instagramリール素材として保存（投稿は後日可）</span><span class="task-time">10分</span></div>
     </div>
-
     <div class="must-do">
       <div class="label">⚡ MUST DO</div>
-      <div class="content" id="must-do">明日から自動設定されます</div>
+      <div class="content">ネオン系スタイル1個を今日中に完成・保存する。バリエ展開より「1個完璧に仕上げる」を優先。これだけでOK。</div>
     </div>
-
     <div class="quote">
       <div class="label">💬 今日の一言</div>
-      <div class="content" id="quote">準備完了。明日の朝9時に最初のタスクが届きます。</div>
+      <div class="content">最初の1個が一番重い。完成した瞬間、残り99個の道が開く。</div>
     </div>
   </div>
-  <script>
-    const d = new Date();
-    const days = ['日','月','火','水','木','金','土'];
-    document.getElementById('date-display').textContent =
-      `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,'0')}.${String(d.getDate()).padStart(2,'0')} (${days[d.getDay()]})`;
-  </script>
 </body>
 </html>
