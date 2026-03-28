@@ -1,0 +1,10 @@
+{
+  "month": "2026-03",
+  "monthJa": "2026年3月",
+  "goals": [
+    {"id": "m1", "text": "BOOTH素材100個完成・出品", "category": "booth"},
+    {"id": "m2", "text": "月収20万円達成（サムネ9万 + 新規 + BOOTH）", "category": "revenue"},
+    {"id": "m3", "text": "X発信 月30投稿", "category": "sns"},
+    {"id": "m4", "text": "サムネ外注化マニュアル完成", "category": "biz"}
+  ]
+}
