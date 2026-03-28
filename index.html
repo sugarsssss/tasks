@@ -34,6 +34,21 @@
     .quote-label{font-size:10px;color:#444;font-weight:600;letter-spacing:.1em;margin-bottom:3px}
     .quote-text{font-size:13px;color:#888;font-style:italic}
     .priority-badge{color:#ff6060;font-size:10px;font-weight:700;margin-left:6px}
+    .x-post-box{background:#0d1117;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-top:16px}
+    .x-post-label{font-size:10px;color:#1d9bf0;font-weight:700;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+    .x-post-text{font-size:13px;line-height:1.7;color:#e8e8e8;white-space:pre-wrap;word-break:break-all}
+    .x-char-count{font-size:11px;color:#555;margin-top:6px;text-align:right}
+    .copy-btn{margin-top:10px;background:#1d9bf0;border:none;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
+    .copy-btn:hover{background:#1a8cd8}
+    .copy-btn.copied{background:#4caf7d}
+    .qa-box{background:#111;border:1px solid #222;border-radius:8px;padding:14px;margin-top:12px}
+    .qa-label{font-size:10px;color:#f0a500;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
+    .qa-question{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:10px}
+    .qa-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#e8e8e8;font-size:13px;padding:10px 12px;resize:vertical;min-height:80px;font-family:inherit;line-height:1.6}
+    .qa-input:focus{outline:none;border-color:#f0a500}
+    .qa-submit{margin-top:8px;background:#f0a500;border:none;color:#000;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
+    .qa-submit:hover{background:#d4920a}
+    .qa-submit.sent{background:#4caf7d;color:#fff}
     .goal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;transition:border-color .2s}
     .goal-item input[type=checkbox]{width:15px;height:15px;accent-color:#4caf7d;margin-top:2px;flex-shrink:0;cursor:pointer}
     .goal-text{font-size:13px;line-height:1.5;flex:1}
@@ -146,10 +161,77 @@ fetch(RAW+"/data/today.json?t="+Date.now())
     });
     if(d.mustDo) html+='<div class="must-do"><div class="must-do-label">⚡ MUST DO</div><div class="must-do-text">'+d.mustDo+'</div></div>';
     if(d.quote)  html+='<div class="quote-box"><div class="quote-label">💬 今日の一言</div><div class="quote-text">'+d.quote+'</div></div>';
+    if(d.xPost){
+      var charCount=(d.xPost||"").length;
+      var countColor=charCount>140?"#ff6060":charCount>120?"#f0a500":"#555";
+      html+='<div class="x-post-box">'+
+        '<div class="x-post-label">𝕏 今日のX投稿案</div>'+
+        '<div class="x-post-text" id="xpost-text">'+escHtml(d.xPost)+'</div>'+
+        '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
+        '<button class="copy-btn" id="copy-btn" onclick="copyPost()">コピー</button>'+
+      '</div>';
+    }
+    if(d.dailyQuestion){
+      var savedAns=localStorage.getItem("qa-ans-"+d.date)||"";
+      var alreadySent=localStorage.getItem("qa-sent-"+d.date)==="1";
+      html+='<div class="qa-box">'+
+        '<div class="qa-label">💡 今日の質問（回答→明日の投稿に反映）</div>'+
+        '<div class="qa-question">'+escHtml(d.dailyQuestion)+'</div>'+
+        '<textarea class="qa-input" id="qa-input" placeholder="ここに回答を入力...">'+(alreadySent?savedAns:"")+'</textarea>'+
+        '<button class="qa-submit'+(alreadySent?" sent":"")+'" id="qa-submit" onclick="submitQA(\''+d.date+'\')">'+(alreadySent?"✓ 送信済み":"回答を送信")+'</button>'+
+      '</div>';
+    }
     document.getElementById("today-body").innerHTML=html;
     updateBar(d.date,"t-today","today");
   }).catch(function(){document.getElementById("today-body").innerHTML='<div class="empty">明日の朝9時に最初のタスクが生成されます。</div>';
     document.getElementById("today-plabel").textContent="";});
+
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+
+function copyPost(){
+  var el=document.getElementById("xpost-text");
+  if(!el)return;
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    var btn=document.getElementById("copy-btn");
+    btn.textContent="✓ コピーしました";
+    btn.classList.add("copied");
+    setTimeout(function(){btn.textContent="コピー";btn.classList.remove("copied");},2000);
+  });
+}
+
+function submitQA(date){
+  var answer=document.getElementById("qa-input").value.trim();
+  if(!answer){alert("回答を入力してください");return;}
+  var btn=document.getElementById("qa-submit");
+  btn.textContent="送信中...";btn.disabled=true;
+  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
+  if(!GITHUB_TOKEN){
+    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
+    if(!GITHUB_TOKEN){btn.textContent="回答を送信";btn.disabled=false;return;}
+    localStorage.setItem("gh_token",GITHUB_TOKEN);
+  }
+  var payload=JSON.stringify({date:date,answer:answer,submittedAt:new Date().toISOString()});
+  var encoded=btoa(unescape(encodeURIComponent(payload)));
+  fetch("https://api.github.com/repos/"+REPO+"/contents/data/qa_pending.json",
+    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  .then(function(r){return r.json()})
+  .then(function(existing){
+    var body={message:"QA回答: "+date,content:encoded};
+    if(existing.sha) body.sha=existing.sha;
+    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/qa_pending.json",{
+      method:"PUT",headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
+      body:JSON.stringify(body)});
+  }).then(function(r){return r.json()})
+  .then(function(result){
+    if(result.content){
+      localStorage.setItem("qa-ans-"+date,answer);
+      localStorage.setItem("qa-sent-"+date,"1");
+      btn.textContent="✓ 送信済み";btn.classList.add("sent");btn.disabled=false;
+    } else {
+      btn.textContent="エラー。再試行";btn.disabled=false;
+    }
+  }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
+}
 
 // WEEK
 fetch(RAW+"/data/week.json?t="+Date.now())
