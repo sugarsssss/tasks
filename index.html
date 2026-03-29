@@ -60,6 +60,11 @@
     .qa-question{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:10px}
     .qa-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#e8e8e8;font-size:13px;padding:10px 12px;resize:vertical;min-height:80px;font-family:inherit;line-height:1.6}
     .qa-input:focus{outline:none;border-color:#f0a500}
+    .qa-input-row{position:relative}
+    .qa-mic-btn{position:absolute;bottom:10px;right:10px;background:#2a2a2a;border:1px solid #3a3a3a;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:15px}
+    .qa-mic-btn:hover{background:#3a3a3a}
+    .qa-mic-btn.recording{background:#c0392b;border-color:#e74c3c;animation:pulse 1s infinite}
+    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,.4)}50%{box-shadow:0 0 0 6px rgba(231,76,60,0)}}
     .qa-submit{margin-top:8px;background:#f0a500;border:none;color:#000;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
     .qa-submit:hover{background:#d4920a}
     .qa-submit.sent{background:#4caf7d;color:#fff}
@@ -227,7 +232,10 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       html+='<div class="qa-box">'+
         '<div class="qa-label">💡 今日の質問（回答→明日の投稿に反映）</div>'+
         '<div class="qa-question">'+escHtml(d.dailyQuestion)+'</div>'+
+        '<div class="qa-input-row">'+
         '<textarea class="qa-input" id="qa-input" placeholder="ここに回答を入力...">'+(alreadySent?savedAns:"")+'</textarea>'+
+        '<button class="qa-mic-btn" id="qa-mic-btn" onclick="toggleMic()" title="音声入力">🎤</button>'+
+        '</div>'+
         '<button class="qa-submit'+(alreadySent?" sent":"")+'" id="qa-submit" onclick="submitQA(\''+d.date+'\')">'+(alreadySent?"✓ 送信済み":"回答を送信")+'</button>'+
       '</div>';
     }
@@ -287,6 +295,47 @@ function submitQA(date){
       btn.textContent="エラー。再試行";btn.disabled=false;
     }
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
+}
+
+// 音声入力
+var micRecognition=null;
+var micActive=false;
+function toggleMic(){
+  var btn=document.getElementById("qa-mic-btn");
+  if(!btn)return;
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert("このブラウザは音声入力に対応していません。\nChromeをお試しください。");return;}
+  if(micActive){
+    if(micRecognition)micRecognition.stop();
+    return;
+  }
+  micRecognition=new SR();
+  micRecognition.lang="ja-JP";
+  micRecognition.continuous=true;
+  micRecognition.interimResults=false;
+  micRecognition.onstart=function(){
+    micActive=true;
+    btn.classList.add("recording");
+    btn.title="録音中（タップで停止）";
+  };
+  micRecognition.onresult=function(e){
+    var txt="";
+    for(var i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)txt+=e.results[i][0].transcript;
+    }
+    var ta=document.getElementById("qa-input");
+    if(ta&&txt)ta.value+=(ta.value?"　":"")+txt;
+  };
+  micRecognition.onend=function(){
+    micActive=false;
+    btn.classList.remove("recording");
+    btn.title="音声入力";
+  };
+  micRecognition.onerror=function(){
+    micActive=false;
+    btn.classList.remove("recording");
+  };
+  micRecognition.start();
 }
 
 // WEEK
@@ -351,4 +400,5 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
