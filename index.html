@@ -79,6 +79,19 @@
     .history-rate{font-size:12px;color:#7c6fcd;font-weight:600}
     .empty{color:#444;font-size:13px;padding:20px 0;text-align:center}
     .spinner{text-align:center;color:#333;padding:40px;font-size:13px}
+    .thumb-add-btn{display:flex;align-items:center;gap:6px;background:transparent;border:1px dashed #333;color:#666;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;width:100%;margin-top:6px;transition:all .2s}
+    .thumb-add-btn:hover{border-color:#7c6fcd;color:#9b8bff}
+    .thumb-form{background:#181818;border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:6px;display:none}
+    .thumb-form.open{display:block;animation:fadeIn .2s ease}
+    .thumb-form-label{font-size:10px;color:#7c6fcd;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
+    .thumb-form input{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:6px;color:#e8e8e8;font-size:13px;padding:9px 11px;font-family:inherit;outline:none;margin-bottom:8px}
+    .thumb-form input:focus{border-color:#7c6fcd}
+    .thumb-form input[type=date]{color-scheme:dark}
+    .thumb-form-btns{display:flex;gap:8px;margin-top:4px}
+    .thumb-save-btn{background:#7c6fcd;border:none;color:#fff;font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;transition:background .2s}
+    .thumb-save-btn:hover{background:#6a5eb8}
+    .thumb-save-btn:disabled{background:#333;color:#555;cursor:not-allowed}
+    .thumb-cancel-btn{background:transparent;border:1px solid #333;color:#666;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer}
   </style>
 </head>
 <body>
@@ -291,6 +304,67 @@ function submitQA(date){
       localStorage.setItem("qa-ans-"+date,answer);
       localStorage.setItem("qa-sent-"+date,"1");
       btn.textContent="✓ 送信済み";btn.classList.add("sent");btn.disabled=false;
+    } else {
+      btn.textContent="エラー。再試行";btn.disabled=false;
+    }
+  }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
+}
+
+
+function toggleThumbForm(){
+  var f=document.getElementById("thumb-form");
+  if(!f)return;
+  f.classList.toggle("open");
+  if(f.classList.contains("open")){
+    // デフォルト締切を今日+3日に設定
+    var dt=new Date(); dt.setDate(dt.getDate()+3);
+    var iso=dt.toISOString().split("T")[0];
+    document.getElementById("thumb-deadline").value=iso;
+    document.getElementById("thumb-name").focus();
+  }
+}
+
+function saveThumb(date){
+  var name=document.getElementById("thumb-name").value.trim();
+  var deadline=document.getElementById("thumb-deadline").value;
+  if(!name){alert("案件名を入力してください");return;}
+  var btn=document.getElementById("thumb-save-btn");
+  btn.textContent="保存中...";btn.disabled=true;
+  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
+  if(!GITHUB_TOKEN){
+    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
+    if(!GITHUB_TOKEN){btn.textContent="追加する";btn.disabled=false;return;}
+    localStorage.setItem("gh_token",GITHUB_TOKEN);
+  }
+  fetch("https://api.github.com/repos/"+REPO+"/contents/data/today.json",
+    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  .then(function(r){return r.json()})
+  .then(function(res){
+    var data=JSON.parse(atob(res.content.replace(/\n/g,"")));
+    if(!data.sections.thumbnail){
+      data.sections.thumbnail={label:"🖼 サムネ作成",tasks:[]};
+    }
+    var tasks=data.sections.thumbnail.tasks;
+    var newId="th"+(tasks.length+1)+"-"+Date.now().toString(36);
+    var deadlineStr=deadline?" 締切"+deadline:"";
+    tasks.push({
+      id:newId,
+      text:"【締切"+deadline+"】"+name+"のサムネを完成させる（メリット：納品実績が積み上がり次の案件につながる）",
+      time:"60分",
+      deadline:deadline,
+      tag:"締切あり"
+    });
+    var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/today.json",{
+      method:"PUT",
+      headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
+      body:JSON.stringify({message:"サムネ追加: "+name,content:encoded,sha:res.sha})
+    });
+  }).then(function(r){return r.json()})
+  .then(function(result){
+    if(result.content){
+      btn.textContent="✓ 追加しました";
+      setTimeout(function(){location.reload();},800);
     } else {
       btn.textContent="エラー。再試行";btn.disabled=false;
     }
