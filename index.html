@@ -209,6 +209,18 @@ fetch(RAW+"/data/today.json?t="+Date.now())
           '<label class="task-text" for="t'+t.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(t.text||"")+'</label>'+
           '<span class="task-time">'+(t.time||"")+'</span></div>';
       });
+      if(k==='thumbnail'){
+        html+='<button class="thumb-add-btn" onclick="toggleThumbForm()">＋ サムネを追加</button>'+
+          '<div class="thumb-form" id="thumb-form">'+
+            '<div class="thumb-form-label">🖼 新しいサムネ案件を追加</div>'+
+            '<input type="text" id="thumb-name" placeholder="案件名（例：ヒロキさんのサムネ）">'+
+            '<input type="date" id="thumb-deadline">'+
+            '<div class="thumb-form-btns">'+
+              '<button class="thumb-save-btn" id="thumb-save-btn" onclick="saveThumb(''+d.date+'')">追加する</button>'+
+              '<button class="thumb-cancel-btn" onclick="toggleThumbForm()">キャンセル</button>'+
+            '</div>'+
+          '</div>';
+      }
     });
     if(d.mustDo) html+='<div class="must-do"><div class="must-do-label">⚡ MUST DO</div><div class="must-do-text">'+d.mustDo+'</div></div>';
     if(d.quote)  html+='<div class="quote-box"><div class="quote-label">💬 今日の一言</div><div class="quote-text">'+d.quote+'</div></div>';
