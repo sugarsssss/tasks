@@ -194,8 +194,8 @@ function updateBar(k,cls,prefix){
 }
 
 // TODAY
-fetch(RAW+"/data/today.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
+fetch(API+"/contents/data/today.json",{headers:{"Authorization":"token "+(localStorage.getItem("gh_token")||""),"Cache-Control":"no-cache"}})
+  .then(function(r){return r.json()}).then(function(raw){var d=JSON.parse(atob(raw.content.replace(/\n/g,"")));
     document.getElementById("today-date").textContent=d.dateJa||d.date||"";
     var html="";
     var secs=d.sections||{};
@@ -413,8 +413,8 @@ function toggleMic(){
 }
 
 // WEEK
-fetch(RAW+"/data/week.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
+fetch(API+"/contents/data/week.json",{headers:{"Authorization":"token "+(localStorage.getItem("gh_token")||""),"Cache-Control":"no-cache"}})
+  .then(function(r){return r.json()}).then(function(raw){var d=JSON.parse(atob(raw.content.replace(/\n/g,"")));
     document.getElementById("week-date").textContent=d.weekJa||"";
     var wk="week-"+(d.weekStart||"");
     var html="";
@@ -431,8 +431,8 @@ fetch(RAW+"/data/week.json?t="+Date.now())
     document.getElementById("week-plabel").textContent="";});
 
 // MONTH
-fetch(RAW+"/data/month.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
+fetch(API+"/contents/data/month.json",{headers:{"Authorization":"token "+(localStorage.getItem("gh_token")||""),"Cache-Control":"no-cache"}})
+  .then(function(r){return r.json()}).then(function(raw){var d=JSON.parse(atob(raw.content.replace(/\n/g,"")));
     document.getElementById("month-date").textContent=d.monthJa||"";
     var mk="month-"+(d.month||"");
     var html="";
