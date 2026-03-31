@@ -196,7 +196,7 @@ function updateBar(k,cls,prefix){
 // TODAY
 fetch(RAW+"/data/today.json?t="+Date.now())
   .then(function(r){return r.json()}).then(function(d){
-    document.getElementById("today-date").textContent=d.dateJa||d.date||"";
+    document.getElementById("today-date").textContent=d.dateJa||d.date||"";localStorage.setItem("today-date",d.date);
     var html="";
     var secs=d.sections||{};
     Object.keys(secs).forEach(function(k){
@@ -216,7 +216,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
             '<input type="text" id="thumb-name" placeholder="案件名（例：ヒロキさんのサムネ）">'+
             '<input type="date" id="thumb-deadline">'+
             '<div class="thumb-form-btns">'+
-              '<button class="thumb-save-btn" id="thumb-save-btn" onclick="saveThumb(''+d.date+'')">追加する</button>'+
+              '<button class="thumb-save-btn" id="thumb-save-btn" onclick="saveThumb()">追加する</button>'+
               '<button class="thumb-cancel-btn" onclick="toggleThumbForm()">キャンセル</button>'+
             '</div>'+
           '</div>';
@@ -336,7 +336,8 @@ function toggleThumbForm(){
   }
 }
 
-function saveThumb(date){
+function saveThumb(){
+  var date=localStorage.getItem("today-date")||new Date().toISOString().split("T")[0];
   var name=document.getElementById("thumb-name").value.trim();
   var deadline=document.getElementById("thumb-deadline").value;
   if(!name){alert("案件名を入力してください");return;}
