@@ -367,7 +367,8 @@ function saveThumb(){
       deadline:deadline,
       tag:"締切あり"
     });
-    var encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+    var jsonStr=JSON.stringify(data,null,2);
+    var encoded=btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode('0x'+p)}));
     return fetch("https://api.github.com/repos/"+REPO+"/contents/data/today.json",{
       method:"PUT",
       headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
