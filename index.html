@@ -92,6 +92,9 @@
     .thumb-save-btn:hover{background:#6a5eb8}
     .thumb-save-btn:disabled{background:#333;color:#555;cursor:not-allowed}
     .thumb-cancel-btn{background:transparent;border:1px solid #333;color:#666;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer}
+    .save-completed-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#14112a;border:1px solid #2d2460;color:#9b8bff;font-size:13px;font-weight:700;padding:12px;border-radius:8px;cursor:pointer;width:100%;margin-top:16px;transition:all .2s}
+    .save-completed-btn:hover{background:#1a1630;border-color:#7c6fcd}
+    .save-completed-btn.saved{background:#0d2020;border-color:#2d5a3d;color:#4ecdc4}
   </style>
 </head>
 <body>
@@ -251,6 +254,20 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '</div>'+
       '</div>';
     }
+    if(d.newsPost2){
+      var nc2=(d.newsPost2||"").length;
+      var nc2Color=nc2>140?"#ff6060":nc2>120?"#f0a500":"#555";
+      html+='<div class="x-post-box" style="border-color:#2a3828;margin-top:8px">'+
+        '<div class="x-post-label" style="color:#a8e6cf">🏢 ビジネスニュース投稿案</div>'+
+        (d.newsSource2?'<div style="font-size:11px;color:#445;margin-bottom:6px">ソース：'+escHtml(d.newsSource2)+'</div>':'')+
+        '<div class="x-post-text" id="newspost2-text">'+escHtml(d.newsPost2)+'</div>'+
+        '<div class="x-char-count" style="color:'+nc2Color+'">'+nc2+' / 140文字</div>'+
+        '<div class="x-post-btns">'+
+          '<button class="copy-btn" id="news2-copy-btn" onclick="copyPost(\'newspost2-text\',\'news2-copy-btn\')">コピー</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'newspost2-text\')">𝕏 Xに投稿</button>'+
+        '</div>'+
+      '</div>';
+    }
     if(d.dailyQuestion){
       var savedAns=localStorage.getItem("qa-ans-"+d.date)||"";
       var alreadySent=localStorage.getItem("qa-sent-"+d.date)==="1";
@@ -264,6 +281,10 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<button class="qa-submit'+(alreadySent?" sent":"")+'" id="qa-submit" onclick="submitQA(\''+d.date+'\')">'+(alreadySent?"✓ 送信済み":"回答を送信")+'</button>'+
       '</div>';
     }
+    var alreadySavedCompleted=localStorage.getItem("completed-saved-"+d.date)==="1";
+    html+='<button class="save-completed-btn'+(alreadySavedCompleted?" saved":"")+'" id="save-completed-btn" onclick="saveCompleted(\''+d.date+'\')">'+
+      (alreadySavedCompleted?"✓ 達成記録済み":"📊 今日の達成を記録する（翌日のタスクに反映）")+
+    '</button>';
     document.getElementById("today-body").innerHTML=html;
     updateBar(d.date,"t-today","today");
   }).catch(function(){document.getElementById("today-body").innerHTML='<div class="empty">明日の朝9時に最初のタスクが生成されます。</div>';
@@ -322,6 +343,40 @@ function submitQA(date){
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
+function saveCompleted(date){
+  var done=getDone(date);
+  var allCbs=document.querySelectorAll(".t-today");
+  var totalIds=[];
+  allCbs.forEach(function(cb){totalIds.push(cb.id.replace(/^t/,""))});
+  var completedIds=totalIds.filter(function(id){return done[id]});
+  var btn=document.getElementById("save-completed-btn");
+  btn.textContent="記録中...";btn.disabled=true;
+  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
+  if(!GITHUB_TOKEN){
+    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
+    if(!GITHUB_TOKEN){btn.textContent="📊 今日の達成を記録する（翌日のタスクに反映）";btn.disabled=false;return;}
+    localStorage.setItem("gh_token",GITHUB_TOKEN);
+  }
+  var payload={date:date,completedIds:completedIds,totalIds:totalIds,completionRate:totalIds.length?Math.round(completedIds.length/totalIds.length*100):0};
+  var jsonStr=JSON.stringify(payload,null,2);
+  var encoded=btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode('0x'+p)}));
+  fetch("https://api.github.com/repos/"+REPO+"/contents/data/completed.json",
+    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  .then(function(r){return r.json()})
+  .then(function(existing){
+    var body={message:"達成記録: "+date,content:encoded};
+    if(existing.sha) body.sha=existing.sha;
+    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/completed.json",{
+      method:"PUT",headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
+      body:JSON.stringify(body)});
+  }).then(function(r){return r.json()})
+  .then(function(result){
+    if(result.content){
+      localStorage.setItem("completed-saved-"+date,"1");
+      btn.textContent="✓ 達成記録済み";btn.classList.add("saved");btn.disabled=false;
+    } else {btn.textContent="エラー。再試行";btn.disabled=false;}
+  }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
+}
 
 function toggleThumbForm(){
   var f=document.getElementById("thumb-form");
@@ -488,5 +543,3 @@ function loadHistory(){
 </script>
 </body>
 </html>
-
-
