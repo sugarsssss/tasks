@@ -95,6 +95,20 @@
     .save-completed-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#14112a;border:1px solid #2d2460;color:#9b8bff;font-size:13px;font-weight:700;padding:12px;border-radius:8px;cursor:pointer;width:100%;margin-top:16px;transition:all .2s}
     .save-completed-btn:hover{background:#1a1630;border-color:#7c6fcd}
     .save-completed-btn.saved{background:#0d2020;border-color:#2d5a3d;color:#4ecdc4}
+    .image-section{margin-top:16px}
+    .image-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .image-theme-label{font-size:10px;color:#4ecdc4;font-weight:700;letter-spacing:.1em}
+    .image-theme-name{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
+    .image-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    .image-card{position:relative;border-radius:8px;overflow:hidden;border:1px solid #212121;background:#111;aspect-ratio:16/9}
+    .image-card img{width:100%;height:100%;object-fit:cover;display:block}
+    .image-card-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .2s;display:flex;align-items:center;justify-content:center}
+    .image-card:hover .image-card-overlay{background:rgba(0,0,0,.5)}
+    .image-dl-btn{opacity:0;background:#7c6fcd;border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;transition:opacity .2s}
+    .image-card:hover .image-dl-btn{opacity:1}
+    .image-post-box{background:#0d1f1a;border:1px solid #1a3a2a;border-radius:8px;padding:14px;margin-top:10px}
+    .image-post-label{font-size:10px;color:#4ecdc4;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
+    .image-spinner{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:#111;border-radius:8px;color:#333;font-size:12px}
   </style>
 </head>
 <body>
@@ -281,6 +295,38 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<button class="qa-submit'+(alreadySent?" sent":"")+'" id="qa-submit" onclick="submitQA(\''+d.date+'\')">'+(alreadySent?"✓ 送信済み":"回答を送信")+'</button>'+
       '</div>';
     }
+    if(d.images&&d.images.length){
+      var themeName=d.imageTheme||d.imageThemeEn||"";
+      html+='<div class="image-section">'+
+        '<div class="image-section-header">'+
+          '<div><div class="image-theme-label">\ud83c\udf04 \u4eca\u65e5\u306e\u80cc\u666f\u7d20\u6750\uff08\u7121\u6599\u914d\u5e03\uff09</div>'+
+          '<div class="image-theme-name">'+escHtml(themeName)+'</div></div>'+
+        '</div>'+
+        '<div class="image-grid">';
+      d.images.forEach(function(url,idx){
+        html+='<div class="image-card">'+
+          '<img src="'+url+'?t='+Date.now()+'" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\"image-spinner\\">\u8aad\u307f\u8fbc\u307f\u4e2d...</div>'" alt="\u80cc\u666f"+(idx+1)+'">'+
+          '<div class="image-card-overlay">'+
+            '<button class="image-dl-btn" onclick="downloadImage(''+url+'','+(idx+1)+')">DL</button>'+
+          '</div>'+
+        '</div>';
+      });
+      html+='</div>';
+      if(d.imagePost){
+        var ipc=(d.imagePost||"").length;
+        var ipcColor=ipc>140?"#ff6060":ipc>120?"#f0a500":"#555";
+        html+='<div class="image-post-box">'+
+          '<div class="image-post-label">\ud83c\udf04 \u7d20\u6750\u914d\u5e03\u7528X\u6295\u7a3f\u6848</div>'+
+          '<div class="x-post-text" id="imagepost-text">'+escHtml(d.imagePost)+'</div>'+
+          '<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>'+
+          '<div class="x-post-btns">'+
+            '<button class="copy-btn" id="img-copy-btn" onclick="copyPost('imagepost-text','img-copy-btn'">\u30b3\u30d4\u30fc</button>'+
+            '<button class="tweet-btn" onclick="openXPost('imagepost-text')">\ud835\udd4f X\u306b\u6295\u7a3f</button>'+
+          '</div>'+
+        '</div>';
+      }
+      html+='</div>';
+    }
     var alreadySavedCompleted=localStorage.getItem("completed-saved-"+d.date)==="1";
     html+='<button class="save-completed-btn'+(alreadySavedCompleted?" saved":"")+'" id="save-completed-btn" onclick="saveCompleted(\''+d.date+'\')">'+
       (alreadySavedCompleted?"✓ 達成記録済み":"📊 今日の達成を記録する（翌日のタスクに反映）")+
@@ -343,6 +389,15 @@ function submitQA(date){
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
+function downloadImage(url,idx){
+  var a=document.createElement('a');
+  a.href=url;
+  a.download='background_'+idx+'.png';
+  a.target='_blank';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+}
 function saveCompleted(date){
   var done=getDone(date);
   var allCbs=document.querySelectorAll(".t-today");
