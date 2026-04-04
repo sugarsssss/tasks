@@ -305,9 +305,9 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="image-grid">';
       d.images.forEach(function(url,idx){
         html+='<div class="image-card">'+
-          '<img src="'+url+'?t='+Date.now()+'" loading="lazy" onerror="this.parentNode.innerHTML='<div class=\\"image-spinner\\">\u8aad\u307f\u8fbc\u307f\u4e2d...</div>'" alt="\u80cc\u666f"+(idx+1)+'">'+
+          '<img src="'+url+'?t='+Date.now()+'" loading="lazy" onerror="this.parentNode.innerHTML=\'<div class=&quot;image-spinner&quot;>\u8aad\u307f\u8fbc\u307f\u4e2d...</div>\'" alt="\u80cc\u666f"+(idx+1)+'">'+
           '<div class="image-card-overlay">'+
-            '<button class="image-dl-btn" onclick="downloadImage(''+url+'','+(idx+1)+')">DL</button>'+
+            '<button class="image-dl-btn" onclick="downloadImage(\''+url+'\','+(idx+1)+')">DL</button>'+
           '</div>'+
         '</div>';
       });
@@ -320,8 +320,8 @@ fetch(RAW+"/data/today.json?t="+Date.now())
           '<div class="x-post-text" id="imagepost-text">'+escHtml(d.imagePost)+'</div>'+
           '<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>'+
           '<div class="x-post-btns">'+
-            '<button class="copy-btn" id="img-copy-btn" onclick="copyPost('imagepost-text','img-copy-btn'">\u30b3\u30d4\u30fc</button>'+
-            '<button class="tweet-btn" onclick="openXPost('imagepost-text')">\ud835\udd4f X\u306b\u6295\u7a3f</button>'+
+            '<button class="copy-btn" id="img-copy-btn" onclick="copyPost(\'imagepost-text\',\'img-copy-btn\')">\u30b3\u30d4\u30fc</button>'+
+            '<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">\ud835\udd4f X\u306b\u6295\u7a3f</button>'+
           '</div>'+
         '</div>';
       }
@@ -598,3 +598,4 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
