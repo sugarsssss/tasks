@@ -296,36 +296,34 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       '</div>';
     }
     if(d.images&&d.images.length){
-      var themeName=d.imageTheme||d.imageThemeEn||"";
-      html+='<div class="image-section">'+
-        '<div class="image-section-header">'+
-          '<div><div class="image-theme-label">\ud83c\udf04 \u4eca\u65e5\u306e\u80cc\u666f\u7d20\u6750\uff08\u7121\u6599\u914d\u5e03\uff09</div>'+
-          '<div class="image-theme-name">'+escHtml(themeName)+'</div></div>'+
-        '</div>'+
-        '<div class="image-grid">';
       window._bgImages=d.images;
-      d.images.forEach(function(url,idx){
-        var card='<div class="image-card">';
-        card+='<img src="'+url+'?t='+Date.now()+'" loading="lazy" alt="bg'+(idx+1)+'">';
-        card+='<div class="image-card-overlay">';
-        card+='<button class="image-dl-btn" onclick="downloadImage(window._bgImages['+idx+'],'+(idx+1)+')">DL</button>';
-        card+='</div>';
-        card+='</div>';
-        html+=card;
-      });
+      var themeName=d.imageTheme||d.imageThemeEn||"";
+      html+='<div class="image-section">';
+      html+='<div class="image-section-header">';
+      html+='<div><div class="image-theme-label">\ud83c\udf04 \u4eca\u65e5\u306e\u80cc\u666f\u7d20\u6750\uff08\u7121\u6599\u914d\u5e03\uff09</div>';
+      html+='<div class="image-theme-name">'+escHtml(themeName)+'</div></div>';
+      html+='</div>';
+      html+='<div class="image-grid">';
+      for(var ii=0;ii<d.images.length;ii++){
+        html+='<div class="image-card">';
+        html+='<img src="'+d.images[ii]+'?t='+Date.now()+'" loading="lazy" alt="bg'+ii+'">';
+        html+='<div class="image-card-overlay">';
+        html+='<button class="image-dl-btn" data-idx="'+ii+'">DL</button>';
+        html+='</div>';
+        html+='</div>';
+      }
       html+='</div>';
       if(d.imagePost){
         var ipc=(d.imagePost||"").length;
         var ipcColor=ipc>140?"#ff6060":ipc>120?"#f0a500":"#555";
-        html+='<div class="image-post-box">'+
-          '<div class="image-post-label">\ud83c\udf04 \u7d20\u6750\u914d\u5e03\u7528X\u6295\u7a3f\u6848</div>'+
-          '<div class="x-post-text" id="imagepost-text">'+escHtml(d.imagePost)+'</div>'+
-          '<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>'+
-          '<div class="x-post-btns">'+
-            '<button class="copy-btn" id="img-copy-btn" onclick="copyPost(\'imagepost-text\',\'img-copy-btn\')">\u30b3\u30d4\u30fc</button>'+
-            '<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">\ud835\udd4f X\u306b\u6295\u7a3f</button>'+
-          '</div>'+
-        '</div>';
+        html+='<div class="image-post-box">';
+        html+='<div class="image-post-label">\ud83c\udf04 \u7d20\u6750\u914d\u5e03\u7528X\u6295\u7a3f\u6848</div>';
+        html+='<div class="x-post-text" id="imagepost-text">'+escHtml(d.imagePost)+'</div>';
+        html+='<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>';
+        html+='<div class="x-post-btns">';
+        html+='<button class="copy-btn" id="img-copy-btn" onclick="copyPost(\'imagepost-text\',\'img-copy-btn\')">\u30b3\u30d4\u30fc</button>';
+        html+='<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">\ud835\udd4f X\u306b\u6295\u7a3f</button>';
+        html+='</div></div>';
       }
       html+='</div>';
     }
@@ -334,6 +332,12 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       (alreadySavedCompleted?"✓ 達成記録済み":"📊 今日の達成を記録する（翌日のタスクに反映）")+
     '</button>';
     document.getElementById("today-body").innerHTML=html;
+    document.getElementById("today-body").addEventListener("click",function(e){
+      if(e.target.classList.contains("image-dl-btn")){
+        var idx=parseInt(e.target.getAttribute("data-idx"));
+        if(window._bgImages&&window._bgImages[idx])downloadImage(window._bgImages[idx],idx+1);
+      }
+    },{once:true});
     updateBar(d.date,"t-today","today");
   }).catch(function(){document.getElementById("today-body").innerHTML='<div class="empty">明日の朝9時に最初のタスクが生成されます。</div>';
     document.getElementById("today-plabel").textContent="";});
