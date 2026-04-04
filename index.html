@@ -303,11 +303,12 @@ fetch(RAW+"/data/today.json?t="+Date.now())
           '<div class="image-theme-name">'+escHtml(themeName)+'</div></div>'+
         '</div>'+
         '<div class="image-grid">';
+      window._bgImages=d.images;
       d.images.forEach(function(url,idx){
         var card='<div class="image-card">';
         card+='<img src="'+url+'?t='+Date.now()+'" loading="lazy" alt="bg'+(idx+1)+'">';
         card+='<div class="image-card-overlay">';
-        card+='<button class="image-dl-btn" onclick="downloadImage(''+url+'','+(idx+1)+')">DL</button>';
+        card+='<button class="image-dl-btn" onclick="downloadImage(window._bgImages['+idx+'],'+(idx+1)+')">DL</button>';
         card+='</div>';
         card+='</div>';
         html+=card;
@@ -599,5 +600,6 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
