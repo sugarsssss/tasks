@@ -1,7 +1,8 @@
 {
-  "date": "2026-04-03",
+  "date": "2026-04-04",
   "completedIds": [
     "b1",
+    "b2",
     "s1"
   ],
   "totalIds": [
@@ -10,5 +11,5 @@
     "bz1",
     "s1"
   ],
-  "completionRate": 50
+  "completionRate": 75
 }
