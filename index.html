@@ -106,6 +106,8 @@
     .image-card:hover .image-card-overlay{background:rgba(0,0,0,.5)}
     .image-dl-btn{opacity:0;background:#7c6fcd;border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;transition:opacity .2s}
     .image-card:hover .image-dl-btn{opacity:1}
+    .image-dl-all-btn{background:#7c6fcd;border:none;color:#fff;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s;white-space:nowrap}
+    .image-dl-all-btn:hover{background:#6a5dbd}
     .image-post-box{background:#0d1f1a;border:1px solid #1a3a2a;border-radius:8px;padding:14px;margin-top:10px}
     .image-post-label{font-size:10px;color:#4ecdc4;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
     .image-spinner{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:#111;border-radius:8px;color:#333;font-size:12px}
@@ -302,6 +304,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       html+='<div class="image-section-header">';
       html+='<div><div class="image-theme-label">\ud83c\udf04 \u4eca\u65e5\u306e\u80cc\u666f\u7d20\u6750\uff08\u7121\u6599\u914d\u5e03\uff09</div>';
       html+='<div class="image-theme-name">'+escHtml(themeName)+'</div></div>';
+      html+='<button class="image-dl-all-btn" onclick="downloadAllImages()">4\u679a\u4e00\u62ec DL</button>';
       html+='</div>';
       html+='<div class="image-grid">';
       for(var ii=0;ii<d.images.length;ii++){
@@ -403,6 +406,12 @@ function downloadImage(url,idx){
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
+}
+function downloadAllImages(){
+  if(!window._bgImages||!window._bgImages.length)return;
+  window._bgImages.forEach(function(url,i){
+    setTimeout(function(){downloadImage(url,i+1);},i*400);
+  });
 }
 function saveCompleted(date){
   var done=getDone(date);
@@ -604,6 +613,7 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
 
