@@ -54,7 +54,7 @@
     .copy-btn:hover{background:#1a8cd8}
     .copy-btn.copied{background:#4caf7d}
     .tweet-btn{background:#000;border:1px solid #333;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
-    .tweet-btn:hover{background:#111;border-color:#1d9bf0}
+    .tweet-btn:hover{background:#111;border-color:#fff}
     .qa-box{background:#111;border:1px solid #222;border-radius:8px;padding:14px;margin-top:12px}
     .qa-label{font-size:10px;color:#f0a500;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
     .qa-question{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:10px}
@@ -250,7 +250,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
         '<div class="x-post-btns">'+
           '<button class="copy-btn" id="copy-btn" onclick="copyPost(\'xpost-text\',\'copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'xpost-text\')">𝕏 Xに投稿</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'xpost-text\')">Threadsに投稿</button>'+
         '</div>'+
       '</div>';
     }
@@ -264,7 +264,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="x-char-count" style="color:'+ncColor+'">'+nc+' / 140文字</div>'+
         '<div class="x-post-btns">'+
           '<button class="copy-btn" id="news-copy-btn" onclick="copyPost(\'newspost-text\',\'news-copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'newspost-text\')">𝕏 Xに投稿</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'newspost-text\')">Threadsに投稿</button>'+
         '</div>'+
       '</div>';
     }
@@ -278,7 +278,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '<div class="x-char-count" style="color:'+nc2Color+'">'+nc2+' / 140文字</div>'+
         '<div class="x-post-btns">'+
           '<button class="copy-btn" id="news2-copy-btn" onclick="copyPost(\'newspost2-text\',\'news2-copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'newspost2-text\')">𝕏 Xに投稿</button>'+
+          '<button class="tweet-btn" onclick="openXPost(\'newspost2-text\')">Threadsに投稿</button>'+
         '</div>'+
       '</div>';
     }
@@ -322,7 +322,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         html+='<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>';
         html+='<div class="x-post-btns">';
         html+='<button class="copy-btn" id="img-copy-btn" onclick="copyPost(\'imagepost-text\',\'img-copy-btn\')">\u30b3\u30d4\u30fc</button>';
-        html+='<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">\ud835\udd4f X\u306b\u6295\u7a3f</button>';
+        html+='<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">Threads\u306b\u6295\u7a3f</button>';
         html+='</div></div>';
       }
       html+='</div>';
@@ -347,7 +347,7 @@ function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(
 function openXPost(elId){
   var el=document.getElementById(elId||"xpost-text");
   if(!el)return;
-  window.open("https://twitter.com/intent/tweet?text="+encodeURIComponent(el.innerText),"_blank");
+  window.open("https://www.threads.net/intent/post?text="+encodeURIComponent(el.innerText),"_blank");
 }
 
 function copyPost(elId,btnId){
@@ -604,6 +604,7 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
 
