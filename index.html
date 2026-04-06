@@ -309,7 +309,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       html+='<div class="image-grid">';
       for(var ii=0;ii<d.images.length;ii++){
         html+='<div class="image-card">';
-        html+='<img src="'+d.images[ii]+'?t='+Date.now()+'" loading="lazy" alt="bg'+ii+'">';
+        html+='<img src="'+d.images[ii]+'?t='+Date.now()+'&r='+Math.random()+'" alt="bg'+ii+'" crossorigin="anonymous">';
         html+='<div class="image-card-overlay">';
         html+='<button class="image-dl-btn" data-idx="'+ii+'">DL</button>';
         html+='</div>';
@@ -399,13 +399,16 @@ function submitQA(date){
 }
 
 function downloadImage(url,idx){
-  var a=document.createElement('a');
-  a.href=url;
-  a.download='background_'+idx+'.png';
-  a.target='_blank';
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  fetch(url).then(function(r){return r.blob();}).then(function(blob){
+    var burl=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=burl;
+    a.download='background_'+idx+'.png';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(burl);
+  });
 }
 function downloadAllImages(){
   if(!window._bgImages||!window._bgImages.length)return;
@@ -613,6 +616,7 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
 
