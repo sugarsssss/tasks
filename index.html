@@ -299,6 +299,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
     }
     if(d.images&&d.images.length){
       window._bgImages=d.images;
+      window._bgTheme=d.imageTheme||d.imageThemeEn||"bg";
       var themeName=d.imageTheme||d.imageThemeEn||"";
       html+='<div class="image-section">';
       html+='<div class="image-section-header">';
@@ -403,7 +404,8 @@ function downloadImage(url,idx){
     var burl=URL.createObjectURL(blob);
     var a=document.createElement('a');
     a.href=burl;
-    a.download='background_'+idx+'.png';
+    var theme=window._bgTheme||"bg";
+    a.download=theme+'_bg'+idx+'.png';
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -616,6 +618,7 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
 
