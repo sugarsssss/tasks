@@ -1,11 +1,19 @@
 {
   "weekStart": "2026-04-06",
   "weekEnd": "2026-04-12",
-  "weekLabel": "4月第2週",
-  "goals": [
-    {"id": "w1", "text": "BOOTHネオン発光系20個のうち5個を完成させる"},
-    {"id": "w2", "text": "サムネ外注マニュアルの骨格（手順セクション）を完成させる"},
-    {"id": "w3", "text": "X投稿を毎日1本以上投稿する（週5本以上）"}
+  "weekLabel": "2026年4月第2週",
+  "weeklyGoal": "BOOTH素材：ネオン発光系10個・ゴールドメタリック系5個を完成させる",
+  "kpis": [
+    {"id": "kpi1", "label": "BOOTH素材完成数", "target": 15, "unit": "個", "current": 0},
+    {"id": "kpi2", "label": "X投稿数", "target": 7, "unit": "本", "current": 0},
+    {"id": "kpi3", "label": "外注マニュアル進捗", "target": 50, "unit": "%", "current": 0}
   ],
-  "focus": "BOOTH素材制作を最優先で週5個ペースを確立する。ここで動けば月末に収益化が見える。"
+  "weeklyTasks": [
+    {"id": "wt1", "title": "ネオン発光系レイヤースタイル10個完成", "priority": "高", "status": "pending"},
+    {"id": "wt2", "title": "ゴールドメタリック系5個試作", "priority": "高", "status": "pending"},
+    {"id": "wt3", "title": "外注マニュアル第1章完成", "priority": "中", "status": "pending"},
+    {"id": "wt4", "title": "X毎日投稿（7日分）", "priority": "中", "status": "pending"},
+    {"id": "wt5", "title": "BOOTHショップページ下書き作成", "priority": "低", "status": "pending"}
+  ],
+  "memo": "今週はBOOTH素材着手の最初の週。完璧を目指すより手を動かして数を作る週にする。"
 }
