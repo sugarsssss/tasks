@@ -225,7 +225,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         var done=getDone(d.date)[t.id];
         html+='<div class="task-item"><input type="checkbox" class="t-today" id="t'+t.id+'" '+(done?"checked":"")+
           ' onchange="setDone(\''+d.date+'\',\''+t.id+'\',this.checked);updateBar(\''+d.date+'\',\'t-today\',\'today\')">'+
-          '<label class="task-text" for="t'+t.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(t.text||"")+'</label>'+
+          '<label class="task-text" for="t'+t.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(t.title||"")+'</label>'+
           '<span class="task-time">'+(t.time||"")+'</span></div>';
       });
       if(k==='thumbnail'){
