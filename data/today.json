@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-06",
-  "dateJa": "2026年04月06日(月)",
+  "date": "2026-04-07",
+  "dateJa": "2026年04月07日(火)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,17 +8,19 @@
       "tasks": [
         {
           "id": "b2",
-          "title": "ネオン発光系レイヤースタイルを5個Photoshopで完成させてファイル保存する",
-          "merit": "1個完成するたびに100個販売に近づき、完成後は寝ている間も稼げる状態に前進する",
-          "status": "pending",
-          "estimatedMin": 90
+          "title": "ネオン発光系レイヤースタイル5個を制作してPSDで保存",
+          "merit": "100個の5%が今日完成→残95個の見通しが立ち、9,000円商品の着地が具体化する",
+          "detail": "レイヤースタイル設定：グロー・アウターシャドウ・オーバーレイの3種を基本パターンに。カラー：シアン/マゼンタ/パープル系で5バリエ",
+          "time": "90分",
+          "status": "pending"
         },
         {
           "id": "b3",
-          "title": "ゴールドメタリック系3個のベーススタイルをPhotoshopで試作する",
-          "merit": "バリエーションが増えるほど購入者の選択肢が広がり、9,000円の単価を維持しやすくなる",
-          "status": "pending",
-          "estimatedMin": 60
+          "title": "作成済みスタイルのファイル命名規則を決めてフォルダ整理",
+          "merit": "後で100個まとめてBOOTH商品化するとき整理コストがゼロになる",
+          "detail": "命名例: neon_cyan_01.asl / neon_magenta_02.asl。カテゴリフォルダ6種作成",
+          "time": "20分",
+          "status": "pending"
         }
       ]
     },
@@ -27,10 +29,11 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "サムネ外注マニュアルの発注基準（サイズ・フォント・配色ルール）をA4 1枚にまとめる",
-          "merit": "マニュアルがあれば外注先に任せてもクオリティが担保でき、自分の作業時間をゼロにできる",
-          "status": "pending",
-          "estimatedMin": 45
+          "title": "サムネ外注マニュアルの「必須素材リスト」セクションを書き切る",
+          "merit": "外注先への差し戻しが激減し、1枚あたりの発注時間が半分以下になる",
+          "detail": "記載項目: 使用フォント名・カラーコード・素材ファイル格納場所・禁止パターン3つ",
+          "time": "45分",
+          "status": "pending"
         }
       ]
     },
@@ -39,29 +42,30 @@
       "tasks": [
         {
           "id": "s2",
-          "title": "本日生成のXポスト3本を12〜15時の間に予約投稿する",
-          "merit": "毎日の投稿が積み重なりフォロワー増加→BOOTH商品の認知拡大→売上に直結する",
-          "status": "pending",
-          "estimatedMin": 15
+          "title": "本日のXポスト3本をバッファで予約投稿（12時・18時・21時）",
+          "merit": "最適時間帯に自動配信でインプレッションが1.5〜2倍になる",
+          "detail": "今日生成した3本のポストを使用。Buffer無料プランで最大10件予約可能",
+          "time": "15分",
+          "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "ネオン発光系レイヤースタイルを今日中に5個Photoshopで完成させてファイル保存する",
-  "quote": "完璧より完成を。1個売れる商品が、0個の傑作より価値がある。",
-  "xPost": "サムネで稼ぎたいなら、まずクライアントの言う「かっこよくして」を無視しろ。\nそれより「なぜ再生数が伸びないか」を考える人が稼ぐ。\nデザインより先にマーケを学んだ方が単価が上がる。",
-  "newsPost": "AI活用で副業月収が未使用者の1.84倍になるデータが出た。俺もBOOTH素材作りにPhotoshop+ChatGPT組み合わせ中。アイデア出しはAI、実装はPsで爆速化してる。ツール知識の差が収入の差になる時代。",
+  "mustDo": "ネオン系レイヤースタイル5個を今日必ず作る。BOOTHの9,000円商品は手を動かすほど完成に近づく。",
+  "quote": "完璧を待つな。5個作れば今日は勝ち。",
+  "xPost": "サムネで稼いでる人と稼げない人の差は「センス」じゃなく「設計」。フォント2種・メインカラー1色・配置パターン3つを決めたら、1枚15分で量産できる。再現性を持った人が外注もできるし値上げもできる。",
+  "newsPost": "「AIを使う副業と使わない副業で月収1.84倍の差」というデータが出た。ChatGPTで文章、CanvaAIで画像、Notionで管理——この3つ組み合わせるだけで作業時間半減。ツールを知ってるかどうかの差が収入の差になる時代。（Forbes JAPAN）",
   "newsSource": "Forbes JAPAN / Yahoo!ニュース",
-  "newsPost2": "国内ドローン市場が2026年に6,873億円へ拡大予測。農業・物流・エンタメで急成長中。新市場は既存勢力が少ないから早く動いた人が圧倒的に有利。起業するなら市場の奪い合いより新市場の開拓の方が勝ちやすい。",
-  "newsSource2": "日経クロストレンド",
-  "imageTheme": "深海",
-  "imageThemeEn": "Deep Ocean",
+  "newsPost2": "サラダ専門店CRISPが37億円調達。飲食という単価が低い業界でも「サブスク×リピート設計」でスケールできた。商品の単価じゃなく、何度でも買いたくなる仕組みを作ったほうが評価される。ビジネスモデルで勝つ時代。（日経新聞）",
+  "newsSource2": "日本経済新聞",
+  "imageTheme": "夕焼け",
+  "imageThemeEn": "Dramatic sunset",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-06/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-06/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-06/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-06/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_4.png"
   ],
-  "imagePost": "今日の素材：深海テーマ\n4枚無料配布中\nいつでも保存して、商用利用OKです。\nサムネ・アイキャッチに使えます",
-  "dailyQuestion": "Photoshopで素材を作るとき、何から始める？（レイヤー整理先派 vs とりあえず手を動かす派）"
+  "imagePost": "今日の素材：夕焼けテーマ\n4枚無料配布中\nいつでも保存して、商用利用OKです。\nサムネ・アイキャッチに使えます",
+  "dailyQuestion": "今のサムネ外注マニュアルで、外注先が迷わず動けない箇所はどこ？具体的に1つ教えて。"
 }
