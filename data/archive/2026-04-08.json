@@ -1,0 +1,63 @@
+{
+  "date": "2026-04-08",
+  "dateJa": "2026年04月08日(水)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b2",
+          "text": "ゴールドメタリック系15個のベーステンプレを3種類Photoshopで作成する",
+          "merit": "テンプレがあれば残り12個を30分で量産でき、週内に販売準備が整う",
+          "status": "pending"
+        },
+        {
+          "id": "b3",
+          "text": "ネオン発光系の完成素材をPSDでエクスポートし/boothフォルダに整理する",
+          "merit": "整理しておくことで販売ZIP作成が5分で完了する",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "text": "サムネ外注マニュアルのStep1「素材配置ルール」をスクショ付きで3ページ作成する",
+          "merit": "外注先に渡すだけで修正ゼロになり、自分の時間が週5時間以上浮く",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s2",
+          "text": "今日のX投稿3本をバッファーで予約投稿設定する（12:00・17:00・21:00）",
+          "merit": "最適時間帯に自動配信されて投稿忘れがゼロになる",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "ゴールドメタリック系ベーステンプレ3種作成（BOOTH販売の最優先タスク）",
+  "quote": "素材1個作るより仕組みを1個作る方が100倍効く",
+  "xPost": "サムネのクリック率を上げる最速法：競合上位10本を並べて共通点を3つ抽出。色・フォント・人物有無。その法則を自分の素材に当てはめるだけでクリック率が平均1.8倍になる。真似から入れ。",
+  "newsPost": "AI使う副業民の月収46,000円、使わない人は25,000円。差が1.8倍。AIが仕事を奪ってるんじゃなく、AI使える人が稼ぎを独占してる構図。Midjourney・ChatGPTを副業に組み込んでない人は今すぐ始めないと差は開く一方。",
+  "newsSource": "AI副業×AIスキル調査（2026年4月）",
+  "newsPost2": "Startup JAPAN 2026が4月15・16日開催。1000社超が集まるイベントに19歳で参加できる。入場無料で大手・VC・起業家と直接話せる機会を学生が無視するのはもったいなすぎ。名刺1枚持って行くだけで世界が変わる。",
+  "newsSource2": "Startup JAPAN 2026（prtimes.jp）",
+  "imageTheme": "氷",
+  "imageThemeEn": "Frozen ice crystal texture cool blue sharp details",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_4.png"
+  ],
+  "imagePost": "【DAY3】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：氷\n\n後で使う人は保存👇",
+  "dailyQuestion": "BOOTHの商品説明文、今どのくらい書けてる？"
+}
