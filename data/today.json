@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-07",
-  "dateJa": "2026年04月07日(火)",
+  "date": "2026-04-08",
+  "dateJa": "2026年04月08日(水)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,14 @@
       "tasks": [
         {
           "id": "b2",
-          "title": "ネオン発光系レイヤースタイル5個を制作してPSDで保存",
-          "merit": "100個の5%が今日完成→残95個の見通しが立ち、9,000円商品の着地が具体化する",
-          "detail": "レイヤースタイル設定：グロー・アウターシャドウ・オーバーレイの3種を基本パターンに。カラー：シアン/マゼンタ/パープル系で5バリエ",
-          "time": "90分",
+          "text": "ゴールドメタリック系15個のベーステンプレを3種類Photoshopで作成する",
+          "merit": "テンプレがあれば残り12個を30分で量産でき、週内に販売準備が整う",
           "status": "pending"
         },
         {
           "id": "b3",
-          "title": "作成済みスタイルのファイル命名規則を決めてフォルダ整理",
-          "merit": "後で100個まとめてBOOTH商品化するとき整理コストがゼロになる",
-          "detail": "命名例: neon_cyan_01.asl / neon_magenta_02.asl。カテゴリフォルダ6種作成",
-          "time": "20分",
+          "text": "ネオン発光系の完成素材をPSDでエクスポートし/boothフォルダに整理する",
+          "merit": "整理しておくことで販売ZIP作成が5分で完了する",
           "status": "pending"
         }
       ]
@@ -29,10 +25,8 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "サムネ外注マニュアルの「必須素材リスト」セクションを書き切る",
-          "merit": "外注先への差し戻しが激減し、1枚あたりの発注時間が半分以下になる",
-          "detail": "記載項目: 使用フォント名・カラーコード・素材ファイル格納場所・禁止パターン3つ",
-          "time": "45分",
+          "text": "サムネ外注マニュアルのStep1「素材配置ルール」をスクショ付きで3ページ作成する",
+          "merit": "外注先に渡すだけで修正ゼロになり、自分の時間が週5時間以上浮く",
           "status": "pending"
         }
       ]
@@ -42,30 +36,28 @@
       "tasks": [
         {
           "id": "s2",
-          "title": "本日のXポスト3本をバッファで予約投稿（12時・18時・21時）",
-          "merit": "最適時間帯に自動配信でインプレッションが1.5〜2倍になる",
-          "detail": "今日生成した3本のポストを使用。Buffer無料プランで最大10件予約可能",
-          "time": "15分",
+          "text": "今日のX投稿3本をバッファーで予約投稿設定する（12:00・17:00・21:00）",
+          "merit": "最適時間帯に自動配信されて投稿忘れがゼロになる",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "ネオン系レイヤースタイル5個を今日必ず作る。BOOTHの9,000円商品は手を動かすほど完成に近づく。",
-  "quote": "完璧を待つな。5個作れば今日は勝ち。",
-  "xPost": "サムネで稼いでる人と稼げない人の差は「センス」じゃなく「設計」。フォント2種・メインカラー1色・配置パターン3つを決めたら、1枚15分で量産できる。再現性を持った人が外注もできるし値上げもできる。",
-  "newsPost": "「AIを使う副業と使わない副業で月収1.84倍の差」というデータが出た。ChatGPTで文章、CanvaAIで画像、Notionで管理——この3つ組み合わせるだけで作業時間半減。ツールを知ってるかどうかの差が収入の差になる時代。（Forbes JAPAN）",
-  "newsSource": "Forbes JAPAN / Yahoo!ニュース",
-  "newsPost2": "サラダ専門店CRISPが37億円調達。飲食という単価が低い業界でも「サブスク×リピート設計」でスケールできた。商品の単価じゃなく、何度でも買いたくなる仕組みを作ったほうが評価される。ビジネスモデルで勝つ時代。（日経新聞）",
-  "newsSource2": "日本経済新聞",
-  "imageTheme": "夕焼け",
-  "imageThemeEn": "Dramatic sunset",
+  "mustDo": "ゴールドメタリック系ベーステンプレ3種作成（BOOTH販売の最優先タスク）",
+  "quote": "素材1個作るより仕組みを1個作る方が100倍効く",
+  "xPost": "サムネのクリック率を上げる最速法：競合上位10本を並べて共通点を3つ抽出。色・フォント・人物有無。その法則を自分の素材に当てはめるだけでクリック率が平均1.8倍になる。真似から入れ。",
+  "newsPost": "AI使う副業民の月収46,000円、使わない人は25,000円。差が1.8倍。AIが仕事を奪ってるんじゃなく、AI使える人が稼ぎを独占してる構図。Midjourney・ChatGPTを副業に組み込んでない人は今すぐ始めないと差は開く一方。",
+  "newsSource": "AI副業×AIスキル調査（2026年4月）",
+  "newsPost2": "Startup JAPAN 2026が4月15・16日開催。1000社超が集まるイベントに19歳で参加できる。入場無料で大手・VC・起業家と直接話せる機会を学生が無視するのはもったいなすぎ。名刺1枚持って行くだけで世界が変わる。",
+  "newsSource2": "Startup JAPAN 2026（prtimes.jp）",
+  "imageTheme": "氷",
+  "imageThemeEn": "Frozen ice crystal texture cool blue sharp details",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-07/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-08/bg_4.png"
   ],
-  "imagePost": "【DAY2】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：夕焼け\n\n後で使う人は保存👇",
-  "dailyQuestion": "今のサムネ外注マニュアルで、外注先が迷わず動けない箇所はどこ？具体的に1つ教えて。"
+  "imagePost": "【DAY3】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：氷\n\n後で使う人は保存👇",
+  "dailyQuestion": "BOOTHの商品説明文、今どのくらい書けてる？"
 }
