@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-09",
+  "dateJa": "2026年04月09日(木)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "ネオン発光系レイヤースタイル5個を作成する",
+          "merit": "100個の道のりで最初の5個が完成→製作が実際に始動し、月収+α の収益源が現実になる",
+          "detail": "Photoshopで外側発光・グロー・カラーオーバーレイを組み合わせた発光スタイルを5パターン作成。ファイル名はneon_01〜05.asl",
+          "time": "60分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "BOOTH商品ページ用サンプル画像を1枚作成する",
+          "merit": "購買者が「使った後のイメージ」を持てるようになり、転換率が上がる",
+          "detail": "作成済みのスタイルをテキストに適用し、Before/After形式の横並び画像（1280×720px）を1枚書き出す",
+          "time": "30分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "サムネ外注マニュアルの「テイスト指定」ページを1ページ書き切る",
+          "merit": "外注先への認識ズレがなくなり、修正ゼロで納品を受け取れるようになる",
+          "detail": "フォント・配色・構図の3点を箇条書きで言語化し、参考サンプル画像を3枚貼り付けて1ページ完成。Notion or Google Docsで管理",
+          "time": "45分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "今日の投稿3本をXに予約設定する",
+          "merit": "投稿忘れゼロで毎日フォロワーへの接触を確保し、アルゴリズムに乗りやすくなる",
+          "detail": "xPost（知識系）・newsPost（時事）・imagePost（素材配布）の3本を、午後1時・3時・6時で予約投稿設定",
+          "time": "15分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "ネオン発光系レイヤースタイル5個を作成する（BOOTHはまだ着手前。今日5個作れば100個への道が始動し、1対N収益の最優先ゴールに直接つながる）",
+  "quote": "動かないと数字は変わらない。作り始めた今日が、売れ始める日の起点になる。",
+  "xPost": "サムネのクリック率は背景で決まる。主役を引き立てる色は3種だけ：黒・白・グレー。派手な背景より無地に人物/文字をのせた方が視認性2倍以上。背景は「引き算」で選べ。",
+  "newsPost": "AI使う副業人の月収4.6万 vs 使わない人2.5万。差は1.8倍（Forbes調査）。差が出る理由は作業速度じゃなくて単価。AI使いこなすほど「この品質なら高く売れる」となり値上げ交渉できる。道具より、使い方が武器になる時代。",
+  "newsSource": "Forbes JAPAN",
+  "newsPost2": "2026年4月、社保料・食品・ガソリン値上げラッシュ。固定費が上がる中で売上維持は実質値下げ。だからこそ変動費ゼロ・在庫ゼロのデジタル商品が今最強。コスト増が続く環境ほど、利益率60%超の構造に早く切り替えた人が勝つ。",
+  "newsSource2": "起業の窓口",
+  "imageTheme": "砂漠",
+  "imageThemeEn": "Desert sand dunes dramatic shadows warm golden",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-09/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-09/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-09/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-09/bg_4.png"
+  ],
+  "imagePost": "【DAY4】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：砂漠\n\n後で使う人は保存👇",
+  "dailyQuestion": "「サムネで稼いでいる人が使っている背景の共通点を1つ言えるか？具体的な色・構図・配置で答えてみよう。」"
+}
