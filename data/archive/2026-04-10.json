@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-10",
+  "dateJa": "2026年04月10日(金)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "レイヤースタイル100個のカテゴリ別ファイル構成を決める",
+          "merit": "構成を先に決めると制作がブレずに最後まで一気に進められる",
+          "detail": "ネオン20/ゴールド15/3D15/アウトライン15/グラデ15/ポップ10/ダーク10の7カテゴリに分けてPhotoshopファイルの命名規則まで決める",
+          "time": "20分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "ネオン発光系レイヤースタイルを5個制作する",
+          "merit": "最優先カテゴリを先に仕上げると残り作業の見通しが立ちモチベーションが続く",
+          "detail": "グロー・アウターグロー・カラーオーバーレイを組み合わせてネオン感を出す。5個→10個→20個と積み上げる",
+          "time": "60分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "サムネ外注マニュアルのテンプレート構成を1ページで書き出す",
+          "merit": "1ページの構成表があると外注先への初回説明が5分で終わり手戻りが激減する",
+          "detail": "見出し・参考画像の貼り方・禁止事項・OKライン・修正フローの5項目を箇条書きでまとめる",
+          "time": "30分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "X投稿3本を12時・15時・18時に予約投稿する",
+          "merit": "ピーク時間に自動で流れるので、その間はBOOTH制作に全集中できる",
+          "detail": "xPost・newsPost・imagePostの3本をスケジューラーで予約。投稿後のリプや引用はこまめに確認",
+          "time": "15分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "b1: レイヤースタイルのカテゴリ別構成を決める。BOOTHを着手前から動かす最初の一歩で、ここを決めないと制作が一切始められないため最優先",
+  "quote": "完璧な計画より不完全な着手。最初の5個が最初の100個より難しい。",
+  "xPost": "サムネを外注するとき、指示が曖昧だと修正3回でコスト2倍になる。「赤ベース・文字は左・背景は暗め」まで言語化してから依頼すると初稿ほぼOK。文字で書き出すクセをつけると外注の精度が一気に上がる。あなたはどこまで言語化してから依頼してますか？",
+  "newsPost": "「AIスキルを持つフリーランサーの需要が前年比280%増・時給2.4倍」（SBビジネスメディア）。ChatGPTが使えるだけじゃもう差別化にならない。デザイン×AI、動画×AI、専門性との掛け合わせが勝負になってきた。",
+  "newsSource": "SBビジネスメディア",
+  "newsPost2": "外食テックCRISPが37億円調達。リアル店舗×テクノロジーの掛け合わせはまだブルーオーシャン。デジタルだけの事業より参入障壁が高くなる。オンライン完結にこだわらず、リアルを絡めた事業設計も選択肢に入れておきたい。",
+  "newsSource2": "日本経済新聞",
+  "imageTheme": "桜",
+  "imageThemeEn": "Japanese cherry blossom soft pink zen atmosphere",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_4.png"
+  ],
+  "imagePost": "【DAY5】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：桜\n\n後で使う人は保存👇",
+  "dailyQuestion": "あなたのフォロワーが一番困っているサムネの悩みを1つ具体的に挙げるとしたら何ですか？その悩みを解決する投稿を1本書くとしたらどんな内容になりますか？"
+}
