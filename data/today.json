@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-10",
-  "dateJa": "2026年04月10日(金)",
+  "date": "2026-04-11",
+  "dateJa": "2026年04月11日(土)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,18 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "レイヤースタイル100個のカテゴリ別ファイル構成を決める",
-          "merit": "構成を先に決めると制作がブレずに最後まで一気に進められる",
-          "detail": "ネオン20/ゴールド15/3D15/アウトライン15/グラデ15/ポップ10/ダーク10の7カテゴリに分けてPhotoshopファイルの命名規則まで決める",
-          "time": "20分",
+          "title": "ネオン発光系レイヤースタイル5個をPhotoshopで制作",
+          "merit": "BOOTH最優先カテゴリに初着手でき、20個中5個完成→進捗25%で売上への道が開ける",
+          "detail": "ドロップシャドウ・アウターグロー・グロー系の組み合わせで5パターン作成。名前は「Neon-01」〜「Neon-05」で統一。1個15分を目安に進める",
+          "time": "75分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "ネオン発光系レイヤースタイルを5個制作する",
-          "merit": "最優先カテゴリを先に仕上げると残り作業の見通しが立ちモチベーションが続く",
-          "detail": "グロー・アウターグロー・カラーオーバーレイを組み合わせてネオン感を出す。5個→10個→20個と積み上げる",
-          "time": "60分",
+          "title": "制作した5個のプレビュー比較画像を1280×720でキャプチャ保存",
+          "merit": "出品ページのサンプル画像になり、購買意欲が上がる＝クリック→購入の転換率が直接改善される",
+          "detail": "同じテキストレイヤーに各スタイルを適用し横並び比較を作成。ファイル名は「preview_neon_01〜05」で保存",
+          "time": "30分",
           "status": "pending"
         }
       ]
@@ -29,9 +29,9 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "サムネ外注マニュアルのテンプレート構成を1ページで書き出す",
-          "merit": "1ページの構成表があると外注先への初回説明が5分で終わり手戻りが激減する",
-          "detail": "見出し・参考画像の貼り方・禁止事項・OKライン・修正フローの5項目を箇条書きでまとめる",
+          "title": "サムネ外注マニュアルの工程表テンプレートを1枚作成",
+          "merit": "外注開始時に指示ブレが減り最初から品質が安定する→手直し時間が半分以下になり自分の時間が増える",
+          "detail": "Notionで「依頼→初稿→修正→納品」4ステップを明記。各工程の所要時間目安・NGワードも併記する",
           "time": "30分",
           "status": "pending"
         }
@@ -42,30 +42,38 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "X投稿3本を12時・15時・18時に予約投稿する",
-          "merit": "ピーク時間に自動で流れるので、その間はBOOTH制作に全集中できる",
-          "detail": "xPost・newsPost・imagePostの3本をスケジューラーで予約。投稿後のリプや引用はこまめに確認",
-          "time": "15分",
+          "title": "xPostを昼以降にXへ投稿",
+          "merit": "学生フォロワーへのリーチが広がり、サムネ素材の潜在顧客が増える",
+          "detail": "投稿文をコピーしXアプリへ貼り付け。テキストのみで投稿。ハッシュタグ不要",
+          "time": "5分",
+          "status": "pending"
+        },
+        {
+          "id": "s2",
+          "title": "ネオン背景素材4枚をX・Instagramに配布投稿",
+          "merit": "保存・シェアされやすいコンテンツでフォロワーが有機的に増え、BOOTHへの導線が太くなる",
+          "detail": "bg_1〜4の4枚をX投稿に添付。文章はimagePostをそのままコピー。Instagramにも同日投稿",
+          "time": "10分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "b1: レイヤースタイルのカテゴリ別構成を決める。BOOTHを着手前から動かす最初の一歩で、ここを決めないと制作が一切始められないため最優先",
-  "quote": "完璧な計画より不完全な着手。最初の5個が最初の100個より難しい。",
-  "xPost": "サムネを外注するとき、指示が曖昧だと修正3回でコスト2倍になる。「赤ベース・文字は左・背景は暗め」まで言語化してから依頼すると初稿ほぼOK。文字で書き出すクセをつけると外注の精度が一気に上がる。あなたはどこまで言語化してから依頼してますか？",
-  "newsPost": "「AIスキルを持つフリーランサーの需要が前年比280%増・時給2.4倍」（SBビジネスメディア）。ChatGPTが使えるだけじゃもう差別化にならない。デザイン×AI、動画×AI、専門性との掛け合わせが勝負になってきた。",
-  "newsSource": "SBビジネスメディア",
-  "newsPost2": "外食テックCRISPが37億円調達。リアル店舗×テクノロジーの掛け合わせはまだブルーオーシャン。デジタルだけの事業より参入障壁が高くなる。オンライン完結にこだわらず、リアルを絡めた事業設計も選択肢に入れておきたい。",
+  "mustDo": "ネオン発光系レイヤースタイル5個をPhotoshopで制作する（着手前のBOOTH商品化への最初の一歩。今日やらないと収益化ゼロが続く）",
+  "quote": "着手しなければ売上はゼロ。最初の5個が動けばあとはリズムができる。",
+  "xPost": "サムネで稼げない人に多いのは「センスない」と諦めること。実際は構造の問題。クリック率高いサムネの9割は①色が2〜3色②文字が読めるサイズ③左上に数字あり。センスより先に構造を覚えて。あなたはサムネを作るとき何を一番迷いますか？",
+  "newsPost": "AI副業格差が数字で出た。AIを使う人の月収は使わない人の1.84倍（平均4.6万vs2.5万円）。ツールはChatGPT・Canvaで十分。差が出るのはAIの有無より「アウトプットの型が決まってるか否か」。ツールより先に売れる型を持つことが本質だと思う。（SBクリエイティブ）",
+  "newsSource": "SBクリエイティブ（SBビット）",
+  "newsPost2": "KDDIが4/9にiPhoneと衛星を直接つなぐ通信サービスを開始。インフラが変わると「都会でしか事業できない」前提が崩れる。地方の農業・観光・物流で今まで不可能だったビジネスが生まれる。若い起業家は今こそ地方のニッチに目を向けるタイミングかもしれない。",
   "newsSource2": "日本経済新聞",
-  "imageTheme": "桜",
-  "imageThemeEn": "Japanese cherry blossom soft pink zen atmosphere",
+  "imageTheme": "ネオン",
+  "imageThemeEn": "Colorful neon light streaks dark background",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-10/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-11/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-11/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-11/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-11/bg_4.png"
   ],
-  "imagePost": "【DAY5】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：桜\n\n後で使う人は保存👇",
-  "dailyQuestion": "あなたのフォロワーが一番困っているサムネの悩みを1つ具体的に挙げるとしたら何ですか？その悩みを解決する投稿を1本書くとしたらどんな内容になりますか？"
+  "imagePost": "【DAY11】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：ネオン\n\n後で使う人は保存👇",
+  "dailyQuestion": "サムネを自分で作るとき、一番時間がかかる作業はどれ？（①背景選び ②文字のデザイン ③全体の構成）"
 }
