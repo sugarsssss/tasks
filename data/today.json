@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-12",
-  "dateJa": "2026年04月12日(日)",
+  "date": "2026-04-13",
+  "dateJa": "2026年04月13日(月)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,18 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "ネオン発光系レイヤースタイル5個をPhotoshopで作成する",
-          "merit": "100個セットの最初の5%が完成し販売への具体的進捗が生まれる。1日5個ペースなら20日で完成・来月には9,000円の収入源が確立できる",
-          "detail": "ネオン発光系20個のうち5個（グロー・インナーグロー・発光アウトライン・ダブルネオン・パルスネオン）を作成。保存形式はASL。プレビュー用サンプルも同時に書き出す",
+          "title": "ネオン発光系レイヤースタイル1個をPhotoshopで完成させる",
+          "merit": "最初の1個が完成すれば残り19個のペースがつかめ、出品日程が逆算できる",
+          "detail": "炎・グロー・アウターグロー効果を組み合わせてネオン管っぽい光を再現。完成後はレイヤー構成をメモしておく",
           "time": "60分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "BOOTHショップの商品ページ下書きを作成する",
-          "merit": "素材完成後すぐ出品できる体制が整い、機会損失がゼロになる。今から準備することで価格・説明文を最適化する時間が確保できる",
-          "detail": "商品タイトル・説明文・価格9,000円・カテゴリ設定・サンプル画像の構成を決定。競合3商品を参照し差別化ポイントを明記する",
-          "time": "30分",
+          "title": "Before/Afterのサンプル画像を2パターン作成する",
+          "merit": "購入前に効果が一目でわかりBOOTH内クリック率・CVRが上がる",
+          "detail": "素材なし・素材ありで同じ文字デザインを並べた比較画像を作る。BOOTHサムネ用1200x628pxで書き出す",
+          "time": "45分",
           "status": "pending"
         }
       ]
@@ -29,10 +29,10 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "サムネ外注マニュアルの「クオリティ基準」セクションを書き上げる",
-          "merit": "基準が明文化されるとリテイク回数が激減し外注コストが下がる。ディレクターとのコミュニケーションコストも削減できる",
-          "detail": "①解像度（1280×720px以上）②使用フォント制限③カラーコード指定④NGデザイン例（文字詰め込みすぎ・低コントラスト）を箇条書きでGoogleドキュメントに整理する",
-          "time": "40分",
+          "title": "サムネ外注マニュアルの「修正指示の出し方」ページを書き上げる",
+          "merit": "外注先への差し戻しラリーが減り、1本あたりの発注コストと時間が下がる",
+          "detail": "「OK例」「NG例」を各2枚スクショで図解。修正回数の上限も明記して認識ズレを防ぐ",
+          "time": "30分",
           "status": "pending"
         }
       ]
@@ -42,38 +42,38 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "X投稿3本を作成・予約投稿する",
-          "merit": "今日中にセットすれば明日以降の発信が自動化されBOOTH制作に集中できる。投稿間隔を分散させることでリーチが最大化できる",
-          "detail": "xPost（12:00）・newsPost（18:00）・newsPost2（21:00）の3本をXアプリで予約投稿する",
-          "time": "20分",
+          "title": "本日のxPost（ネオン素材のクリック率ノウハウ）を投稿する",
+          "merit": "有益投稿が積み上がるとフォロワーの信頼が増し将来のBOOTH集客につながる",
+          "detail": "作成済みのxPostをコピーしてXに投稿。ハッシュタグ #サムネ制作 #デザイン副業 を付ける",
+          "time": "10分",
           "status": "pending"
         },
         {
           "id": "s2",
-          "title": "背景画像4枚をInstagramにも投稿する",
-          "merit": "無料素材配布は保存率・リーチ率が最も高いコンテンツ形式。Xとの相互誘導でフォロワー母数が増える",
-          "detail": "imagePostのテキストでInstagramにリール or 画像投稿。#サムネ #デザイン素材 #フリー素材 #YouTubeサムネ のタグを付与する",
-          "time": "15分",
+          "title": "Instagram投稿テーマを1本決めて構成メモを作る",
+          "merit": "テーマを先に決めることで制作時間が半分になり毎日発信が続けやすくなる",
+          "detail": "「学生でもBOOTHで稼げる3ステップ」系のカルーセル構成をメモ帳に書き出す。スライド数は5枚以内",
+          "time": "20分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "ネオン発光系レイヤースタイル5個を作成する【理由：BOOTHが唯一の直接収入源。1日5個ペースで20日完成・来月9,000円セット販売開始が現実的。1対Nモデル確立の第一歩は今日ここから始まる】",
-  "quote": "完璧な100個より、不完全な5個が今日の正解",
-  "xPost": "サムネのクリック率を1%上げるだけで再生数が1.5〜2倍になる。\n\nやること3つ：\n①タイトルを左側に配置（視線誘導）\n②顔写真は右向きに（画面内へ誘導）\n③背景と文字のコントラスト比4.5:1以上\n\nこのどれか一つ変えて伸びた経験、あなたはどうしてますか？",
-  "newsPost": "「AI副業月収がAI非利用者の1.84倍」とForbes JAPANが報道。\n\nAI利用者：平均4.6万円/月　非利用者：2.5万円/月\n\n画像生成で背景素材を量産→BOOTH販売という型が使える。ツール代ゼロでも月収差がこれだけ出る。使うか使わないかの差はデカい。",
-  "newsSource": "Forbes JAPAN（Yahoo!ニュース）",
-  "newsPost2": "日経クロストレンドによるとスタートアップのM&A出口戦略が急増中。\n\nIPOより早く現金化・大企業リソースを活用できる点が注目されてる。\n\n学生起業家として思うのは「売れる商品」より「買いたくなる事業構造」が正解。小さくても利益が出る仕組みが評価される時代。",
-  "newsSource2": "日経クロストレンド",
-  "imageTheme": "夕焼け",
-  "imageThemeEn": "Dramatic sunset orange and purple gradient sky",
+  "mustDo": "ネオン発光系スタイルを1個完成させること。BOOTHの最優先商品（9,000円）の着手が今日始まるかどうかで今月の月収が変わる",
+  "quote": "着手前が一番遠い。1個作ったら、5個は見えてくる。",
+  "xPost": "サムネで稼ぎたいなら「ネオン発光背景」から始めるといい。クリック率が高いのは光の動きがある素材。暗い背景に光が映えるから文字も浮き上がる。今日から1個ずつ作り始めれば20個は1週間で揃う。どの素材が一番使い回しやすいと思う？",
+  "newsPost": "GPT-5.4がリリース。コンテキスト100万トークン・ハルシネーション33%削減。「AIを使う人は強くなる」じゃなく「AIの質が上がるほど使いこなせる人の差も広がる」ステージに。ツール名より使い方のセンスが単価を決める。GPT-5系、もう試した？",
+  "newsSource": "note（つくもび / AIと手でつくる）",
+  "newsPost2": "Z世代の消費が「外に見せる」→「内を整える」にシフト（CARTAZERO2026調査）。SNSの「映え」より「うま確」＝満足が確定した購買を優先。商品を売るなら「自分だけ得した感」を訴求する時代に入った。あなたは最近何で「うま確」感じた？",
+  "newsSource2": "CARTAZERO",
+  "imageTheme": "氷",
+  "imageThemeEn": "Frozen ice crystal texture cool blue sharp details",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-12/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-12/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-12/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-12/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_4.png"
   ],
-  "imagePost": "【DAY7】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：夕焼け\n\n後で使う人は保存👇",
-  "dailyQuestion": "フォロワーが「これ欲しかった」と感じるサムネ素材のジャンルや雰囲気は何だと思いますか？"
+  "imagePost": "【DAY8】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：氷\n\n後で使う人は保存👇",
+  "dailyQuestion": "学生が起業を身近に感じるために一番大事なことは何だと思う？お金・仲間・情報・マインドのどれ？"
 }
