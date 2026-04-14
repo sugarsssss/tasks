@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-13",
-  "dateJa": "2026年04月13日(月)",
+  "date": "2026-04-14",
+  "dateJa": "2026年4月14日(火)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,18 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "ネオン発光系レイヤースタイル1個をPhotoshopで完成させる",
-          "merit": "最初の1個が完成すれば残り19個のペースがつかめ、出品日程が逆算できる",
-          "detail": "炎・グロー・アウターグロー効果を組み合わせてネオン管っぽい光を再現。完成後はレイヤー構成をメモしておく",
+          "title": "ネオン発光系レイヤースタイルを5個作成してファイル保存する",
+          "merit": "5個完成で最初の出品カテゴリが埋まり、BOOTH掲載のリアルなタイムラインが見えてくる",
+          "detail": "Photoshop新規ドキュメント→レイヤースタイルパネル→グロー・シャドウ設定→.aslファイルで書き出し保存まで",
           "time": "60分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "Before/Afterのサンプル画像を2パターン作成する",
-          "merit": "購入前に効果が一目でわかりBOOTH内クリック率・CVRが上がる",
-          "detail": "素材なし・素材ありで同じ文字デザインを並べた比較画像を作る。BOOTHサムネ用1200x628pxで書き出す",
-          "time": "45分",
+          "title": "BOOTH商品ページのタイトル・説明文・価格9,000円の根拠を1枚に書き出す",
+          "merit": "先に言語化しておけば素材制作の方向性がブレず、完成→掲載までの最短ルートが見える",
+          "detail": "「ネオン発光系20種 / ゴールドメタリック系15種…」の特徴・ターゲット(YouTube・X運営者)・9,000円の価値根拠をA4半枚で",
+          "time": "20分",
           "status": "pending"
         }
       ]
@@ -29,10 +29,10 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "サムネ外注マニュアルの「修正指示の出し方」ページを書き上げる",
-          "merit": "外注先への差し戻しラリーが減り、1本あたりの発注コストと時間が下がる",
-          "detail": "「OK例」「NG例」を各2枚スクショで図解。修正回数の上限も明記して認識ズレを防ぐ",
-          "time": "30分",
+          "title": "外注サムネのNG例3つをスクショ付きで書き出す",
+          "merit": "NG例が先に明文化されれば修正回数が減り、外注スタートのハードルが大幅に下がる",
+          "detail": "「文字が多すぎる」「色がバラバラで視線が散る」「フォントが細くて弱い」などを実例つきで1枚にまとめる",
+          "time": "15分",
           "status": "pending"
         }
       ]
@@ -42,38 +42,30 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "本日のxPost（ネオン素材のクリック率ノウハウ）を投稿する",
-          "merit": "有益投稿が積み上がるとフォロワーの信頼が増し将来のBOOTH集客につながる",
-          "detail": "作成済みのxPostをコピーしてXに投稿。ハッシュタグ #サムネ制作 #デザイン副業 を付ける",
-          "time": "10分",
-          "status": "pending"
-        },
-        {
-          "id": "s2",
-          "title": "Instagram投稿テーマを1本決めて構成メモを作る",
-          "merit": "テーマを先に決めることで制作時間が半分になり毎日発信が続けやすくなる",
-          "detail": "「学生でもBOOTHで稼げる3ステップ」系のカルーセル構成をメモ帳に書き出す。スライド数は5枚以内",
-          "time": "20分",
+          "title": "今日の投稿文3本（xPost・newsPost・newsPost2）をXで予約投稿する",
+          "merit": "毎日3本の習慣が検索ヒット数を積み上げ、フォロワー→BOOTH購入者につながる経路が生まれる",
+          "detail": "提案の3投稿をXアプリまたはBufferに貼り付け、12時・17時・21時で予約設定する",
+          "time": "15分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "ネオン発光系スタイルを1個完成させること。BOOTHの最優先商品（9,000円）の着手が今日始まるかどうかで今月の月収が変わる",
-  "quote": "着手前が一番遠い。1個作ったら、5個は見えてくる。",
-  "xPost": "サムネ外注を始める前にやること1つ。「自分が好きなサムネ」を10枚スクショして保存する。外注先への指示がなければ修正地獄になる。「これが好き／これはNG」を画像で伝えるだけで発注精度が格段に上がる。あなたは外注への指示、何で出してる？",
-  "newsPost": "AI動画生成ツール「Pika 2.2」の新機能「Pikaframes」が注目。静止画2枚をアップして間のモーションを指定するだけで自然な動画が自動生成される。「動画は自分には無理」と思ってたクリエイターの参入障壁が一気に下がった。Pika、もう試した？",
-  "newsSource": "インターネットコム（2026年4月）",
-  "newsPost2": "日経報道：奨学金情報サイト「ガクシー」がニッセイ・キャピタルなどから4.25億円を調達（4月6〜10日週）。「情報格差で大学進学を諦める学生をゼロに」という課題が評価された。課題が明確なサービスほど資金が集まりやすい。あなたが「なくなったら困る」と思うサービス何？",
-  "newsSource2": "日本経済新聞",
-  "imageTheme": "夜景",
-  "imageThemeEn": "City lights at night bokeh warm cool contrast",
+  "mustDo": "ネオン発光系レイヤースタイルを5個完成させる。着手前のBOOTHが今日初めて動き出す。5個が揃えば全体の1/20が完成し、販売開始の射程に入る。",
+  "quote": "動いた1日より、動き続けた9日のほうが価値がある。",
+  "xPost": "サムネで一番差がつくのは「光の使い方」。ネオン・グロー系は暗い背景に映えるからYouTube・Xどちらにも使える。作り方は「黒背景×白文字×外側グロー」の3ステップだけ。まず1枚作ると感覚つかめる。試したことある？",
+  "newsPost": "Canvaが4/16に大型発表予定。デザイン×AI×集客を1ツールに統合した「Creative OS」進化形が公開される。先週AIエージェント・Simtheoryを買収済み。「サムネだけCanva」の時代が終わる手前にいる。サムネ専業クリエイター、次の一手どう考えてる？",
+  "newsSource": "CMSWire / Canva newsroom（2026年4月）",
+  "newsPost2": "韓国スタートアップINEDITがインフルエンサー×企業マッチングで10億円を調達、日本市場に参入。海外が日本のクリエイター経済を狙っている。同じ仕組みを自分でつくれば仲介手数料ごと取れる。フォロワーいるクリエイター、マッチング事業試したことある？",
+  "newsSource2": "日本経済新聞（2026年4月11日）",
+  "imageTheme": "幾何学",
+  "imageThemeEn": "Abstract geometric shapes gradient modern",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-13/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_4.png"
   ],
-  "imagePost": "【DAY8】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：夜景\n\n後で使う人は保存👇",
-  "dailyQuestion": "学生が起業を身近に感じるために一番大事なことは何だと思う？お金・仲間・情報・マインドのどれ？"
+  "imagePost": "【DAY9】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：幾何学\n\n後で使う人は保存👇",
+  "dailyQuestion": "BOOTH商品ページの「誰に・何のために使えるか」を1文で言えますか？明日の発信の切り口を決めるために、今日中に言語化してみましょう。"
 }
