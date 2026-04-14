@@ -1,0 +1,71 @@
+{
+  "date": "2026-04-14",
+  "dateJa": "2026年4月14日(火)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "ネオン発光系レイヤースタイルを5個作成してファイル保存する",
+          "merit": "5個完成で最初の出品カテゴリが埋まり、BOOTH掲載のリアルなタイムラインが見えてくる",
+          "detail": "Photoshop新規ドキュメント→レイヤースタイルパネル→グロー・シャドウ設定→.aslファイルで書き出し保存まで",
+          "time": "60分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "BOOTH商品ページのタイトル・説明文・価格9,000円の根拠を1枚に書き出す",
+          "merit": "先に言語化しておけば素材制作の方向性がブレず、完成→掲載までの最短ルートが見える",
+          "detail": "「ネオン発光系20種 / ゴールドメタリック系15種…」の特徴・ターゲット(YouTube・X運営者)・9,000円の価値根拠をA4半枚で",
+          "time": "20分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "外注サムネのNG例3つをスクショ付きで書き出す",
+          "merit": "NG例が先に明文化されれば修正回数が減り、外注スタートのハードルが大幅に下がる",
+          "detail": "「文字が多すぎる」「色がバラバラで視線が散る」「フォントが細くて弱い」などを実例つきで1枚にまとめる",
+          "time": "15分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "今日の投稿文3本（xPost・newsPost・newsPost2）をXで予約投稿する",
+          "merit": "毎日3本の習慣が検索ヒット数を積み上げ、フォロワー→BOOTH購入者につながる経路が生まれる",
+          "detail": "提案の3投稿をXアプリまたはBufferに貼り付け、12時・17時・21時で予約設定する",
+          "time": "15分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "ネオン発光系レイヤースタイルを5個完成させる。着手前のBOOTHが今日初めて動き出す。5個が揃えば全体の1/20が完成し、販売開始の射程に入る。",
+  "quote": "動いた1日より、動き続けた9日のほうが価値がある。",
+  "xPost": "サムネで一番差がつくのは「光の使い方」。ネオン・グロー系は暗い背景に映えるからYouTube・Xどちらにも使える。作り方は「黒背景×白文字×外側グロー」の3ステップだけ。まず1枚作ると感覚つかめる。試したことある？",
+  "newsPost": "Canvaが4/16に大型発表予定。デザイン×AI×集客を1ツールに統合した「Creative OS」進化形が公開される。先週AIエージェント・Simtheoryを買収済み。「サムネだけCanva」の時代が終わる手前にいる。サムネ専業クリエイター、次の一手どう考えてる？",
+  "newsSource": "CMSWire / Canva newsroom（2026年4月）",
+  "newsPost2": "韓国スタートアップINEDITがインフルエンサー×企業マッチングで10億円を調達、日本市場に参入。海外が日本のクリエイター経済を狙っている。同じ仕組みを自分でつくれば仲介手数料ごと取れる。フォロワーいるクリエイター、マッチング事業試したことある？",
+  "newsSource2": "日本経済新聞（2026年4月11日）",
+  "imageTheme": "幾何学",
+  "imageThemeEn": "Abstract geometric shapes gradient modern",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_4.png"
+  ],
+  "imagePost": "【DAY9】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：幾何学\n\n後で使う人は保存👇",
+  "dailyQuestion": "BOOTH商品ページの「誰に・何のために使えるか」を1文で言えますか？明日の発信の切り口を決めるために、今日中に言語化してみましょう。"
+}
