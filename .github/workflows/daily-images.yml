@@ -1,0 +1,165 @@
+name: Daily Background Images
+
+on:
+  schedule:
+    - cron: "20 0 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  generate-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Generate and upload images
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PYEOF2'
+          import urllib.request, urllib.error, json, base64, datetime, os
+          from datetime import timezone, timedelta
+
+          GH   = os.environ["GH_TOKEN"]
+          OAI  = os.environ["OPENAI_API_KEY"]
+          REPO = "sugarsssss/tasks"
+
+          JST   = timezone(timedelta(hours=9))
+          today = datetime.datetime.now(JST).date()
+          start = datetime.date(2026, 4, 6)
+          DAY   = (today - start).days + 1
+          DATE  = str(today)
+          THEME_INDEX = (DAY + 5) % 30
+
+          themes = [
+              ("大理石",        "Luxurious marble texture with gold veins on dark background"),
+              ("天国",          "Heavenly clouds with divine light rays pastel dreamy"),
+              ("サイバー",      "Cyberpunk neon lights dark blue and pink futuristic"),
+              ("メタリック",    "Polished chrome metal surface with reflections silver"),
+              ("宇宙",          "Deep space nebula vibrant stars and cosmic dust"),
+              ("溶岩",          "Molten lava glowing cracks dark dramatic"),
+              ("深海",          "Deep ocean bioluminescent creatures dark blue"),
+              ("夕焼け",        "Dramatic sunset orange and purple gradient sky"),
+              ("氷",            "Frozen ice crystal texture cool blue sharp details"),
+              ("砂漠",          "Desert sand dunes dramatic shadows warm golden"),
+              ("桜",            "Japanese cherry blossom soft pink zen atmosphere"),
+              ("ネオン",        "Colorful neon light streaks dark background"),
+              ("煙霧",          "Mysterious smoke and fog dark moody"),
+              ("夜景",          "City lights at night bokeh warm cool contrast"),
+              ("幾何学",        "Abstract geometric shapes gradient modern"),
+              ("ローズゴールド","Rose gold metallic texture soft pink elegant"),
+              ("エメラルド",    "Deep emerald gemstone texture rich luxurious"),
+              ("ホログラム",    "Holographic iridescent surface rainbow color shift"),
+              ("雷嵐",          "Lightning storm dramatic dark clouds electric"),
+              ("砂岩",          "Ancient stone texture earthy tones rugged"),
+              ("グリッチ",      "Digital glitch art distorted pixels RGB split"),
+              ("森",            "Dark forest moss and dew mysterious green"),
+              ("錆",            "Rusty metal texture patina industrial aesthetic"),
+              ("炎",            "Fire and flame orange red dynamic"),
+              ("水面",          "Water surface ripples serene blue"),
+              ("紫煙",          "Purple violet smoke swirls dark background"),
+              ("コンクリート",  "Raw concrete texture cracks urban minimalist"),
+              ("バラ",          "Dark rose petals close-up moody romantic"),
+              ("金箔",          "Gold leaf texture irregular patterns opulent"),
+              ("タイル",        "Moroccan mosaic tile colorful geometric"),
+          ]
+
+          gh_h  = {"Authorization": f"token {GH}", "Content-Type": "application/json"}
+          oai_h = {"Authorization": f"Bearer {OAI}", "Content-Type": "application/json"}
+
+          def gh_get(path):
+              try:
+                  return json.loads(urllib.request.urlopen(urllib.request.Request(
+                      f"https://api.github.com/repos/{REPO}/contents/{path}",
+                      headers={"Authorization": f"token {GH}"}
+                  )).read())
+              except:
+                  return {}
+
+          if gh_get(f"data/images/{DATE}/bg_1.png").get("sha"):
+              print(f"[SKIP] {DATE} の画像はすでに存在します")
+              exit(0)
+
+          log_resp  = gh_get("data/image_log.json")
+          image_log = json.loads(base64.b64decode(log_resp["content"]).decode()) if "content" in log_resp else {}
+          log_sha   = log_resp.get("sha", "")
+
+          recent_themes = set()
+          for i in range(1, 8):
+              d = str(today - datetime.timedelta(days=i))
+              if d in image_log:
+                  recent_themes.add(image_log[d].get("theme", ""))
+
+          theme_name, theme_base = themes[THEME_INDEX]
+          original = theme_name
+          if theme_name in recent_themes:
+              for offset in range(1, 30):
+                  ai = (THEME_INDEX + offset) % 30
+                  an, ab = themes[ai]
+                  if an not in recent_themes:
+                      theme_name, theme_base, THEME_INDEX = an, ab, ai
+                      print(f"[THEME] {original} -> {theme_name}")
+                      break
+
+          print(f"[START] DATE={DATE} DAY={DAY} THEME={theme_name} INDEX={THEME_INDEX}")
+
+          variations = [
+              "bright vibrant version",
+              "dark moody version",
+              "close-up detail macro version",
+              "wide full composition version",
+          ]
+          generated = 0
+          for i, var in enumerate(variations, 1):
+              prompt = (f"{theme_base}, {var}, fill the entire 16:9 frame edge to edge, "
+                        "no borders, no padding, seamless background texture for YouTube "
+                        "thumbnail, no text, no watermark, photorealistic")
+              body = json.dumps({"model": "gpt-image-1", "prompt": prompt,
+                                 "n": 1, "size": "1536x1024"}).encode()
+              print(f"  生成中 bg_{i}...", flush=True)
+              try:
+                  req  = urllib.request.Request(
+                      "https://api.openai.com/v1/images/generations", data=body, headers=oai_h)
+                  resp = json.loads(urllib.request.urlopen(req, timeout=180).read())
+                  img  = base64.b64decode(resp["data"][0]["b64_json"])
+              except urllib.error.HTTPError as e:
+                  print(f"  ERROR bg_{i}: HTTP {e.code} - {e.read().decode()[:300]}")
+                  continue
+              except Exception as e:
+                  print(f"  ERROR bg_{i}: {type(e).__name__}: {e}")
+                  continue
+
+              fpath   = f"data/images/{DATE}/bg_{i}.png"
+              api_url = f"https://api.github.com/repos/{REPO}/contents/{fpath}"
+              sha     = gh_get(fpath).get("sha", "")
+              up      = {"message": f"bg_{i}: {DATE}",
+                         "content": base64.b64encode(img).decode()}
+              if sha:
+                  up["sha"] = sha
+              try:
+                  urllib.request.urlopen(urllib.request.Request(
+                      api_url, data=json.dumps(up).encode(), headers=gh_h, method="PUT"
+                  ), timeout=60)
+                  print(f"  bg_{i}.png OK ({len(img):,} bytes)", flush=True)
+                  generated += 1
+              except Exception as e:
+                  print(f"  UPLOAD ERROR bg_{i}: {e}")
+
+          image_log[DATE] = {"day": DAY, "theme": theme_name,
+                             "themeIndex": THEME_INDEX, "generated": generated}
+          api_url = f"https://api.github.com/repos/{REPO}/contents/data/image_log.json"
+          up = {"message": f"image_log: {DATE}",
+                "content": base64.b64encode(
+                    json.dumps(image_log, ensure_ascii=False, indent=2).encode()).decode()}
+          if log_sha:
+              up["sha"] = log_sha
+          try:
+              urllib.request.urlopen(urllib.request.Request(
+                  api_url, data=json.dumps(up).encode(), headers=gh_h, method="PUT"
+              ), timeout=30)
+              print(f"[DONE] {generated}/4枚生成完了")
+          except Exception as e:
+              print(f"[ERROR] image_log更新失敗: {e}")
+          PYEOF2
