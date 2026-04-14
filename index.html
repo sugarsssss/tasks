@@ -247,7 +247,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
       var charCount=(d.xPost||"").length;
       var countColor=charCount>140?"#ff6060":charCount>120?"#f0a500":"#555";
       html+='<div class="x-post-box">'+
-        '<div class="x-post-label">𝕏 今日のX投稿案</div>'+
+        '<div class="x-post-label">📱 今日のThreads投稿案</div>'+
         '<div class="x-post-text" id="xpost-text">'+escHtml(d.xPost)+'</div>'+
         '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
         '<div class="x-post-btns">'+
@@ -256,34 +256,7 @@ fetch(RAW+"/data/today.json?t="+Date.now())
         '</div>'+
       '</div>';
     }
-    if(d.newsPost){
-      var nc=(d.newsPost||"").length;
-      var ncColor=nc>140?"#ff6060":nc>120?"#f0a500":"#555";
-      html+='<div class="x-post-box" style="border-color:#2a3a2a;margin-top:8px">'+
-        '<div class="x-post-label" style="color:#4ecdc4">📰 時事ニュース投稿案</div>'+
-        (d.newsSource?'<div style="font-size:11px;color:#445;margin-bottom:6px">ソース：'+escHtml(d.newsSource)+'</div>':'')+
-        '<div class="x-post-text" id="newspost-text">'+escHtml(d.newsPost)+'</div>'+
-        '<div class="x-char-count" style="color:'+ncColor+'">'+nc+' / 140文字</div>'+
-        '<div class="x-post-btns">'+
-          '<button class="copy-btn" id="news-copy-btn" onclick="copyPost(\'newspost-text\',\'news-copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'newspost-text\')">Threadsに投稿</button>'+
-        '</div>'+
-      '</div>';
-    }
-    if(d.newsPost2){
-      var nc2=(d.newsPost2||"").length;
-      var nc2Color=nc2>140?"#ff6060":nc2>120?"#f0a500":"#555";
-      html+='<div class="x-post-box" style="border-color:#2a3828;margin-top:8px">'+
-        '<div class="x-post-label" style="color:#a8e6cf">🏢 ビジネスニュース投稿案</div>'+
-        (d.newsSource2?'<div style="font-size:11px;color:#445;margin-bottom:6px">ソース：'+escHtml(d.newsSource2)+'</div>':'')+
-        '<div class="x-post-text" id="newspost2-text">'+escHtml(d.newsPost2)+'</div>'+
-        '<div class="x-char-count" style="color:'+nc2Color+'">'+nc2+' / 140文字</div>'+
-        '<div class="x-post-btns">'+
-          '<button class="copy-btn" id="news2-copy-btn" onclick="copyPost(\'newspost2-text\',\'news2-copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'newspost2-text\')">Threadsに投稿</button>'+
-        '</div>'+
-      '</div>';
-    }
+
     if(d.dailyQuestion){
       var savedAns=localStorage.getItem("qa-ans-"+d.date)||"";
       var alreadySent=localStorage.getItem("qa-sent-"+d.date)==="1";
@@ -618,6 +591,7 @@ function loadHistory(){
 </script>
 </body>
 </html>
+
 
 
 
