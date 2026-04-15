@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-14",
-  "dateJa": "2026年4月14日(火)",
+  "date": "2026-04-15",
+  "dateJa": "2026年04月15日(水)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,18 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "ネオン発光系レイヤースタイルを5個作成してファイル保存する",
-          "merit": "5個完成で最初の出品カテゴリが埋まり、BOOTH掲載のリアルなタイムラインが見えてくる",
-          "detail": "Photoshop新規ドキュメント→レイヤースタイルパネル→グロー・シャドウ設定→.aslファイルで書き出し保存まで",
-          "time": "60分",
+          "title": "サムネ背景素材19〜21番を制作する",
+          "merit": "在庫を21個に増やすことで検索ヒット数が増え、寝ている間の収益が積み上がる",
+          "detail": "テーマ・カラー・構図を決めてから一気に3枚仕上げる。Canva or Photoshopで各素材を書き出しBOOTHに下書き保存まで完了させる",
+          "time": "90分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "BOOTH商品ページのタイトル・説明文・価格9,000円の根拠を1枚に書き出す",
-          "merit": "先に言語化しておけば素材制作の方向性がブレず、完成→掲載までの最短ルートが見える",
-          "detail": "「ネオン発光系20種 / ゴールドメタリック系15種…」の特徴・ターゲット(YouTube・X運営者)・9,000円の価値根拠をA4半枚で",
-          "time": "20分",
+          "title": "既存素材18個のタグ・説明文を最適化する",
+          "merit": "BOOTH内検索でヒットしやすくなり、既存在庫から新規購入者を獲得できる",
+          "detail": "購入者が検索しそうなキーワード（サムネ背景・YouTube素材・商用OK）を各商品説明に追記し、タグを5個以上に統一する",
+          "time": "30分",
           "status": "pending"
         }
       ]
@@ -29,10 +29,10 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "外注サムネのNG例3つをスクショ付きで書き出す",
-          "merit": "NG例が先に明文化されれば修正回数が減り、外注スタートのハードルが大幅に下がる",
-          "detail": "「文字が多すぎる」「色がバラバラで視線が散る」「フォントが細くて弱い」などを実例つきで1枚にまとめる",
-          "time": "15分",
+          "title": "素材加工の外注フローをドキュメント化する",
+          "merit": "他人に渡せる手順書を作ることで、自分が作業しなくても量産できる体制が整う",
+          "detail": "Notion or テキストファイルに「素材1枚の作り方」をスクショ付きで記録。外注費・クオリティ基準・納期も明記する",
+          "time": "45分",
           "status": "pending"
         }
       ]
@@ -42,30 +42,34 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "今日の投稿文3本（xPost・newsPost・newsPost2）をXで予約投稿する",
-          "merit": "毎日3本の習慣が検索ヒット数を積み上げ、フォロワー→BOOTH購入者につながる経路が生まれる",
-          "detail": "提案の3投稿をXアプリまたはBufferに貼り付け、12時・17時・21時で予約設定する",
-          "time": "15分",
+          "title": "本日のThreads投稿を公開する",
+          "merit": "毎日投稿の継続がアルゴリズムに評価され、フォロワーとの信頼が着実に積み上がる",
+          "detail": "xPostの文章をそのまま投稿。画像素材が配布できる日はimagePostも合わせて投稿する",
+          "time": "10分",
+          "status": "pending"
+        },
+        {
+          "id": "s2",
+          "title": "明日の投稿ネタを1行メモする",
+          "merit": "ストックが1件増えるだけで「今日何投稿しよう」の迷いがゼロになり発信が止まらなくなる",
+          "detail": "dailyQuestionへの自分なりの回答をメモ帳に1〜2行書くだけでOK。完成度は不要",
+          "time": "5分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "ネオン発光系レイヤースタイルを5個完成させる。着手前のBOOTHが今日初めて動き出す。5個が揃えば全体の1/20が完成し、販売開始の射程に入る。",
-  "quote": "動いた1日より、動き続けた9日のほうが価値がある。",
-  "xPost": "サムネで一番差がつくのは「光の使い方」。ネオン・グロー系は暗い背景に映えるからYouTube・Xどちらにも使える。作り方は「黒背景×白文字×外側グロー」の3ステップだけ。まず1枚作ると感覚つかめる。試したことある？",
-  "newsPost": "Canvaが4/16に大型発表予定。デザイン×AI×集客を1ツールに統合した「Creative OS」進化形が公開される。先週AIエージェント・Simtheoryを買収済み。「サムネだけCanva」の時代が終わる手前にいる。サムネ専業クリエイター、次の一手どう考えてる？",
-  "newsSource": "CMSWire / Canva newsroom（2026年4月）",
-  "newsPost2": "韓国スタートアップINEDITがインフルエンサー×企業マッチングで10億円を調達、日本市場に参入。海外が日本のクリエイター経済を狙っている。同じ仕組みを自分でつくれば仲介手数料ごと取れる。フォロワーいるクリエイター、マッチング事業試したことある？",
-  "newsSource2": "日本経済新聞（2026年4月11日）",
-  "imageTheme": "幾何学",
-  "imageThemeEn": "Abstract geometric shapes gradient modern",
+  "mustDo": "サムネ背景素材19〜21番の制作（在庫を増やすことが月収20万への最短ルートであり、今日やれば明日から収益機会が広がるため）",
+  "quote": "18個目を作った自分が正解。19個目が収益の扉を開く。",
+  "xPost": "サムネのクリック率を上げる一番速い方法は「対比」。明暗・大小・色温度のどれか1つを強調するだけで印象が激変する。難しい加工は不要、構図の工夫だけで変わる。\n\nあなたのサムネ、対比意識してる？",
+  "imageTheme": "ローズゴールド",
+  "imageThemeEn": "Rose gold metallic texture soft pink elegant",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-14/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_4.png"
   ],
-  "imagePost": "【DAY9】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：幾何学\n\n後で使う人は保存👇",
-  "dailyQuestion": "BOOTH商品ページの「誰に・何のために使えるか」を1文で言えますか？明日の発信の切り口を決めるために、今日中に言語化してみましょう。"
+  "imagePost": "【DAY10】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：ローズゴールド\n\n後で使う人は保存👇",
+  "dailyQuestion": "あなたのサムネで一番クリックされた1枚、共通してる要素は何だと思う？"
 }
