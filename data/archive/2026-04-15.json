@@ -1,0 +1,75 @@
+{
+  "date": "2026-04-15",
+  "dateJa": "2026年04月15日(水)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "サムネ背景素材19〜21番を制作する",
+          "merit": "在庫を21個に増やすことで検索ヒット数が増え、寝ている間の収益が積み上がる",
+          "detail": "テーマ・カラー・構図を決めてから一気に3枚仕上げる。Canva or Photoshopで各素材を書き出しBOOTHに下書き保存まで完了させる",
+          "time": "90分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "既存素材18個のタグ・説明文を最適化する",
+          "merit": "BOOTH内検索でヒットしやすくなり、既存在庫から新規購入者を獲得できる",
+          "detail": "購入者が検索しそうなキーワード（サムネ背景・YouTube素材・商用OK）を各商品説明に追記し、タグを5個以上に統一する",
+          "time": "30分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "素材加工の外注フローをドキュメント化する",
+          "merit": "他人に渡せる手順書を作ることで、自分が作業しなくても量産できる体制が整う",
+          "detail": "Notion or テキストファイルに「素材1枚の作り方」をスクショ付きで記録。外注費・クオリティ基準・納期も明記する",
+          "time": "45分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "本日のThreads投稿を公開する",
+          "merit": "毎日投稿の継続がアルゴリズムに評価され、フォロワーとの信頼が着実に積み上がる",
+          "detail": "xPostの文章をそのまま投稿。画像素材が配布できる日はimagePostも合わせて投稿する",
+          "time": "10分",
+          "status": "pending"
+        },
+        {
+          "id": "s2",
+          "title": "明日の投稿ネタを1行メモする",
+          "merit": "ストックが1件増えるだけで「今日何投稿しよう」の迷いがゼロになり発信が止まらなくなる",
+          "detail": "dailyQuestionへの自分なりの回答をメモ帳に1〜2行書くだけでOK。完成度は不要",
+          "time": "5分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "サムネ背景素材19〜21番の制作（在庫を増やすことが月収20万への最短ルートであり、今日やれば明日から収益機会が広がるため）",
+  "quote": "18個目を作った自分が正解。19個目が収益の扉を開く。",
+  "xPost": "サムネのクリック率を上げる一番速い方法は「対比」。明暗・大小・色温度のどれか1つを強調するだけで印象が激変する。難しい加工は不要、構図の工夫だけで変わる。\n\nあなたのサムネ、対比意識してる？",
+  "imageTheme": "ローズゴールド",
+  "imageThemeEn": "Rose gold metallic texture soft pink elegant",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_4.png"
+  ],
+  "imagePost": "【DAY10】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：ローズゴールド\n\n後で使う人は保存👇",
+  "dailyQuestion": "あなたのサムネで一番クリックされた1枚、共通してる要素は何だと思う？"
+}
