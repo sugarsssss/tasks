@@ -1,0 +1,75 @@
+{
+  "date": "2026-04-16",
+  "dateJa": "2026年04月16日(木)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "サムネ素材セット商品を出品する",
+          "merit": "18個の素材をセット化で単価3〜5倍。1対1販売から1対N収益モデルへの最短ルート",
+          "detail": "BOOTH管理画面で新規セット商品ページを作成。タイトル・説明文・価格（500〜800円）まで完了させる",
+          "time": "45分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "新規サムネ素材を2枚制作する",
+          "merit": "出品数が増えるほどBOOTH内検索露出が増え、寝ている間にも発見される確率が上がる",
+          "detail": "エメラルドテーマで暗め・鮮やかめ各1枚。1280×720でPNG書き出し、命名規則に従い保存",
+          "time": "30分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "BOOTHアクセス解析で閲覧数上位3商品を特定し次の量産テーマを決定する",
+          "merit": "データ根拠のある素材制作で「売れない在庫」を作るリスクがゼロになる",
+          "detail": "BOOTH管理＞統計から各商品の閲覧数・お気に入り数を確認。1位テーマで次週の制作計画を確定",
+          "time": "20分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "Threads知識投稿を公開する",
+          "merit": "テロップ技術の具体的な知識投稿は保存率が高く、フォロワー外への自然拡散が起きやすい",
+          "detail": "xPostの文章をそのままコピー＆貼り付け。改行を入れて読みやすく整えて投稿",
+          "time": "5分",
+          "status": "pending"
+        },
+        {
+          "id": "s2",
+          "title": "背景素材の無料配布投稿を公開する",
+          "merit": "無料素材配布は広告費ゼロで保存・シェアされる投稿になり、フォロワー獲得の最効率手段",
+          "detail": "imagePostの文章とエメラルド素材4枚を添付してThreadsに投稿",
+          "time": "5分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "b1：BOOTHサムネ素材のセット商品を今日中に出品する。18個の素材が今は1対1販売のままで収益効率が低い。セット化が1対N収益への第一歩であり、今日やらなければ機会損失が続く",
+  "quote": "素材は作るより出す方が先。棚に並べなければ売れない。",
+  "xPost": "プロが必ずやる作業：テロップを一文字ずつ調整する理由。字間・行間のズレは視聴者の「見づらさ」を生む。無意識のストレスが離脱率を上げる。フォントの大きさだけじゃなく「間隔」まで詰めてる？",
+  "imageTheme": "エメラルド",
+  "imageThemeEn": "Deep emerald gemstone texture rich luxurious",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_4.png"
+  ],
+  "imagePost": "【DAY11】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：エメラルド\n\n後で使う人は保存👇",
+  "dailyQuestion": "テロップの字間・行間を「実際に数値で調整した経験」はある？before/afterで視聴維持率が変わった具体例があれば、明日それを投稿ネタにできる"
+}
