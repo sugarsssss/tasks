@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-15",
-  "dateJa": "2026年04月15日(水)",
+  "date": "2026-04-16",
+  "dateJa": "2026年04月16日(木)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,17 +8,17 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "サムネ背景素材19〜21番を制作する",
-          "merit": "在庫を21個に増やすことで検索ヒット数が増え、寝ている間の収益が積み上がる",
-          "detail": "テーマ・カラー・構図を決めてから一気に3枚仕上げる。Canva or Photoshopで各素材を書き出しBOOTHに下書き保存まで完了させる",
-          "time": "90分",
+          "title": "サムネ素材セット商品を出品する",
+          "merit": "18個の素材をセット化で単価3〜5倍。1対1販売から1対N収益モデルへの最短ルート",
+          "detail": "BOOTH管理画面で新規セット商品ページを作成。タイトル・説明文・価格（500〜800円）まで完了させる",
+          "time": "45分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "既存素材18個のタグ・説明文を最適化する",
-          "merit": "BOOTH内検索でヒットしやすくなり、既存在庫から新規購入者を獲得できる",
-          "detail": "購入者が検索しそうなキーワード（サムネ背景・YouTube素材・商用OK）を各商品説明に追記し、タグを5個以上に統一する",
+          "title": "新規サムネ素材を2枚制作する",
+          "merit": "出品数が増えるほどBOOTH内検索露出が増え、寝ている間にも発見される確率が上がる",
+          "detail": "エメラルドテーマで暗め・鮮やかめ各1枚。1280×720でPNG書き出し、命名規則に従い保存",
           "time": "30分",
           "status": "pending"
         }
@@ -29,10 +29,10 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "素材加工の外注フローをドキュメント化する",
-          "merit": "他人に渡せる手順書を作ることで、自分が作業しなくても量産できる体制が整う",
-          "detail": "Notion or テキストファイルに「素材1枚の作り方」をスクショ付きで記録。外注費・クオリティ基準・納期も明記する",
-          "time": "45分",
+          "title": "BOOTHアクセス解析で閲覧数上位3商品を特定し次の量産テーマを決定する",
+          "merit": "データ根拠のある素材制作で「売れない在庫」を作るリスクがゼロになる",
+          "detail": "BOOTH管理＞統計から各商品の閲覧数・お気に入り数を確認。1位テーマで次週の制作計画を確定",
+          "time": "20分",
           "status": "pending"
         }
       ]
@@ -42,34 +42,34 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "本日のThreads投稿を公開する",
-          "merit": "毎日投稿の継続がアルゴリズムに評価され、フォロワーとの信頼が着実に積み上がる",
-          "detail": "xPostの文章をそのまま投稿。画像素材が配布できる日はimagePostも合わせて投稿する",
-          "time": "10分",
+          "title": "Threads知識投稿を公開する",
+          "merit": "テロップ技術の具体的な知識投稿は保存率が高く、フォロワー外への自然拡散が起きやすい",
+          "detail": "xPostの文章をそのままコピー＆貼り付け。改行を入れて読みやすく整えて投稿",
+          "time": "5分",
           "status": "pending"
         },
         {
           "id": "s2",
-          "title": "明日の投稿ネタを1行メモする",
-          "merit": "ストックが1件増えるだけで「今日何投稿しよう」の迷いがゼロになり発信が止まらなくなる",
-          "detail": "dailyQuestionへの自分なりの回答をメモ帳に1〜2行書くだけでOK。完成度は不要",
+          "title": "背景素材の無料配布投稿を公開する",
+          "merit": "無料素材配布は広告費ゼロで保存・シェアされる投稿になり、フォロワー獲得の最効率手段",
+          "detail": "imagePostの文章とエメラルド素材4枚を添付してThreadsに投稿",
           "time": "5分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "サムネ背景素材19〜21番の制作（在庫を増やすことが月収20万への最短ルートであり、今日やれば明日から収益機会が広がるため）",
-  "quote": "18個目を作った自分が正解。19個目が収益の扉を開く。",
-  "xPost": "サムネのクリック率を上げる一番速い方法は「対比」。明暗・大小・色温度のどれか1つを強調するだけで印象が激変する。難しい加工は不要、構図の工夫だけで変わる。\n\nあなたのサムネ、対比意識してる？",
-  "imageTheme": "ローズゴールド",
-  "imageThemeEn": "Rose gold metallic texture soft pink elegant",
+  "mustDo": "b1：BOOTHサムネ素材のセット商品を今日中に出品する。18個の素材が今は1対1販売のままで収益効率が低い。セット化が1対N収益への第一歩であり、今日やらなければ機会損失が続く",
+  "quote": "素材は作るより出す方が先。棚に並べなければ売れない。",
+  "xPost": "プロが必ずやる作業：テロップを一文字ずつ調整する理由。字間・行間のズレは視聴者の「見づらさ」を生む。無意識のストレスが離脱率を上げる。フォントの大きさだけじゃなく「間隔」まで詰めてる？",
+  "imageTheme": "エメラルド",
+  "imageThemeEn": "Deep emerald gemstone texture rich luxurious",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-15/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-16/bg_4.png"
   ],
-  "imagePost": "【DAY10】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：ローズゴールド\n\n後で使う人は保存👇",
-  "dailyQuestion": "あなたのサムネで一番クリックされた1枚、共通してる要素は何だと思う？"
+  "imagePost": "【DAY11】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：エメラルド\n\n後で使う人は保存👇",
+  "dailyQuestion": "テロップの字間・行間を「実際に数値で調整した経験」はある？before/afterで視聴維持率が変わった具体例があれば、明日それを投稿ネタにできる"
 }
