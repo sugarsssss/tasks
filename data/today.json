@@ -1,6 +1,6 @@
 {
-  "date": "2026-04-17",
-  "dateJa": "2026年04月17日(金)",
+  "date": "2026-04-18",
+  "dateJa": "2026年04月18日(土)",
   "sections": {
     "booth": {
       "label": "🎯 BOOTH素材",
@@ -8,18 +8,18 @@
       "tasks": [
         {
           "id": "b1",
-          "title": "サムネイル素材を2枚新規作成（計20枚へ）",
-          "merit": "20枚という区切りでBOOTHページの信頼感が上がり、購入判断が早まる",
-          "detail": "ホログラム・グリッチ系など今日のテーマに合わせた素材を2枚仕上げる。1536x1024推奨",
+          "title": "サムネ素材バリエーション2枚を新規作成する",
+          "merit": "在庫が増えるほど購入者の選択肢が広がり客単価・購入率が上がる",
+          "detail": "既存18枚の傾向を踏まえ、色味や雰囲気が異なる2枚を追加。DAY13テーマ「雷嵐」を参考にしてもOK",
           "time": "60分",
           "status": "pending"
         },
         {
           "id": "b2",
-          "title": "既存18素材のタグ・説明文を3件最適化",
-          "merit": "検索流入が増えて受動的売上が生まれ、自分が動かなくても収益が積み上がる",
-          "detail": "BOOTHの検索でヒットしやすいキーワード（「サムネ素材」「フリー素材」「商用OK」など）を説明文に盛り込む",
-          "time": "30分",
+          "title": "商品ページの説明文に「使用シーン例」を1つ追記する",
+          "merit": "購入者が使い方をイメージしやすくなりコンバージョン率が直接改善される",
+          "detail": "「ゲーム実況・Vlog・料理動画のサムネに合う」など具体的シーンを1行追加する",
+          "time": "20分",
           "status": "pending"
         }
       ]
@@ -29,9 +29,9 @@
       "tasks": [
         {
           "id": "bz1",
-          "title": "素材制作の外注化フローを1枚のメモにまとめる",
-          "merit": "1対Nへのスケール準備が整い、月収20万円達成への最短ルートが見えてくる",
-          "detail": "クラウドワークス or ランサーズで発注できる指示書テンプレートを作成。品質基準・サイズ・納品形式を明記",
+          "title": "素材作成の指示書テンプレートを1枚分だけ作る",
+          "merit": "外注に渡せる形にすることで自分の作業時間をゼロにし1対Nスケールへ近づける",
+          "detail": "「サイズ・カラーコード・雰囲気の言語化・NGパターン」を箇条書きでまとめるだけでOK",
           "time": "30分",
           "status": "pending"
         }
@@ -42,34 +42,34 @@
       "tasks": [
         {
           "id": "s1",
-          "title": "今日のxPostをThreadsに投稿する",
-          "merit": "毎日投稿の継続がフォロワーの信頼を積み上げ、BOOTH誘導の導線になる",
-          "detail": "下記xPostをそのまま投稿。投稿後にインサイト確認（リーチ・いいね・保存数）",
-          "time": "10分",
+          "title": "今日のThreads投稿（フォント素人丸出し）を投稿する",
+          "merit": "テロップ知識の発信でデザイン系フォロワーへの認知が積み重なりBOOTHへの流入導線が育つ",
+          "detail": "キューから取得済みの投稿文を使用。末尾の問いかけが付いているか確認して投稿",
+          "time": "5分",
           "status": "pending"
         },
         {
           "id": "s2",
-          "title": "過去3日分の投稿のリプ・DMに返信する",
-          "merit": "エンゲージメントが上がりアルゴリズムに評価されてリーチが広がる",
-          "detail": "返信は1〜2文で十分。反応してくれた人への感謝＋次の投稿へのヒントをさりげなく添える",
-          "time": "15分",
+          "title": "背景素材配布の画像投稿を予約・投稿する",
+          "merit": "素材を実際に見せることでBOOTH商品の信頼性が上がり新規フォロワーの獲得にもなる",
+          "detail": "imagePostの文章と背景画像4枚を添付して投稿（テーマ：雷嵐）",
+          "time": "10分",
           "status": "pending"
         }
       ]
     }
   },
-  "mustDo": "【b1】サムネイル素材を2枚追加作成。20枚という区切りが購入者への説得力になり、BOOTHの売上加速に直結する。",
-  "quote": "1枚の素材が、寝ている間も稼いでくれる。",
-  "xPost": "テロップの字間・行間を詰めるだけでサムネの情報密度が上がる。同じスペースで「読まれる量」が増え、見せたい部分に目が届きやすくなる。詰めすぎはNGで余白で「気になる部分」を作るのがコツ。あなたのサムネ、情報密度は足りてる？",
-  "imageTheme": "ホログラム",
-  "imageThemeEn": "Holographic iridescent surface rainbow color shift",
+  "mustDo": "b1「サムネ素材バリエーション2枚作成」—— 在庫を増やすことが月収20万円への最短ルートであり今日の最優先",
+  "quote": "素材1個より仕組み1個。でも今日は素材2個。",
+  "xPost": "これをやってると素人丸出し。フォントをそのまま使うこと。\n\nサムネもテロップも「太さ・色・字間」を少し変えるだけで別物になる。\nデフォルトのまま使うのは一番もったいない。\n\nあなたが一番よく使うフォント加工は？",
+  "imageTheme": "雷嵐",
+  "imageThemeEn": "Lightning storm dramatic dark clouds electric",
   "images": [
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-17/bg_1.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-17/bg_2.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-17/bg_3.png",
-    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-17/bg_4.png"
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-18/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-18/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-18/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-18/bg_4.png"
   ],
-  "imagePost": "【DAY12】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：ホログラム\n\n後で使う人は保存👇",
-  "dailyQuestion": "フォロワーが1,000人になったとき、今の投稿スタイルのまま続けるか？それとも何を変えるか？"
+  "imagePost": "【DAY13】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：雷嵐\n\n後で使う人は保存👇",
+  "dailyQuestion": "素材を見た人が『これ欲しい』と感じるには、どんな使用シーン例を見せると一番刺さるか？"
 }
