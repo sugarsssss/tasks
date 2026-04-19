@@ -1,6 +1,29 @@
 {
   "weekStart": "2026-04-13",
-  "weekGoal": "BOOTHレイヤースタイル最初の20個（ネオン発光系）を完成させ出品準備を整える",
+  "weekJa": "4/13(月)〜4/19(日)",
+  "weekGoal": "BOOTHレイヤースタイル最初の20個を完成させ出品準備を整える",
   "keyResult": "ネオン発光系20個完成 → Before/Afterサンプル作成 → BOOTH出品ページ公開",
-  "revenueTarget": "BOOTHに商品が並ぶことで月収11万→15万への土台を今週中に作る"
+  "revenueTarget": "BOOTHに商品が並ぶことで月収11万→15万への土台を今週中に作る",
+  "goals": [
+    {
+      "id": "w1",
+      "text": "ネオン発光系サムネ素材を20個完成させる",
+      "category": "booth"
+    },
+    {
+      "id": "w2",
+      "text": "Before/Afterサンプル画像を作成しBOOTH出品ページを公開する",
+      "category": "booth"
+    },
+    {
+      "id": "w3",
+      "text": "Threadsで週3投稿以上を達成する",
+      "category": "sns"
+    },
+    {
+      "id": "w4",
+      "text": "クライアントへの価格根拠を言語化して提示する",
+      "category": "biz"
+    }
+  ]
 }
