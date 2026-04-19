@@ -1,0 +1,75 @@
+{
+  "date": "2026-04-19",
+  "dateJa": "2026年04月19日(日)",
+  "sections": {
+    "booth": {
+      "label": "🎯 BOOTH素材",
+      "priority": true,
+      "tasks": [
+        {
+          "id": "b1",
+          "title": "サムネイル素材19番・20番を完成させBOOTHにアップロード",
+          "merit": "出品数が増えるほど検索流入が複利的に伸び、寝ている間も売れる仕組みが強化される",
+          "detail": "既存18個のクオリティを参考に2種追加。タイトル・タグも最適化して公開まで完結させる",
+          "time": "90分",
+          "status": "pending"
+        },
+        {
+          "id": "b2",
+          "title": "BOOTH商品ページのサムネ画像を差し替えてCTR改善",
+          "merit": "商品ページのサムネが良くなるだけで購買率が上がり、同じ流入でも売上が増える",
+          "detail": "既存商品のサムネを見直し、文字・明暗・余白の改善案を1商品に適用して効果を検証する",
+          "time": "45分",
+          "status": "pending"
+        }
+      ]
+    },
+    "biz": {
+      "label": "📦 外注化 / その他事業",
+      "tasks": [
+        {
+          "id": "bz1",
+          "title": "素材制作を外注するためのディレクション資料を1枚作る",
+          "merit": "自分が手を動かさずに出品数を増やせる体制が整い、1対Nへのシフトが加速する",
+          "detail": "素材のサイズ・カラーコード・NGルール・納品形式をA4一枚にまとめてクラウドワークス投稿準備まで",
+          "time": "60分",
+          "status": "pending"
+        }
+      ]
+    },
+    "sns": {
+      "label": "📣 発信",
+      "tasks": [
+        {
+          "id": "s1",
+          "title": "xPost（知識投稿）をThreadsに投稿する",
+          "merit": "フォロワーの信頼が積み上がり、BOOTH商品への自然流入が増える",
+          "detail": "下記のxPost文をそのまま投稿。投稿後にインサイト確認（いいね・保存数）",
+          "time": "10分",
+          "status": "pending"
+        },
+        {
+          "id": "s2",
+          "title": "imagePost（背景素材配布）をThreadsに投稿する",
+          "merit": "保存率が高い配布投稿はアルゴリズムに有利で、アカウントのリーチが拡大する",
+          "detail": "imagePost文と画像4枚を添付して投稿。ストーリーにもシェアしてリーチを最大化する",
+          "time": "10分",
+          "status": "pending"
+        }
+      ]
+    }
+  },
+  "mustDo": "b1（素材19・20番をBOOTHにアップロード）：出品数の積み上げが売上の土台。今日1本増やすだけで検索への露出が確実に広がる",
+  "quote": "仕組みは今日作る。収益は明日受け取る。",
+  "xPost": "サムネ背景の「明暗差」が視認性を決める。明るい文字→暗い背景、暗い文字→明るい背景。この法則だけでクリック率が変わる。あなたのサムネ、背景と文字色の組み合わせ意識してる？",
+  "imageTheme": "砂岩",
+  "imageThemeEn": "Ancient stone texture earthy tones rugged",
+  "images": [
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-19/bg_1.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-19/bg_2.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-19/bg_3.png",
+    "https://raw.githubusercontent.com/sugarsssss/tasks/main/data/images/2026-04-19/bg_4.png"
+  ],
+  "imagePost": "【DAY14】サムネで伸びない人、これ使って。\n\n\"クリック率上がる背景\"4枚配布\n（無料・商用OK）\n\n今日のテーマ：砂岩\n\n後で使う人は保存👇",
+  "dailyQuestion": "あなたのBOOTH商品ページで「最初に目に入る要素」は何ですか？サムネ・タイトル・価格のどれが購買の決め手になっていると思いますか？"
+}
