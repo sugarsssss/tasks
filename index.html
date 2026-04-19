@@ -196,10 +196,18 @@ svg.ring{transform:rotate(-90deg)}
 .focus-text{font-size:13px;color:#c4b5fd;line-height:1.7}
 
 /* HISTORY */
-.history-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--card);border-radius:8px;margin-bottom:5px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s}
-.history-item:hover{border-color:var(--purple)}
-.history-date{font-size:13px}
-.history-rate{font-size:12px;color:var(--purple);font-weight:600}
+.hist-head{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 16px;margin-bottom:10px;font-size:12px;color:var(--text2)}
+.hist-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:6px;transition:border-color .15s}
+.hist-card:hover{border-color:var(--purple)}
+.hist-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:8px}
+.hist-date{font-size:16px;font-weight:800;color:#fff}
+.hist-dow{font-size:12px;font-weight:400;color:var(--text2)}
+.hist-day{font-size:10px;color:var(--text3);letter-spacing:.1em;margin-top:3px}
+.hist-right{text-align:right}
+.hist-pct{font-size:20px;font-weight:900;line-height:1}
+.hist-cnt{font-size:10px;color:var(--text3);margin-top:3px}
+.hist-bar{height:4px;background:var(--border2);border-radius:2px;overflow:hidden;margin-top:2px}
+.hist-bar-fill{height:100%;border-radius:2px}
 .empty{color:var(--text3);font-size:13px;padding:20px 0;text-align:center}
 .spinner{text-align:center;color:var(--text3);padding:40px;font-size:13px}
 .priority-badge{color:var(--red);font-size:9px;font-weight:700;margin-left:5px}
@@ -359,6 +367,7 @@ function loadToday(){
   .then(function(d){
     var date=d.date||"";
     localStorage.setItem("today-date",date);
+    window._todayData=d;
     document.getElementById("hero-date").textContent=d.dateJa||date;
     document.getElementById("hero-sub").textContent="おはよう、Sugar 👋";
 
@@ -634,6 +643,8 @@ function loadMonth(){
 
 // ---- HISTORY ----
 var histLoaded=false;
+var DOW=["日","月","火","水","木","金","土"];
+var DAY_START=new Date("2026-04-06");
 function loadHistory(){
   if(histLoaded) return; histLoaded=true;
   fetch(API+"/contents/data/archive")
@@ -642,17 +653,47 @@ function loadHistory(){
     var items=(files||[]).filter(function(f){return f.name&&f.name.endsWith(".json")})
       .sort(function(a,b){return b.name.localeCompare(a.name)});
     if(!items.length){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';return;}
-    var html="";
+    var totalPct=0,pctCount=0;
+    var cards="";
     items.forEach(function(f){
       var date=f.name.replace(".json","");
       var done=getDone(date);
       var doneN=Object.values(done).filter(Boolean).length;
       var totalN=Object.keys(done).length;
       var pct=totalN?Math.round(doneN/totalN*100):null;
-      html+='<div class="history-item" onclick="location.href=\'history.html?date='+date+'\'">'+
-        '<span class="history-date">'+date+'</span>'+
-        '<span class="history-rate">'+(pct!==null?pct+"% 達成":"未記録")+'</span></div>';
+      if(pct!==null){totalPct+=pct;pctCount++;}
+      var d=new Date(date);
+      var dow=DOW[d.getDay()];
+      var mm=d.getMonth()+1;
+      var dd=d.getDate();
+      var dayNum=Math.max(1,Math.round((d-DAY_START)/(86400000))+1);
+      var color=pct===null?"#444":pct>=80?"#00f5d4":pct>=50?"#f0a500":"#ff6060";
+      cards+='<div class="hist-card">';
+      cards+='<div class="hist-top">';
+      cards+='<div>';
+      cards+='<div class="hist-date">'+mm+'/'+dd+'<span class="hist-dow">（'+dow+'）</span></div>';
+      cards+='<div class="hist-day">DAY '+dayNum+'</div>';
+      cards+='</div>';
+      cards+='<div class="hist-right">';
+      if(pct!==null){
+        cards+='<div class="hist-pct" style="color:'+color+'">'+pct+'%</div>';
+        cards+='<div class="hist-cnt">'+doneN+' / '+totalN+' 完了</div>';
+      } else {
+        cards+='<div class="hist-pct" style="color:#444">—</div>';
+        cards+='<div class="hist-cnt">チェック未記録</div>';
+      }
+      cards+='</div></div>';
+      if(pct!==null){
+        cards+='<div class="hist-bar"><div class="hist-bar-fill" style="width:'+pct+'%;background:'+color+'"></div></div>';
+      }
+      cards+='</div>';
     });
+    var avg=pctCount?Math.round(totalPct/pctCount):null;
+    var html='<div class="hist-head">';
+    html+='<span>📅 <strong>'+items.length+'</strong> 日間の記録</span>';
+    html+='<span>'+(avg!==null?'平均 <strong style="color:var(--green)">'+avg+'%</strong>達成':'')+'</span>';
+    html+='</div>';
+    html+=cards;
     document.getElementById("history-body").innerHTML=html;
   })
   .catch(function(){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';});
@@ -709,23 +750,48 @@ function submitQA(date){
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
+function toB64(obj){
+  return btoa(encodeURIComponent(JSON.stringify(obj,null,2)).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode("0x"+p)}));
+}
 function saveCompleted(date){
   var done=getDone(date);
-  var allCbs=document.querySelectorAll(".t-today");
-  var totalIds=[];allCbs.forEach(function(cb){totalIds.push(cb.id.replace(/^t/,""))});
+  var rows=document.querySelectorAll(".t-today");
+  var totalIds=[];rows.forEach(function(el){totalIds.push(el.id.replace(/^t/,""))});
   var completedIds=Object.keys(done).filter(function(id){return done[id]});
+  var pct=totalIds.length?Math.round(completedIds.length/totalIds.length*100):0;
   var btn=document.getElementById("save-completed-btn");
   btn.textContent="記録中...";btn.disabled=true;
   var GHT=localStorage.getItem("gh_token")||"";
   if(!GHT){GHT=prompt("GitHubトークンを入力（初回のみ）:");if(!GHT){btn.textContent="📊 今日の達成を記録する";btn.disabled=false;return;}localStorage.setItem("gh_token",GHT);}
-  var payload={date:date,completedIds:completedIds,totalIds:totalIds,completionRate:totalIds.length?Math.round(completedIds.length/totalIds.length*100):0};
-  var enc=btoa(encodeURIComponent(JSON.stringify(payload,null,2)).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode("0x"+p)}));
-  fetch(API+"/contents/data/completed.json",{headers:{"Authorization":"token "+GHT}})
-  .then(function(r){return r.json()})
+
+  // Build lightweight summary (no merit/detail/images/posts)
+  var d=window._todayData||{};
+  var taskList=[];
+  Object.keys(d.sections||{}).forEach(function(k){
+    var sec=d.sections[k];
+    (sec.tasks||[]).forEach(function(t){
+      taskList.push({id:t.id,title:t.title||t.text||"",cat:k});
+    });
+  });
+  var summary={
+    date:date,
+    dateJa:d.dateJa||date,
+    pct:pct,
+    completedIds:completedIds,
+    total:totalIds.length,
+    tasks:taskList,
+    quote:d.quote||"",
+    mustDo:d.mustDo||""
+  };
+  var enc=toB64(summary);
+  var archivePath=API+"/contents/data/archive/"+date+".json";
+
+  fetch(archivePath,{headers:{"Authorization":"token "+GHT}})
+  .then(function(r){return r.ok?r.json():{}})
   .then(function(ex){
     var body={message:"達成記録: "+date,content:enc};
     if(ex.sha) body.sha=ex.sha;
-    return fetch(API+"/contents/data/completed.json",{method:"PUT",headers:{"Authorization":"token "+GHT,"Content-Type":"application/json"},body:JSON.stringify(body)});
+    return fetch(archivePath,{method:"PUT",headers:{"Authorization":"token "+GHT,"Content-Type":"application/json"},body:JSON.stringify(body)});
   }).then(function(r){return r.json()})
   .then(function(res){
     if(res.content){localStorage.setItem("completed-saved-"+date,"1");btn.textContent="✓ 達成記録済み";btn.classList.add("saved");btn.disabled=false;}
