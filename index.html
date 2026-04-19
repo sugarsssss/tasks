@@ -1,177 +1,306 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
-  <title>タスク管理</title>
-  <style>
-    *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:#0f0f0f;color:#e8e8e8;min-height:100vh;padding:20px 16px}
-    #lock-screen{position:fixed;inset:0;background:#0f0f0f;display:flex;align-items:center;justify-content:center;z-index:9999}
-    #lock-screen.hidden{display:none}
-    .lock-box{width:100%;max-width:320px;padding:32px 24px;background:#181818;border-radius:16px;border:1px solid #222;text-align:center}
-    .lock-icon{font-size:36px;margin-bottom:16px}
-    .lock-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
-    .lock-sub{font-size:12px;color:#555;margin-bottom:20px}
-    .lock-input{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:8px;color:#e8e8e8;font-size:15px;padding:12px 14px;text-align:center;letter-spacing:.2em;outline:none;font-family:inherit}
-    .lock-input:focus{border-color:#7c6fcd}
-    .lock-btn{margin-top:12px;width:100%;background:#7c6fcd;border:none;color:#fff;font-size:14px;font-weight:700;padding:11px;border-radius:8px;cursor:pointer;transition:background .2s}
-    .lock-btn:hover{background:#6a5eb8}
-    .lock-error{font-size:12px;color:#ff6060;margin-top:10px;min-height:18px}
-    .container{max-width:680px;margin:0 auto}
-    nav{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
-    nav button{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;color:#888;border:1px solid #2a2a2a;background:transparent;transition:all .2s}
-    nav button.active,nav button:hover{color:#fff;border-color:#7c6fcd;background:#1a1530}
-    .section{display:none;animation:fadeIn .2s ease}
-    .section.active{display:block}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-    .page-header{margin-bottom:24px}
-    .page-date{font-size:12px;color:#555;margin-bottom:4px}
-    .page-title{font-size:20px;font-weight:700;color:#fff}
-    .progress-bar-wrap{margin-top:8px}
-    .progress-label{font-size:11px;color:#666;margin-bottom:4px}
-    .progress-bar{height:4px;background:#1e1e1e;border-radius:2px;overflow:hidden}
-    .progress-fill{height:100%;background:#7c6fcd;border-radius:2px;transition:width .4s ease}
-    .block-title{font-size:11px;font-weight:600;letter-spacing:.1em;color:#666;text-transform:uppercase;margin-bottom:8px;margin-top:20px}
-    .task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;transition:border-color .2s}
-    .task-item input[type=checkbox]{width:15px;height:15px;accent-color:#7c6fcd;margin-top:2px;flex-shrink:0;cursor:pointer}
-    .task-text{font-size:13px;line-height:1.5;flex:1}
-    .task-time{font-size:11px;color:#444;white-space:nowrap;padding-left:8px}
-    .must-do{background:#14112a;border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:20px}
-    .must-do-label{font-size:10px;color:#7c6fcd;font-weight:700;letter-spacing:.12em;margin-bottom:5px}
-    .must-do-text{font-size:13px;color:#b8aaff;line-height:1.5}
-    .quote-box{background:#111;border-left:3px solid #333;padding:10px 12px;border-radius:0 6px 6px 0;margin-top:12px}
-    .quote-label{font-size:10px;color:#444;font-weight:600;letter-spacing:.1em;margin-bottom:3px}
-    .quote-text{font-size:13px;color:#888;font-style:italic}
-    .priority-badge{color:#ff6060;font-size:10px;font-weight:700;margin-left:6px}
-    .x-post-box{background:#0d1117;border:1px solid #2a2a3a;border-radius:8px;padding:14px;margin-top:16px}
-    .x-post-label{font-size:10px;color:#1d9bf0;font-weight:700;letter-spacing:.1em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
-    .x-post-text{font-size:13px;line-height:1.7;color:#e8e8e8;white-space:pre-wrap;word-break:break-all}
-    .x-char-count{font-size:11px;color:#555;margin-top:6px;text-align:right}
-    .x-post-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-    .copy-btn{background:#1d9bf0;border:none;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
-    .copy-btn:hover{background:#1a8cd8}
-    .copy-btn.copied{background:#4caf7d}
-    .tweet-btn{background:#000;border:1px solid #333;color:#fff;font-size:12px;font-weight:600;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
-    .tweet-btn:hover{background:#111;border-color:#fff}
-    .qa-box{background:#111;border:1px solid #222;border-radius:8px;padding:14px;margin-top:12px}
-    .qa-label{font-size:10px;color:#f0a500;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
-    .qa-question{font-size:13px;color:#ccc;line-height:1.6;margin-bottom:10px}
-    .qa-input{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:6px;color:#e8e8e8;font-size:13px;padding:10px 12px;resize:vertical;min-height:80px;font-family:inherit;line-height:1.6}
-    .qa-input:focus{outline:none;border-color:#f0a500}
-    .qa-input-row{position:relative}
-    .qa-mic-btn{position:absolute;bottom:10px;right:10px;background:#2a2a2a;border:1px solid #3a3a3a;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:15px}
-    .qa-mic-btn:hover{background:#3a3a3a}
-    .qa-mic-btn.recording{background:#c0392b;border-color:#e74c3c;animation:pulse 1s infinite}
-    @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,.4)}50%{box-shadow:0 0 0 6px rgba(231,76,60,0)}}
-    .qa-submit{margin-top:8px;background:#f0a500;border:none;color:#000;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
-    .qa-submit:hover{background:#d4920a}
-    .qa-submit.sent{background:#4caf7d;color:#fff}
-    .goal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;transition:border-color .2s}
-    .goal-item input[type=checkbox]{width:15px;height:15px;accent-color:#4caf7d;margin-top:2px;flex-shrink:0;cursor:pointer}
-    .goal-text{font-size:13px;line-height:1.5;flex:1}
-    .cat-badge{font-size:10px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600}
-    .cat-booth{background:#1a1530;color:#9b8bff}.cat-sns{background:#0d2020;color:#4ecdc4}.cat-biz{background:#1a1200;color:#f0a500}.cat-revenue{background:#1a0f0f;color:#ff6b6b}
-    .history-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#181818;border-radius:8px;margin-bottom:5px;border:1px solid #212121;cursor:pointer;transition:border-color .2s}
-    .history-item:hover{border-color:#7c6fcd}
-    .history-date{font-size:13px}
-    .history-rate{font-size:12px;color:#7c6fcd;font-weight:600}
-    .empty{color:#444;font-size:13px;padding:20px 0;text-align:center}
-    .spinner{text-align:center;color:#333;padding:40px;font-size:13px}
-    .thumb-add-btn{display:flex;align-items:center;gap:6px;background:transparent;border:1px dashed #333;color:#666;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;cursor:pointer;width:100%;margin-top:6px;transition:all .2s}
-    .thumb-add-btn:hover{border-color:#7c6fcd;color:#9b8bff}
-    .thumb-form{background:#181818;border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:6px;display:none}
-    .thumb-form.open{display:block;animation:fadeIn .2s ease}
-    .thumb-form-label{font-size:10px;color:#7c6fcd;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
-    .thumb-form input{width:100%;background:#111;border:1px solid #2a2a2a;border-radius:6px;color:#e8e8e8;font-size:13px;padding:9px 11px;font-family:inherit;outline:none;margin-bottom:8px}
-    .thumb-form input:focus{border-color:#7c6fcd}
-    .thumb-form input[type=date]{color-scheme:dark}
-    .thumb-form-btns{display:flex;gap:8px;margin-top:4px}
-    .thumb-save-btn{background:#7c6fcd;border:none;color:#fff;font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer;transition:background .2s}
-    .thumb-save-btn:hover{background:#6a5eb8}
-    .thumb-save-btn:disabled{background:#333;color:#555;cursor:not-allowed}
-    .thumb-cancel-btn{background:transparent;border:1px solid #333;color:#666;font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer}
-    .save-completed-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#14112a;border:1px solid #2d2460;color:#9b8bff;font-size:13px;font-weight:700;padding:12px;border-radius:8px;cursor:pointer;width:100%;margin-top:16px;transition:all .2s}
-    .save-completed-btn:hover{background:#1a1630;border-color:#7c6fcd}
-    .save-completed-btn.saved{background:#0d2020;border-color:#2d5a3d;color:#4ecdc4}
-    .image-section{margin-top:16px}
-    .image-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .image-theme-label{font-size:10px;color:#4ecdc4;font-weight:700;letter-spacing:.1em}
-    .image-theme-name{font-size:15px;font-weight:700;color:#fff;margin-top:2px}
-    .image-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-    .image-card{position:relative;border-radius:8px;overflow:hidden;border:1px solid #212121;background:#111;aspect-ratio:16/9}
-    .image-card img{width:100%;height:100%;object-fit:cover;display:block}
-    .image-card-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .2s;display:flex;align-items:center;justify-content:center}
-    .image-card:hover .image-card-overlay{background:rgba(0,0,0,.5)}
-    .image-dl-btn{opacity:0;background:#7c6fcd;border:none;color:#fff;font-size:11px;font-weight:700;padding:6px 14px;border-radius:20px;cursor:pointer;transition:opacity .2s}
-    .image-card:hover .image-dl-btn{opacity:1}
-    .image-dl-all-btn{background:#7c6fcd;border:none;color:#fff;font-size:12px;font-weight:700;padding:7px 16px;border-radius:20px;cursor:pointer;transition:background .2s;white-space:nowrap}
-    .image-dl-all-btn:hover{background:#6a5dbd}
-    .image-post-box{background:#0d1f1a;border:1px solid #1a3a2a;border-radius:8px;padding:14px;margin-top:10px}
-    .image-post-label{font-size:10px;color:#4ecdc4;font-weight:700;letter-spacing:.1em;margin-bottom:8px}
-    .image-spinner{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:#111;border-radius:8px;color:#333;font-size:12px}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+<title>SUGARR DASHBOARD</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#9b5de5;--purple-dim:#2d1b69;--green:#00f5d4;--green-dim:#0d2a25;
+  --pink:#f15bb5;--gold:#f0a500;--red:#ff6060;--blue:#1d9bf0;
+  --dark:#0a0a12;--card:#12121e;--card2:#181828;--border:#1e1e2e;--border2:#2a2a3a;
+  --text:#e8e8f0;--text2:#888;--text3:#555;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans",sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+
+/* LOCK */
+#lock-screen{position:fixed;inset:0;background:var(--dark);display:flex;align-items:center;justify-content:center;z-index:9999}
+#lock-screen.hidden{display:none}
+.lock-box{width:100%;max-width:320px;padding:32px 24px;background:var(--card);border-radius:16px;border:1px solid var(--border2);text-align:center}
+.lock-icon{font-size:36px;margin-bottom:16px}
+.lock-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:6px}
+.lock-sub{font-size:12px;color:var(--text3);margin-bottom:20px}
+.lock-input{width:100%;background:#111;border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:15px;padding:12px 14px;text-align:center;letter-spacing:.2em;outline:none;font-family:inherit}
+.lock-input:focus{border-color:var(--purple)}
+.lock-btn{margin-top:12px;width:100%;background:var(--purple);border:none;color:#fff;font-size:14px;font-weight:700;padding:11px;border-radius:8px;cursor:pointer;transition:background .2s}
+.lock-btn:hover{background:#8040d0}
+.lock-error{font-size:12px;color:var(--red);margin-top:10px;min-height:18px}
+
+/* WRAPPER */
+.wrapper{max-width:1100px;margin:0 auto;padding:20px 16px}
+
+/* TOP NAV */
+.top-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.brand{font-size:16px;font-weight:900;background:linear-gradient(135deg,var(--purple),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.05em}
+.nav-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.nav-tab{font-size:12px;padding:6px 14px;border-radius:20px;cursor:pointer;color:var(--text2);border:1px solid var(--border);background:transparent;transition:all .2s;font-family:inherit}
+.nav-tab.active,.nav-tab:hover{color:#fff;border-color:var(--purple);background:#1a1030}
+.nav-right{font-size:12px;color:var(--text3)}
+
+/* SECTION */
+.section{display:none;animation:fadeIn .2s ease}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* HERO ROW */
+.hero-row{display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;margin-bottom:16px}
+.ring-wrap{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ring-container{position:relative;width:80px;height:80px}
+svg.ring{transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:var(--border2);stroke-width:7}
+.ring-fill{fill:none;stroke:var(--green);stroke-width:7;stroke-linecap:round;stroke-dasharray:220;stroke-dashoffset:220;transition:stroke-dashoffset 1s ease}
+.ring-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring-pct{font-size:18px;font-weight:900;color:#fff;line-height:1}
+.ring-sub{font-size:9px;color:var(--text3);letter-spacing:.1em}
+.ring-label{font-size:10px;color:var(--text2)}
+
+.hero-center{}
+.hero-day-badge{font-size:10px;color:var(--green);font-weight:700;letter-spacing:.2em;margin-bottom:4px}
+.hero-date{font-size:22px;font-weight:900;color:#fff;line-height:1.2}
+.hero-sub{font-size:11px;color:var(--text3);margin-top:4px}
+
+.streak-card{background:var(--card);border:1px solid var(--border2);border-radius:12px;padding:12px 16px;text-align:center;min-width:90px}
+.streak-fire{font-size:18px;margin-bottom:2px}
+.streak-num{font-size:28px;font-weight:900;color:var(--pink);line-height:1}
+.streak-label{font-size:9px;color:var(--text3);letter-spacing:.15em;margin-top:2px}
+
+/* STATS ROW */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px;text-align:center}
+.stat-num{font-size:20px;font-weight:900;color:#fff}
+.stat-label{font-size:9px;color:var(--text3);letter-spacing:.08em;margin-top:2px}
+.stat-card.c-purple .stat-num{color:var(--purple)}
+.stat-card.c-green .stat-num{color:var(--green)}
+.stat-card.c-pink .stat-num{color:var(--pink)}
+.stat-card.c-gold .stat-num{color:var(--gold)}
+
+/* MAIN GRID */
+.main-grid{display:grid;grid-template-columns:1fr 360px;gap:14px}
+@media(max-width:760px){.main-grid{grid-template-columns:1fr}.hero-row{grid-template-columns:auto 1fr auto}.stats-row{grid-template-columns:repeat(2,1fr)}}
+
+/* TASK AREA */
+.tasks-area{}
+.section-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:10px}
+.sc-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.sc-label{font-size:10px;font-weight:700;letter-spacing:.15em;color:var(--text3);text-transform:uppercase}
+.sc-count{font-size:10px;background:var(--card2);color:var(--text2);padding:2px 8px;border-radius:10px}
+.sc-priority{font-size:9px;background:var(--purple-dim);color:var(--purple);padding:2px 7px;border-radius:10px;font-weight:700;letter-spacing:.1em}
+
+.task-row{display:flex;align-items:flex-start;gap:10px;padding:9px 8px;border-radius:8px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--border)}
+.task-row:last-child{border-bottom:none;padding-bottom:0}
+.task-row:hover{background:var(--card2)}
+.task-check{width:17px;height:17px;border-radius:50%;border:2px solid var(--border2);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.task-check.done{background:var(--green);border-color:var(--green)}
+.task-check.done::after{content:'✓';font-size:9px;color:#000;font-weight:900}
+.task-info{flex:1;min-width:0}
+.task-title{font-size:13px;line-height:1.5;color:var(--text);transition:all .2s}
+.task-title.done{text-decoration:line-through;color:var(--text3)}
+.task-merit{font-size:11px;color:var(--text3);margin-top:2px;line-height:1.3}
+.task-time{font-size:10px;color:var(--text3);background:var(--card2);padding:2px 7px;border-radius:8px;white-space:nowrap;flex-shrink:0}
+
+.must-card{background:linear-gradient(135deg,#14102a,#1a1235);border:1px solid #3d2d7a;border-radius:12px;padding:12px 14px;margin-bottom:10px}
+.must-tag{font-size:9px;color:var(--purple);font-weight:700;letter-spacing:.2em;margin-bottom:5px}
+.must-text{font-size:13px;color:#c4b5fd;line-height:1.6}
+
+.save-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--card);border:1px solid var(--border2);color:var(--purple);font-size:12px;font-weight:700;padding:11px;border-radius:10px;cursor:pointer;width:100%;margin-top:10px;transition:all .2s;font-family:inherit}
+.save-btn:hover{background:var(--card2);border-color:var(--purple)}
+.save-btn.saved{background:var(--green-dim);border-color:#2d5a3d;color:var(--green)}
+
+.thumb-add-btn{display:flex;align-items:center;gap:6px;background:transparent;border:1px dashed var(--border2);color:var(--text3);font-size:12px;font-weight:600;padding:8px 12px;border-radius:8px;cursor:pointer;width:100%;margin-top:8px;transition:all .2s;font-family:inherit}
+.thumb-add-btn:hover{border-color:var(--purple);color:#9b8bff}
+.thumb-form{background:var(--card2);border:1px solid #2d2460;border-radius:8px;padding:12px;margin-top:6px;display:none}
+.thumb-form.open{display:block;animation:fadeIn .2s ease}
+.thumb-form-label{font-size:10px;color:var(--purple);font-weight:700;letter-spacing:.1em;margin-bottom:8px}
+.thumb-form input{width:100%;background:#111;border:1px solid var(--border2);border-radius:6px;color:var(--text);font-size:13px;padding:9px 11px;font-family:inherit;outline:none;margin-bottom:8px}
+.thumb-form input:focus{border-color:var(--purple)}
+.thumb-form input[type=date]{color-scheme:dark}
+.thumb-form-btns{display:flex;gap:8px;margin-top:4px}
+.thumb-save-btn{background:var(--purple);border:none;color:#fff;font-size:12px;font-weight:700;padding:7px 18px;border-radius:20px;cursor:pointer}
+.thumb-save-btn:disabled{background:#333;color:var(--text3);cursor:not-allowed}
+.thumb-cancel-btn{background:transparent;border:1px solid var(--border2);color:var(--text3);font-size:12px;padding:7px 14px;border-radius:20px;cursor:pointer;font-family:inherit}
+
+/* RIGHT COLUMN */
+.right-col{display:flex;flex-direction:column;gap:10px}
+
+.post-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px}
+.post-header{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.post-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.post-label{font-size:10px;font-weight:700;letter-spacing:.1em}
+.post-chars{font-size:10px;color:var(--text3);margin-left:auto}
+.post-body{font-size:12px;line-height:1.7;color:#ccc;white-space:pre-wrap;word-break:break-all;background:var(--card2);padding:10px;border-radius:8px;margin-bottom:8px}
+.post-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px}
+.btn-copy{background:var(--purple);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;cursor:pointer;transition:background .2s}
+.btn-copy:hover{background:#8040d0}
+.btn-copy.copied{background:var(--green);color:#000}
+.btn-open{background:transparent;border:1px solid var(--border2);color:var(--text2);font-size:11px;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:inherit}
+
+.img-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px}
+.img-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.img-label{font-size:10px;color:var(--green);font-weight:700;letter-spacing:.1em}
+.img-theme{font-size:11px;color:var(--text3)}
+.img-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px}
+.img-cell{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;background:var(--card2);border:1px solid var(--border)}
+.img-cell img{width:100%;height:100%;object-fit:cover;display:block}
+.img-cell-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;transition:background .2s}
+.img-cell:hover .img-cell-overlay{background:rgba(0,0,0,.5)}
+.img-dl-btn{opacity:0;background:var(--purple);border:none;color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:12px;cursor:pointer;transition:opacity .2s}
+.img-cell:hover .img-dl-btn{opacity:1}
+.img-dl-all{background:var(--green-dim);border:1px solid var(--green);color:var(--green);font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;cursor:pointer;font-family:inherit}
+.img-post-body{font-size:11px;color:#aaa;line-height:1.6;background:var(--card2);padding:8px;border-radius:6px;margin-bottom:8px}
+
+.qa-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px}
+.qa-header{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:.1em;margin-bottom:6px}
+.qa-q{font-size:12px;color:#ccc;line-height:1.6;margin-bottom:8px}
+.qa-input-wrap{position:relative}
+.qa-input{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:8px;color:var(--text);font-size:12px;padding:10px 40px 10px 10px;resize:vertical;min-height:70px;font-family:inherit;line-height:1.6;outline:none;transition:border-color .2s}
+.qa-input:focus{border-color:var(--gold)}
+.qa-mic{position:absolute;bottom:8px;right:8px;background:var(--card);border:1px solid var(--border2);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .2s}
+.qa-mic:hover{background:var(--card2)}
+.qa-mic.recording{background:#c0392b;border-color:#e74c3c;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(231,76,60,.4)}50%{box-shadow:0 0 0 6px rgba(231,76,60,0)}}
+.qa-send{margin-top:8px;background:var(--gold);border:none;color:#000;font-size:11px;font-weight:700;padding:6px 16px;border-radius:20px;cursor:pointer;transition:background .2s}
+.qa-send:hover{background:#d4920a}
+.qa-send.sent{background:#4caf7d;color:#fff}
+
+.quote-card{background:var(--card2);border-left:3px solid var(--purple);padding:10px 12px;border-radius:0 8px 8px 0;font-size:12px;color:var(--text2);font-style:italic;line-height:1.6}
+
+/* WEEK / MONTH */
+.wm-hero{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:14px}
+.wm-tag{font-size:10px;color:var(--purple);font-weight:700;letter-spacing:.2em;margin-bottom:6px}
+.wm-goal{font-size:15px;font-weight:700;color:#fff;line-height:1.5;margin-bottom:8px}
+.wm-kr{font-size:12px;color:var(--text2);line-height:1.6}
+.wm-progress{margin-top:12px}
+.wm-plabel{font-size:11px;color:var(--text3);margin-bottom:4px}
+.wm-pbar{height:5px;background:var(--border2);border-radius:3px;overflow:hidden}
+.wm-pfill{height:100%;background:var(--purple);border-radius:3px;transition:width .5s ease}
+
+.goal-item{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;background:var(--card);border-radius:10px;margin-bottom:6px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s}
+.goal-item:hover{border-color:var(--purple)}
+.goal-item input[type=checkbox]{width:15px;height:15px;accent-color:#4caf7d;margin-top:2px;flex-shrink:0}
+.goal-text{font-size:13px;line-height:1.5;flex:1}
+.cat-badge{font-size:9px;padding:2px 7px;border-radius:10px;margin-left:6px;font-weight:600;white-space:nowrap}
+.cat-booth{background:#1a1530;color:#9b8bff}
+.cat-sns{background:#0d2020;color:#4ecdc4}
+.cat-biz{background:#1a1200;color:var(--gold)}
+.cat-revenue{background:#1a0f0f;color:var(--red)}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:14px}
+.kpi-card{background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:10px 12px}
+.kpi-label{font-size:9px;color:var(--text3);letter-spacing:.1em;margin-bottom:4px}
+.kpi-val{font-size:13px;font-weight:700;color:#fff}
+
+.focus-card{background:linear-gradient(135deg,var(--card),#14102a);border:1px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:14px}
+.focus-label{font-size:9px;color:var(--purple);font-weight:700;letter-spacing:.2em;margin-bottom:6px}
+.focus-text{font-size:13px;color:#c4b5fd;line-height:1.7}
+
+/* HISTORY */
+.history-item{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--card);border-radius:8px;margin-bottom:5px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s}
+.history-item:hover{border-color:var(--purple)}
+.history-date{font-size:13px}
+.history-rate{font-size:12px;color:var(--purple);font-weight:600}
+.empty{color:var(--text3);font-size:13px;padding:20px 0;text-align:center}
+.spinner{text-align:center;color:var(--text3);padding:40px;font-size:13px}
+.priority-badge{color:var(--red);font-size:9px;font-weight:700;margin-left:5px}
+
+/* IMAGE SPINNER */
+.image-spinner{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;background:var(--card2);border-radius:6px;color:var(--text3);font-size:11px}
+</style>
 </head>
 <body>
+
 <div id="lock-screen">
   <div class="lock-box">
-    <div class="lock-icon">🔒</div>
-    <div class="lock-title">タスク管理</div>
-    <div class="lock-sub">パスワードを入力してください</div>
-    <input class="lock-input" id="lock-input" type="password" placeholder="••••••••"
-      onkeydown="if(event.key==='Enter')unlock()">
+    <div class="lock-icon">⚡</div>
+    <div class="lock-title">SUGARR DASHBOARD</div>
+    <div class="lock-sub">パスワードを入力</div>
+    <input class="lock-input" id="lock-input" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')unlock()">
     <button class="lock-btn" onclick="unlock()">入る</button>
     <div class="lock-error" id="lock-error"></div>
   </div>
 </div>
-<div class="container">
-  <nav>
-    <button onclick="show('today',this)" class="active">📋 今日</button>
-    <button onclick="show('week',this)">📅 今週</button>
-    <button onclick="show('month',this)">🗓 今月</button>
-    <button onclick="show('history',this)">📂 履歴</button>
-  </nav>
 
-  <div id="sec-today" class="section active">
-    <div class="page-header">
-      <div class="page-date" id="today-date"></div>
-      <div class="page-title">今日のタスク</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-label" id="today-plabel">読み込み中...</div>
-        <div class="progress-bar"><div class="progress-fill" id="today-pfill" style="width:0%"></div></div>
+<div class="wrapper">
+  <!-- TOP NAV -->
+  <div class="top-nav">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="brand">SUGARR</div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" onclick="show('today',this)">📋 今日</button>
+        <button class="nav-tab" onclick="show('week',this)">📅 今週</button>
+        <button class="nav-tab" onclick="show('month',this)">🗓 今月</button>
+        <button class="nav-tab" onclick="show('history',this)">📂 履歴</button>
       </div>
     </div>
-    <div id="today-body"><div class="spinner">読み込み中...</div></div>
+    <div class="nav-right" id="nav-day-label">DAY —</div>
   </div>
 
-  <div id="sec-week" class="section">
-    <div class="page-header">
-      <div class="page-date" id="week-date"></div>
-      <div class="page-title">今週の目標</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-label" id="week-plabel">読み込み中...</div>
-        <div class="progress-bar"><div class="progress-fill" id="week-pfill" style="width:0%"></div></div>
+  <!-- TODAY -->
+  <div id="sec-today" class="section active">
+    <!-- HERO -->
+    <div class="hero-row">
+      <div class="ring-wrap">
+        <div class="ring-container">
+          <svg class="ring" width="80" height="80" viewBox="0 0 80 80">
+            <circle class="ring-bg" cx="40" cy="40" r="31"/>
+            <circle class="ring-fill" id="ring-fill" cx="40" cy="40" r="31"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-pct" id="ring-pct">0%</div>
+            <div class="ring-sub">完了</div>
+          </div>
+        </div>
+        <div class="ring-label">今日の進捗</div>
+      </div>
+      <div class="hero-center">
+        <div class="hero-day-badge" id="hero-day-badge">DAY —</div>
+        <div class="hero-date" id="hero-date">読み込み中...</div>
+        <div class="hero-sub" id="hero-sub"></div>
+      </div>
+      <div class="streak-card">
+        <div class="streak-fire">🔥</div>
+        <div class="streak-num" id="streak-num">—</div>
+        <div class="streak-label">DAY STREAK</div>
       </div>
     </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card c-purple"><div class="stat-num" id="stat-tasks">—</div><div class="stat-label">TODAY TASKS</div></div>
+      <div class="stat-card c-green"><div class="stat-num" id="stat-booth">18</div><div class="stat-label">BOOTH素材</div></div>
+      <div class="stat-card c-pink"><div class="stat-num" id="stat-posts">3</div><div class="stat-label">投稿案</div></div>
+      <div class="stat-card c-gold"><div class="stat-num" id="stat-images">4</div><div class="stat-label">背景画像</div></div>
+    </div>
+
+    <!-- MAIN GRID -->
+    <div class="main-grid">
+      <!-- LEFT: TASKS -->
+      <div class="tasks-area" id="tasks-area">
+        <div class="spinner">読み込み中...</div>
+      </div>
+      <!-- RIGHT: POSTS + IMAGES + QA -->
+      <div class="right-col" id="right-col">
+        <div class="spinner">読み込み中...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEK -->
+  <div id="sec-week" class="section">
     <div id="week-body"><div class="spinner">読み込み中...</div></div>
   </div>
 
+  <!-- MONTH -->
   <div id="sec-month" class="section">
-    <div class="page-header">
-      <div class="page-date" id="month-date"></div>
-      <div class="page-title">今月の目標</div>
-      <div class="progress-bar-wrap">
-        <div class="progress-label" id="month-plabel">読み込み中...</div>
-        <div class="progress-bar"><div class="progress-fill" id="month-pfill" style="width:0%"></div></div>
-      </div>
-    </div>
     <div id="month-body"><div class="spinner">読み込み中...</div></div>
   </div>
 
+  <!-- HISTORY -->
   <div id="sec-history" class="section">
-    <div class="page-header">
-      <div class="page-title">過去のタスク履歴</div>
+    <div class="wm-hero" style="margin-bottom:14px">
+      <div class="wm-tag">HISTORY</div>
+      <div class="wm-goal">過去のタスク履歴</div>
     </div>
     <div id="history-body"><div class="spinner">読み込み中...</div></div>
   </div>
@@ -179,163 +308,383 @@
 
 <script>
 var PASS="sugar2026";
+var REPO="sugarsssss/tasks";
+var RAW="https://raw.githubusercontent.com/"+REPO+"/main";
+var API="https://api.github.com/repos/"+REPO;
+
 function unlock(){
   var v=document.getElementById("lock-input").value;
-  if(v===PASS){localStorage.setItem("auth","1");document.getElementById("lock-screen").classList.add("hidden");}
+  if(v===PASS){localStorage.setItem("auth","1");document.getElementById("lock-screen").classList.add("hidden");initAll();}
   else{document.getElementById("lock-error").textContent="パスワードが違います";document.getElementById("lock-input").value="";}
 }
-if(localStorage.getItem("auth")==="1"){document.getElementById("lock-screen").classList.add("hidden");}
-
-const REPO="sugarsssss/tasks";
-const RAW="https://raw.githubusercontent.com/"+REPO+"/main";
-const API="https://api.github.com/repos/"+REPO;
+if(localStorage.getItem("auth")==="1"){document.getElementById("lock-screen").classList.add("hidden");initAll();}
 
 function show(name,btn){
-  document.querySelectorAll("nav button").forEach(b=>b.classList.remove("active"));
-  document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
+  document.querySelectorAll(".nav-tab").forEach(function(b){b.classList.remove("active")});
+  document.querySelectorAll(".section").forEach(function(s){s.classList.remove("active")});
   btn.classList.add("active");
   document.getElementById("sec-"+name).classList.add("active");
   if(name==="history") loadHistory();
 }
 
 function getDone(k){return JSON.parse(localStorage.getItem("done-"+k)||"{}")}
-function setDone(k,id,v){var d=getDone(k);d[id]=v;localStorage.setItem("done-"+k,JSON.stringify(d))}
+function setDone(k,id,v){var d=getDone(k);if(v)d[id]=true;else delete d[id];localStorage.setItem("done-"+k,JSON.stringify(d))}
+function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/\n/g,"&#10;")}
 
-function calcPct(k,cls){
-  var total=document.querySelectorAll("."+cls).length;
-  var done=Object.values(getDone(k)).filter(Boolean).length;
-  return{total:total,done:done,pct:total?Math.round(done/total*100):0};
+function countTasks(date){
+  var all=document.querySelectorAll(".t-today").length;
+  var done=Object.keys(getDone(date)).filter(function(k){return getDone(date)[k]}).length;
+  return{all:all,done:done,pct:all?Math.round(done/all*100):0};
 }
-function updateBar(k,cls,prefix){
-  var r=calcPct(k,cls);
-  document.getElementById(prefix+"-plabel").textContent=r.done+" / "+r.total+" 完了 ("+r.pct+"%)";
-  document.getElementById(prefix+"-pfill").style.width=r.pct+"%";
+function updateProgress(date){
+  var r=countTasks(date);
+  document.getElementById("ring-pct").textContent=r.pct+"%";
+  var circumference=2*Math.PI*31;
+  var offset=circumference*(1-r.pct/100);
+  document.getElementById("ring-fill").style.strokeDasharray=circumference;
+  document.getElementById("ring-fill").style.strokeDashoffset=offset;
+  document.getElementById("stat-tasks").textContent=r.all;
 }
 
-// TODAY
-fetch(RAW+"/data/today.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
-    document.getElementById("today-date").textContent=d.dateJa||d.date||"";localStorage.setItem("today-date",d.date);
-    var html="";
+function initAll(){
+  loadToday();
+  loadWeek();
+  loadMonth();
+}
+
+// ---- TODAY ----
+function loadToday(){
+  fetch(RAW+"/data/today.json?t="+Date.now())
+  .then(function(r){return r.json()})
+  .then(function(d){
+    var date=d.date||"";
+    localStorage.setItem("today-date",date);
+    document.getElementById("hero-date").textContent=d.dateJa||date;
+    document.getElementById("hero-sub").textContent="おはよう、Sugar 👋";
+
+    // DAY number from date
+    var start=new Date("2026-04-06");
+    var now=new Date(date);
+    var dayNum=Math.round((now-start)/(1000*60*60*24))+1;
+    document.getElementById("hero-day-badge").textContent="DAY "+dayNum;
+    document.getElementById("nav-day-label").textContent="DAY "+dayNum+" 🔥";
+    document.getElementById("streak-num").textContent=dayNum;
+
+    // Build tasks area
+    var tasksHtml="";
     var secs=d.sections||{};
+    var totalTasks=0;
     Object.keys(secs).forEach(function(k){
       var sec=secs[k];
-      html+='<div class="block-title">'+sec.label+(sec.priority?'<span class="priority-badge">最優先</span>':'')+' </div>';
-      (sec.tasks||[]).forEach(function(t){
-        var done=getDone(d.date)[t.id];
-        html+='<div class="task-item"><input type="checkbox" class="t-today" id="t'+t.id+'" '+(done?"checked":"")+
-          ' onchange="setDone(\''+d.date+'\',\''+t.id+'\',this.checked);updateBar(\''+d.date+'\',\'t-today\',\'today\')">'+
-          '<label class="task-text" for="t'+t.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(t.title||t.text||"")+'</label>'+
-          '<span class="task-time">'+(t.time||"")+'</span></div>';
+      var tasks=sec.tasks||[];
+      totalTasks+=tasks.length;
+      var doneInSec=tasks.filter(function(t){return getDone(date)[t.id]}).length;
+      tasksHtml+='<div class="section-card">';
+      tasksHtml+='<div class="sc-header">';
+      tasksHtml+='<span class="sc-label">'+sec.label+(sec.priority?'<span class="priority-badge">最優先</span>':'')+'</span>';
+      tasksHtml+='<span class="sc-count">'+doneInSec+'/'+tasks.length+'</span>';
+      tasksHtml+='</div>';
+      tasks.forEach(function(t){
+        var done=getDone(date)[t.id];
+        tasksHtml+='<div class="task-row" onclick="toggleTask(this,\''+date+'\',\''+t.id+'\')">';
+        tasksHtml+='<div class="task-check'+(done?' done':'')+'"></div>';
+        tasksHtml+='<div class="task-info">';
+        tasksHtml+='<div class="task-title'+(done?' done':'')+'">'+(t.title||t.text||'')+'</div>';
+        if(t.merit) tasksHtml+='<div class="task-merit">'+escHtml(t.merit)+'</div>';
+        tasksHtml+='</div>';
+        if(t.time) tasksHtml+='<div class="task-time">'+t.time+'</div>';
+        tasksHtml+='</div>';
       });
       if(k==='thumbnail'){
-        html+='<button class="thumb-add-btn" onclick="toggleThumbForm()">＋ サムネを追加</button>'+
-          '<div class="thumb-form" id="thumb-form">'+
-            '<div class="thumb-form-label">🖼 新しいサムネ案件を追加</div>'+
-            '<input type="text" id="thumb-name" placeholder="案件名（例：ヒロキさんのサムネ）">'+
-            '<input type="date" id="thumb-deadline">'+
-            '<div class="thumb-form-btns">'+
-              '<button class="thumb-save-btn" id="thumb-save-btn" onclick="saveThumb()">追加する</button>'+
-              '<button class="thumb-cancel-btn" onclick="toggleThumbForm()">キャンセル</button>'+
-            '</div>'+
-          '</div>';
+        tasksHtml+='<button class="thumb-add-btn" onclick="toggleThumbForm()">＋ サムネを追加</button>';
+        tasksHtml+='<div class="thumb-form" id="thumb-form">';
+        tasksHtml+='<div class="thumb-form-label">🖼 新しいサムネ案件を追加</div>';
+        tasksHtml+='<input type="text" id="thumb-name" placeholder="案件名">';
+        tasksHtml+='<input type="date" id="thumb-deadline">';
+        tasksHtml+='<div class="thumb-form-btns">';
+        tasksHtml+='<button class="thumb-save-btn" id="thumb-save-btn" onclick="saveThumb()">追加する</button>';
+        tasksHtml+='<button class="thumb-cancel-btn" onclick="toggleThumbForm()">キャンセル</button>';
+        tasksHtml+='</div></div>';
       }
+      tasksHtml+='</div>';
     });
-    if(d.mustDo) html+='<div class="must-do"><div class="must-do-label">⚡ MUST DO</div><div class="must-do-text">'+d.mustDo+'</div></div>';
-    if(d.quote)  html+='<div class="quote-box"><div class="quote-label">💬 今日の一言</div><div class="quote-text">'+d.quote+'</div></div>';
-    if(d.xPost){
-      var charCount=(d.xPost||"").length;
-      var countColor=charCount>140?"#ff6060":charCount>120?"#f0a500":"#555";
-      html+='<div class="x-post-box">'+
-        '<div class="x-post-label">📱 今日のThreads投稿案</div>'+
-        '<div class="x-post-text" id="xpost-text">'+escHtml(d.xPost)+'</div>'+
-        '<div class="x-char-count" style="color:'+countColor+'">'+charCount+' / 140文字</div>'+
-        '<div class="x-post-btns">'+
-          '<button class="copy-btn" id="copy-btn" onclick="copyPost(\'xpost-text\',\'copy-btn\')">コピー</button>'+
-          '<button class="tweet-btn" onclick="openXPost(\'xpost-text\')">Threadsに投稿</button>'+
-        '</div>'+
-      '</div>';
-    }
+    if(d.mustDo) tasksHtml+='<div class="must-card"><div class="must-tag">⚡ MUST DO</div><div class="must-text">'+escHtml(d.mustDo)+'</div></div>';
+    if(d.quote) tasksHtml+='<div class="quote-card">'+escHtml(d.quote)+'</div>';
+    var alreadySaved=localStorage.getItem("completed-saved-"+date)==="1";
+    tasksHtml+='<button class="save-btn'+(alreadySaved?' saved':'')+'" id="save-completed-btn" onclick="saveCompleted(\''+date+'\')">'+(alreadySaved?'✓ 達成記録済み':'📊 今日の達成を記録する')+'</button>';
+    document.getElementById("tasks-area").innerHTML=tasksHtml;
 
-    if(d.dailyQuestion){
-      var savedAns=localStorage.getItem("qa-ans-"+d.date)||"";
-      var alreadySent=localStorage.getItem("qa-sent-"+d.date)==="1";
-      html+='<div class="qa-box">'+
-        '<div class="qa-label">💡 今日の質問（回答→明日の投稿に反映）</div>'+
-        '<div class="qa-question">'+escHtml(d.dailyQuestion)+'</div>'+
-        '<div class="qa-input-row">'+
-        '<textarea class="qa-input" id="qa-input" placeholder="ここに回答を入力...">'+(alreadySent?savedAns:"")+'</textarea>'+
-        '<button class="qa-mic-btn" id="qa-mic-btn" onclick="toggleMic()" title="音声入力">🎤</button>'+
-        '</div>'+
-        '<button class="qa-submit'+(alreadySent?" sent":"")+'" id="qa-submit" onclick="submitQA(\''+d.date+'\')">'+(alreadySent?"✓ 送信済み":"回答を送信")+'</button>'+
-      '</div>';
-    }
+    // Build right col
+    var rightHtml="";
+    var posts=[
+      {id:"xpost",text:d.xPost,label:"THREADS投稿案①",color:"#9b5de5"},
+      {id:"newspost",text:d.newsPost,label:"AIニュース反応②",color:"#1d9bf0"},
+      {id:"newspost2",text:d.newsPost2,label:"ビジネスニュース③",color:"#4ecdc4"}
+    ];
+    var postCount=0;
+    posts.forEach(function(p){
+      if(!p.text) return;
+      postCount++;
+      var chars=p.text.length;
+      var charColor=chars>140?"#ff6060":chars>120?"#f0a500":"#555";
+      rightHtml+='<div class="post-card">';
+      rightHtml+='<div class="post-header">';
+      rightHtml+='<div class="post-dot" style="background:'+p.color+'"></div>';
+      rightHtml+='<span class="post-label" style="color:'+p.color+'">'+p.label+'</span>';
+      rightHtml+='<span class="post-chars" style="color:'+charColor+'">'+chars+'/140</span>';
+      rightHtml+='</div>';
+      rightHtml+='<div class="post-body" id="'+p.id+'-text">'+escHtml(p.text)+'</div>';
+      rightHtml+='<div class="post-actions">';
+      rightHtml+='<button class="btn-open" onclick="openThreads(\''+p.id+'-text\')">Threads</button>';
+      rightHtml+='<button class="btn-copy" id="'+p.id+'-copybtn" onclick="copyPost(\''+p.id+'-text\',\''+p.id+'-copybtn\')">コピー</button>';
+      rightHtml+='</div></div>';
+    });
+    document.getElementById("stat-posts").textContent=postCount;
+
+    // Images
     if(d.images&&d.images.length){
       window._bgImages=d.images;
       window._bgTheme=d.imageTheme||d.imageThemeEn||"bg";
-      var themeName=d.imageTheme||d.imageThemeEn||"";
-      html+='<div class="image-section">';
-      html+='<div class="image-section-header">';
-      html+='<div><div class="image-theme-label">\ud83c\udf04 \u4eca\u65e5\u306e\u80cc\u666f\u7d20\u6750\uff08\u7121\u6599\u914d\u5e03\uff09</div>';
-      html+='<div class="image-theme-name">'+escHtml(themeName)+'</div></div>';
-      html+='<button class="image-dl-all-btn" onclick="downloadAllImages()">4\u679a\u4e00\u62ec DL</button>';
-      html+='</div>';
-      html+='<div class="image-grid">';
-      for(var ii=0;ii<d.images.length;ii++){
-        html+='<div class="image-card">';
-        html+='<img src="'+d.images[ii]+'?t='+Date.now()+'&r='+Math.random()+'" alt="bg'+ii+'" crossorigin="anonymous">';
-        html+='<div class="image-card-overlay">';
-        html+='<button class="image-dl-btn" data-idx="'+ii+'">DL</button>';
-        html+='</div>';
-        html+='</div>';
+      rightHtml+='<div class="img-card">';
+      rightHtml+='<div class="img-header">';
+      rightHtml+='<span class="img-label">🎨 背景画像</span>';
+      rightHtml+='<div style="display:flex;align-items:center;gap:8px">';
+      rightHtml+='<span class="img-theme">'+(d.imageTheme||'')+'</span>';
+      rightHtml+='<button class="img-dl-all" onclick="downloadAllImages()">4枚DL</button>';
+      rightHtml+='</div></div>';
+      rightHtml+='<div class="img-grid">';
+      for(var i=0;i<d.images.length;i++){
+        rightHtml+='<div class="img-cell">';
+        rightHtml+='<img src="'+d.images[i]+'?t='+Date.now()+'" alt="bg'+i+'" crossorigin="anonymous" onerror="this.parentNode.innerHTML=\'<div class=\\\"image-spinner\\\">生成中...</div>\'">';
+        rightHtml+='<div class="img-cell-overlay"><button class="img-dl-btn" data-idx="'+i+'">DL</button></div>';
+        rightHtml+='</div>';
       }
-      html+='</div>';
+      rightHtml+='</div>';
+      document.getElementById("stat-images").textContent=d.images.length;
       if(d.imagePost){
-        var ipc=(d.imagePost||"").length;
+        var ipc=d.imagePost.length;
         var ipcColor=ipc>140?"#ff6060":ipc>120?"#f0a500":"#555";
-        html+='<div class="image-post-box">';
-        html+='<div class="image-post-label">\ud83c\udf04 \u7d20\u6750\u914d\u5e03\u7528X\u6295\u7a3f\u6848</div>';
-        html+='<div class="x-post-text" id="imagepost-text">'+escHtml(d.imagePost)+'</div>';
-        html+='<div class="x-char-count" style="color:'+ipcColor+'">'+ipc+' / 140\u6587\u5b57</div>';
-        html+='<div class="x-post-btns">';
-        html+='<button class="copy-btn" id="img-copy-btn" onclick="copyPost(\'imagepost-text\',\'img-copy-btn\')">\u30b3\u30d4\u30fc</button>';
-        html+='<button class="tweet-btn" onclick="openXPost(\'imagepost-text\')">Threads\u306b\u6295\u7a3f</button>';
-        html+='</div></div>';
+        rightHtml+='<div class="img-post-body" id="imagepost-text">'+escHtml(d.imagePost)+'</div>';
+        rightHtml+='<div class="post-actions">';
+        rightHtml+='<span style="font-size:10px;color:'+ipcColor+'">'+ipc+'/140</span>';
+        rightHtml+='<button class="btn-open" onclick="openThreads(\'imagepost-text\')">Threads</button>';
+        rightHtml+='<button class="btn-copy" id="imgpost-copybtn" onclick="copyPost(\'imagepost-text\',\'imgpost-copybtn\')">コピー</button>';
+        rightHtml+='</div>';
       }
-      html+='</div>';
+      rightHtml+='</div>';
     }
-    var alreadySavedCompleted=localStorage.getItem("completed-saved-"+d.date)==="1";
-    html+='<button class="save-completed-btn'+(alreadySavedCompleted?" saved":"")+'" id="save-completed-btn" onclick="saveCompleted(\''+d.date+'\')">'+
-      (alreadySavedCompleted?"✓ 達成記録済み":"📊 今日の達成を記録する（翌日のタスクに反映）")+
-    '</button>';
-    document.getElementById("today-body").innerHTML=html;
-    document.getElementById("today-body").addEventListener("click",function(e){
-      if(e.target.classList.contains("image-dl-btn")){
+
+    // QA
+    if(d.dailyQuestion){
+      var savedAns=localStorage.getItem("qa-ans-"+date)||"";
+      var alreadySent=localStorage.getItem("qa-sent-"+date)==="1";
+      rightHtml+='<div class="qa-card">';
+      rightHtml+='<div class="qa-header">💬 今日の質問</div>';
+      rightHtml+='<div class="qa-q">'+escHtml(d.dailyQuestion)+'</div>';
+      rightHtml+='<div class="qa-input-wrap">';
+      rightHtml+='<textarea class="qa-input" id="qa-input" placeholder="回答を入力...">'+(alreadySent?escHtml(savedAns):'')+'</textarea>';
+      rightHtml+='<button class="qa-mic" id="qa-mic-btn" onclick="toggleMic()" title="音声入力">🎤</button>';
+      rightHtml+='</div>';
+      rightHtml+='<button class="qa-send'+(alreadySent?' sent':'')+'" id="qa-submit" onclick="submitQA(\''+date+'\')">'+(alreadySent?'✓ 送信済み':'回答を送信')+'</button>';
+      rightHtml+='</div>';
+    }
+
+    document.getElementById("right-col").innerHTML=rightHtml;
+    document.getElementById("right-col").addEventListener("click",function(e){
+      if(e.target.classList.contains("img-dl-btn")){
         var idx=parseInt(e.target.getAttribute("data-idx"));
-        if(window._bgImages&&window._bgImages[idx])downloadImage(window._bgImages[idx],idx+1);
+        if(window._bgImages&&window._bgImages[idx]) downloadImage(window._bgImages[idx],idx+1);
       }
-    },{once:true});
-    updateBar(d.date,"t-today","today");
-  }).catch(function(){document.getElementById("today-body").innerHTML='<div class="empty">明日の朝9時に最初のタスクが生成されます。</div>';
-    document.getElementById("today-plabel").textContent="";});
+    });
 
-function escHtml(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
-
-function openXPost(elId){
-  var el=document.getElementById(elId||"xpost-text");
-  if(!el)return;
-  window.open("https://www.threads.net/intent/post?text="+encodeURIComponent(el.innerText),"_blank");
+    updateProgress(date);
+  })
+  .catch(function(e){
+    document.getElementById("tasks-area").innerHTML='<div class="empty">タスクを読み込めませんでした。</div>';
+    document.getElementById("right-col").innerHTML='';
+  });
 }
 
-function copyPost(elId,btnId){
-  var el=document.getElementById(elId||"xpost-text");
-  var btn=document.getElementById(btnId||"copy-btn");
-  if(!el)return;
-  navigator.clipboard.writeText(el.innerText).then(function(){
-    btn.textContent="✓ コピーしました";
-    btn.classList.add("copied");
-    setTimeout(function(){btn.textContent="コピー";btn.classList.remove("copied");},2000);
+function toggleTask(row,date,id){
+  var check=row.querySelector(".task-check");
+  var title=row.querySelector(".task-title");
+  var done=!check.classList.contains("done");
+  check.classList.toggle("done",done);
+  title.classList.toggle("done",done);
+  setDone(date,id,done);
+  updateProgress(date);
+}
+
+// ---- WEEK ----
+function loadWeek(){
+  fetch(RAW+"/data/week.json?t="+Date.now())
+  .then(function(r){return r.json()})
+  .then(function(d){
+    var html="";
+    html+='<div class="wm-hero">';
+    html+='<div class="wm-tag">WEEK — '+(d.weekJa||d.weekStart||'')+'</div>';
+    html+='<div class="wm-goal">'+(d.weekGoal||'今週の目標')+'</div>';
+    if(d.keyResult) html+='<div class="wm-kr">KR: '+escHtml(d.keyResult)+'</div>';
+    if(d.revenueTarget) html+='<div class="wm-kr" style="margin-top:4px;color:#f0a500">💰 '+escHtml(d.revenueTarget)+'</div>';
+    var wk="week-"+(d.weekStart||"");
+    var goals=d.goals||[];
+    if(goals.length){
+      var doneW=goals.filter(function(g){return getDone(wk)[g.id||g]}).length;
+      var pctW=Math.round(doneW/goals.length*100);
+      html+='<div class="wm-progress">';
+      html+='<div class="wm-plabel">'+doneW+' / '+goals.length+' 完了 ('+pctW+'%)</div>';
+      html+='<div class="wm-pbar"><div class="wm-pfill" style="width:'+pctW+'%"></div></div>';
+      html+='</div>';
+    }
+    html+='</div>';
+    if(goals.length){
+      goals.forEach(function(g){
+        var gid=g.id||g;
+        var gtext=g.text||g;
+        var gcat=g.category||"";
+        var done=getDone(wk)[gid];
+        html+='<div class="goal-item">';
+        html+='<input type="checkbox" class="t-week" id="wg'+gid+'" '+(done?'checked':'')+
+          ' onchange="setDone(\''+wk+'\',\''+gid+'\',this.checked);reloadWeekProgress()">';
+        html+='<label class="goal-text" for="wg'+gid+'" style="'+(done?'text-decoration:line-through;color:var(--text3)':'')+'">';
+        html+=escHtml(gtext);
+        if(gcat) html+='<span class="cat-badge cat-'+gcat+'">'+gcat+'</span>';
+        html+='</label></div>';
+      });
+    } else {
+      html+='<div class="empty">月曜朝9時に更新されます。</div>';
+    }
+    document.getElementById("week-body").innerHTML=html;
+    window._weekData=d;
+  })
+  .catch(function(){
+    document.getElementById("week-body").innerHTML='<div class="empty">読み込めませんでした。</div>';
   });
+}
+function reloadWeekProgress(){
+  var d=window._weekData;
+  if(!d) return;
+  var wk="week-"+(d.weekStart||"");
+  var goals=d.goals||[];
+  var doneW=goals.filter(function(g){return getDone(wk)[g.id||g]}).length;
+  var pctW=goals.length?Math.round(doneW/goals.length*100):0;
+  document.querySelectorAll(".wm-plabel").forEach(function(el){el.textContent=doneW+' / '+goals.length+' 完了 ('+pctW+'%)'});
+  document.querySelectorAll(".wm-pfill").forEach(function(el){el.style.width=pctW+'%'});
+}
+
+// ---- MONTH ----
+function loadMonth(){
+  fetch(RAW+"/data/month.json?t="+Date.now())
+  .then(function(r){return r.json()})
+  .then(function(d){
+    var html="";
+    if(d.focus){
+      html+='<div class="focus-card">';
+      html+='<div class="focus-label">FOCUS</div>';
+      html+='<div class="focus-text">'+escHtml(d.focus)+'</div>';
+      html+='</div>';
+    }
+    html+='<div class="wm-hero">';
+    html+='<div class="wm-tag">MONTH — '+(d.monthJa||d.month||'')+'</div>';
+    html+='<div class="wm-goal">'+(d.label||d.month||'今月の目標')+'</div>';
+    var mk="month-"+(d.month||"");
+    // goals: either array of strings or array of {id,text,category}
+    var rawGoals=d.goals||[];
+    var goals=rawGoals.map(function(g,i){
+      if(typeof g==="string") return{id:"m"+(i+1),text:g,category:""};
+      return g;
+    });
+    if(goals.length){
+      var doneM=goals.filter(function(g){return getDone(mk)[g.id]}).length;
+      var pctM=Math.round(doneM/goals.length*100);
+      html+='<div class="wm-progress">';
+      html+='<div class="wm-plabel">'+doneM+' / '+goals.length+' 完了 ('+pctM+'%)</div>';
+      html+='<div class="wm-pbar"><div class="wm-pfill" style="width:'+pctM+'%"></div></div>';
+      html+='</div>';
+    }
+    html+='</div>';
+    if(goals.length){
+      goals.forEach(function(g){
+        var done=getDone(mk)[g.id];
+        html+='<div class="goal-item">';
+        html+='<input type="checkbox" class="t-month" id="mg'+g.id+'" '+(done?'checked':'')+
+          ' onchange="setDone(\''+mk+'\',\''+g.id+'\',this.checked)">';
+        html+='<label class="goal-text" for="mg'+g.id+'" style="'+(done?'text-decoration:line-through;color:var(--text3)':'')+'">';
+        html+=escHtml(g.text);
+        if(g.category) html+='<span class="cat-badge cat-'+g.category+'">'+g.category+'</span>';
+        html+='</label></div>';
+      });
+    } else {
+      html+='<div class="empty">毎月1日朝9時に更新されます。</div>';
+    }
+    if(d.kpi){
+      html+='<div class="kpi-grid">';
+      var kpiMap={revenue:"💰 収益目標",boothItems:"🎯 BOOTH",xPosts:"📣 投稿",outsourcing:"🔧 外注化"};
+      Object.keys(d.kpi).forEach(function(k){
+        html+='<div class="kpi-card"><div class="kpi-label">'+(kpiMap[k]||k)+'</div><div class="kpi-val">'+escHtml(d.kpi[k])+'</div></div>';
+      });
+      html+='</div>';
+    }
+    document.getElementById("month-body").innerHTML=html;
+  })
+  .catch(function(){
+    document.getElementById("month-body").innerHTML='<div class="empty">読み込めませんでした。</div>';
+  });
+}
+
+// ---- HISTORY ----
+var histLoaded=false;
+function loadHistory(){
+  if(histLoaded) return; histLoaded=true;
+  fetch(API+"/contents/data/archive")
+  .then(function(r){return r.json()})
+  .then(function(files){
+    var items=(files||[]).filter(function(f){return f.name&&f.name.endsWith(".json")})
+      .sort(function(a,b){return b.name.localeCompare(a.name)});
+    if(!items.length){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';return;}
+    var html="";
+    items.forEach(function(f){
+      var date=f.name.replace(".json","");
+      var done=getDone(date);
+      var doneN=Object.values(done).filter(Boolean).length;
+      var totalN=Object.keys(done).length;
+      var pct=totalN?Math.round(doneN/totalN*100):null;
+      html+='<div class="history-item" onclick="location.href=\'history.html?date='+date+'\'">'+
+        '<span class="history-date">'+date+'</span>'+
+        '<span class="history-rate">'+(pct!==null?pct+"% 達成":"未記録")+'</span></div>';
+    });
+    document.getElementById("history-body").innerHTML=html;
+  })
+  .catch(function(){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';});
+}
+
+// ---- ACTIONS ----
+function copyPost(elId,btnId){
+  var el=document.getElementById(elId);
+  var btn=document.getElementById(btnId);
+  if(!el||!btn) return;
+  navigator.clipboard.writeText(el.innerText).then(function(){
+    btn.textContent="✓ コピー済み";
+    btn.classList.add("copied");
+    setTimeout(function(){btn.textContent="コピー";btn.classList.remove("copied")},2000);
+  });
+}
+function openThreads(elId){
+  var el=document.getElementById(elId);
+  if(!el) return;
+  window.open("https://www.threads.net/intent/post?text="+encodeURIComponent(el.innerText),"_blank");
+}
+function downloadImage(url,idx){
+  fetch(url).then(function(r){return r.blob()}).then(function(blob){
+    var a=document.createElement("a");
+    a.href=URL.createObjectURL(blob);
+    a.download=(window._bgTheme||"bg")+"_bg"+idx+".png";
+    document.body.appendChild(a);a.click();document.body.removeChild(a);
+  });
+}
+function downloadAllImages(){
+  if(!window._bgImages) return;
+  window._bgImages.forEach(function(url,i){setTimeout(function(){downloadImage(url,i+1)},i*400)});
 }
 
 function submitQA(date){
@@ -343,259 +692,101 @@ function submitQA(date){
   if(!answer){alert("回答を入力してください");return;}
   var btn=document.getElementById("qa-submit");
   btn.textContent="送信中...";btn.disabled=true;
-  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
-  if(!GITHUB_TOKEN){
-    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
-    if(!GITHUB_TOKEN){btn.textContent="回答を送信";btn.disabled=false;return;}
-    localStorage.setItem("gh_token",GITHUB_TOKEN);
-  }
+  var GHT=localStorage.getItem("gh_token")||"";
+  if(!GHT){GHT=prompt("GitHubトークンを入力（初回のみ）:");if(!GHT){btn.textContent="回答を送信";btn.disabled=false;return;}localStorage.setItem("gh_token",GHT);}
   var payload=JSON.stringify({date:date,answer:answer,submittedAt:new Date().toISOString()});
-  var encoded=btoa(unescape(encodeURIComponent(payload)));
-  fetch("https://api.github.com/repos/"+REPO+"/contents/data/qa_pending.json",
-    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  var enc=btoa(unescape(encodeURIComponent(payload)));
+  fetch(API+"/contents/data/qa_pending.json",{headers:{"Authorization":"token "+GHT}})
   .then(function(r){return r.json()})
-  .then(function(existing){
-    var body={message:"QA回答: "+date,content:encoded};
-    if(existing.sha) body.sha=existing.sha;
-    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/qa_pending.json",{
-      method:"PUT",headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
-      body:JSON.stringify(body)});
+  .then(function(ex){
+    var body={message:"QA回答: "+date,content:enc};
+    if(ex.sha) body.sha=ex.sha;
+    return fetch(API+"/contents/data/qa_pending.json",{method:"PUT",headers:{"Authorization":"token "+GHT,"Content-Type":"application/json"},body:JSON.stringify(body)});
   }).then(function(r){return r.json()})
-  .then(function(result){
-    if(result.content){
-      localStorage.setItem("qa-ans-"+date,answer);
-      localStorage.setItem("qa-sent-"+date,"1");
-      btn.textContent="✓ 送信済み";btn.classList.add("sent");btn.disabled=false;
-    } else {
-      btn.textContent="エラー。再試行";btn.disabled=false;
-    }
+  .then(function(res){
+    if(res.content){localStorage.setItem("qa-ans-"+date,answer);localStorage.setItem("qa-sent-"+date,"1");btn.textContent="✓ 送信済み";btn.classList.add("sent");btn.disabled=false;}
+    else{btn.textContent="エラー。再試行";btn.disabled=false;}
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
-function downloadImage(url,idx){
-  fetch(url).then(function(r){return r.blob();}).then(function(blob){
-    var burl=URL.createObjectURL(blob);
-    var a=document.createElement('a');
-    a.href=burl;
-    var theme=window._bgTheme||"bg";
-    a.download=theme+'_bg'+idx+'.png';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(burl);
-  });
-}
-function downloadAllImages(){
-  if(!window._bgImages||!window._bgImages.length)return;
-  window._bgImages.forEach(function(url,i){
-    setTimeout(function(){downloadImage(url,i+1);},i*400);
-  });
-}
 function saveCompleted(date){
   var done=getDone(date);
   var allCbs=document.querySelectorAll(".t-today");
-  var totalIds=[];
-  allCbs.forEach(function(cb){totalIds.push(cb.id.replace(/^t/,""))});
-  var completedIds=totalIds.filter(function(id){return done[id]});
+  var totalIds=[];allCbs.forEach(function(cb){totalIds.push(cb.id.replace(/^t/,""))});
+  var completedIds=Object.keys(done).filter(function(id){return done[id]});
   var btn=document.getElementById("save-completed-btn");
   btn.textContent="記録中...";btn.disabled=true;
-  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
-  if(!GITHUB_TOKEN){
-    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
-    if(!GITHUB_TOKEN){btn.textContent="📊 今日の達成を記録する（翌日のタスクに反映）";btn.disabled=false;return;}
-    localStorage.setItem("gh_token",GITHUB_TOKEN);
-  }
+  var GHT=localStorage.getItem("gh_token")||"";
+  if(!GHT){GHT=prompt("GitHubトークンを入力（初回のみ）:");if(!GHT){btn.textContent="📊 今日の達成を記録する";btn.disabled=false;return;}localStorage.setItem("gh_token",GHT);}
   var payload={date:date,completedIds:completedIds,totalIds:totalIds,completionRate:totalIds.length?Math.round(completedIds.length/totalIds.length*100):0};
-  var jsonStr=JSON.stringify(payload,null,2);
-  var encoded=btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode('0x'+p)}));
-  fetch("https://api.github.com/repos/"+REPO+"/contents/data/completed.json",
-    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  var enc=btoa(encodeURIComponent(JSON.stringify(payload,null,2)).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode("0x"+p)}));
+  fetch(API+"/contents/data/completed.json",{headers:{"Authorization":"token "+GHT}})
   .then(function(r){return r.json()})
-  .then(function(existing){
-    var body={message:"達成記録: "+date,content:encoded};
-    if(existing.sha) body.sha=existing.sha;
-    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/completed.json",{
-      method:"PUT",headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
-      body:JSON.stringify(body)});
+  .then(function(ex){
+    var body={message:"達成記録: "+date,content:enc};
+    if(ex.sha) body.sha=ex.sha;
+    return fetch(API+"/contents/data/completed.json",{method:"PUT",headers:{"Authorization":"token "+GHT,"Content-Type":"application/json"},body:JSON.stringify(body)});
   }).then(function(r){return r.json()})
-  .then(function(result){
-    if(result.content){
-      localStorage.setItem("completed-saved-"+date,"1");
-      btn.textContent="✓ 達成記録済み";btn.classList.add("saved");btn.disabled=false;
-    } else {btn.textContent="エラー。再試行";btn.disabled=false;}
+  .then(function(res){
+    if(res.content){localStorage.setItem("completed-saved-"+date,"1");btn.textContent="✓ 達成記録済み";btn.classList.add("saved");btn.disabled=false;}
+    else{btn.textContent="エラー。再試行";btn.disabled=false;}
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
 function toggleThumbForm(){
   var f=document.getElementById("thumb-form");
-  if(!f)return;
+  if(!f) return;
   f.classList.toggle("open");
   if(f.classList.contains("open")){
-    // デフォルト締切を今日+3日に設定
-    var dt=new Date(); dt.setDate(dt.getDate()+3);
-    var iso=dt.toISOString().split("T")[0];
-    document.getElementById("thumb-deadline").value=iso;
+    var dt=new Date();dt.setDate(dt.getDate()+3);
+    document.getElementById("thumb-deadline").value=dt.toISOString().split("T")[0];
     document.getElementById("thumb-name").focus();
   }
 }
-
 function saveThumb(){
   var date=localStorage.getItem("today-date")||new Date().toISOString().split("T")[0];
   var name=document.getElementById("thumb-name").value.trim();
   var deadline=document.getElementById("thumb-deadline").value;
   if(!name){alert("案件名を入力してください");return;}
-  var btn=document.getElementById("thumb-save-btn");
-  btn.textContent="保存中...";btn.disabled=true;
-  var GITHUB_TOKEN=localStorage.getItem("gh_token")||"";
-  if(!GITHUB_TOKEN){
-    GITHUB_TOKEN=prompt("GitHubトークンを入力してください（初回のみ）:");
-    if(!GITHUB_TOKEN){btn.textContent="追加する";btn.disabled=false;return;}
-    localStorage.setItem("gh_token",GITHUB_TOKEN);
-  }
-  fetch("https://api.github.com/repos/"+REPO+"/contents/data/today.json",
-    {headers:{"Authorization":"token "+GITHUB_TOKEN}})
+  var btn=document.getElementById("thumb-save-btn");btn.textContent="保存中...";btn.disabled=true;
+  var GHT=localStorage.getItem("gh_token")||"";
+  if(!GHT){GHT=prompt("GitHubトークンを入力（初回のみ）:");if(!GHT){btn.textContent="追加する";btn.disabled=false;return;}localStorage.setItem("gh_token",GHT);}
+  fetch(API+"/contents/data/today.json",{headers:{"Authorization":"token "+GHT}})
   .then(function(r){return r.json()})
   .then(function(res){
     var data=JSON.parse(atob(res.content.replace(/\n/g,"")));
-    if(!data.sections.thumbnail){
-      data.sections.thumbnail={label:"🖼 サムネ作成",tasks:[]};
-    }
+    if(!data.sections.thumbnail) data.sections.thumbnail={label:"🖼 サムネ作成",tasks:[]};
     var tasks=data.sections.thumbnail.tasks;
     var newId="th"+(tasks.length+1)+"-"+Date.now().toString(36);
-    var deadlineStr=deadline?" 締切"+deadline:"";
-    tasks.push({
-      id:newId,
-      text:"【締切"+deadline+"】"+name+"のサムネを完成させる（メリット：納品実績が積み上がり次の案件につながる）",
-      time:"60分",
-      deadline:deadline,
-      tag:"締切あり"
-    });
-    var jsonStr=JSON.stringify(data,null,2);
-    var encoded=btoa(encodeURIComponent(jsonStr).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode('0x'+p)}));
-    return fetch("https://api.github.com/repos/"+REPO+"/contents/data/today.json",{
-      method:"PUT",
-      headers:{"Authorization":"token "+GITHUB_TOKEN,"Content-Type":"application/json"},
-      body:JSON.stringify({message:"サムネ追加: "+name,content:encoded,sha:res.sha})
-    });
+    tasks.push({id:newId,title:"【締切"+deadline+"】"+name+"のサムネを完成させる",merit:"納品実績が積み上がり次の案件につながる",time:"60分",deadline:deadline});
+    var enc=btoa(encodeURIComponent(JSON.stringify(data,null,2)).replace(/%([0-9A-F]{2})/g,function(m,p){return String.fromCharCode("0x"+p)}));
+    return fetch(API+"/contents/data/today.json",{method:"PUT",headers:{"Authorization":"token "+GHT,"Content-Type":"application/json"},body:JSON.stringify({message:"サムネ追加: "+name,content:enc,sha:res.sha})});
   }).then(function(r){return r.json()})
-  .then(function(result){
-    if(result.content){
-      btn.textContent="✓ 追加しました";
-      setTimeout(function(){location.reload();},800);
-    } else {
-      btn.textContent="エラー。再試行";btn.disabled=false;
-    }
+  .then(function(res){
+    if(res.content){btn.textContent="✓ 追加しました";setTimeout(function(){location.reload()},800);}
+    else{btn.textContent="エラー。再試行";btn.disabled=false;}
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
-// 音声入力
-var micRecognition=null;
-var micActive=false;
+var micRecognition=null,micActive=false;
 function toggleMic(){
   var btn=document.getElementById("qa-mic-btn");
-  if(!btn)return;
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert("このブラウザは音声入力に対応していません。\nChromeをお試しください。");return;}
-  if(micActive){
-    if(micRecognition)micRecognition.stop();
-    return;
-  }
+  if(!SR){alert("このブラウザは音声入力に対応していません");return;}
+  if(micActive){if(micRecognition)micRecognition.stop();return;}
   micRecognition=new SR();
-  micRecognition.lang="ja-JP";
-  micRecognition.continuous=true;
-  micRecognition.interimResults=false;
-  micRecognition.onstart=function(){
-    micActive=true;
-    btn.classList.add("recording");
-    btn.title="録音中（タップで停止）";
-  };
+  micRecognition.lang="ja-JP";micRecognition.continuous=true;micRecognition.interimResults=false;
+  micRecognition.onstart=function(){micActive=true;btn.classList.add("recording");btn.title="録音中"};
   micRecognition.onresult=function(e){
     var txt="";
-    for(var i=e.resultIndex;i<e.results.length;i++){
-      if(e.results[i].isFinal)txt+=e.results[i][0].transcript;
-    }
+    for(var i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)txt+=e.results[i][0].transcript}
     var ta=document.getElementById("qa-input");
     if(ta&&txt)ta.value+=(ta.value?"　":"")+txt;
   };
-  micRecognition.onend=function(){
-    micActive=false;
-    btn.classList.remove("recording");
-    btn.title="音声入力";
-  };
-  micRecognition.onerror=function(){
-    micActive=false;
-    btn.classList.remove("recording");
-  };
+  micRecognition.onend=function(){micActive=false;btn.classList.remove("recording");btn.title="音声入力"};
+  micRecognition.onerror=function(){micActive=false;btn.classList.remove("recording")};
   micRecognition.start();
-}
-
-// WEEK
-fetch(RAW+"/data/week.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
-    document.getElementById("week-date").textContent=d.weekJa||"";
-    var wk="week-"+(d.weekStart||"");
-    var html="";
-    (d.goals||[]).forEach(function(g){
-      var done=getDone(wk)[g.id];
-      html+='<div class="goal-item"><input type="checkbox" class="t-week" id="w'+g.id+'" '+(done?"checked":"")+
-        ' onchange="setDone(\''+wk+'\',\''+g.id+'\',this.checked);updateBar(\''+wk+'\',\'t-week\',\'week\')">'+
-        '<label class="goal-text" for="w'+g.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(g.text||"")+
-        '<span class="cat-badge cat-'+(g.category||"")+'">'+(g.category||"")+'</span></label></div>';
-    });
-    document.getElementById("week-body").innerHTML=html||'<div class="empty">月曜朝9時に更新されます。</div>';
-    updateBar(wk,"t-week","week");
-  }).catch(function(){document.getElementById("week-body").innerHTML='<div class="empty">月曜朝9時に更新されます。</div>';
-    document.getElementById("week-plabel").textContent="";});
-
-// MONTH
-fetch(RAW+"/data/month.json?t="+Date.now())
-  .then(function(r){return r.json()}).then(function(d){
-    document.getElementById("month-date").textContent=d.monthJa||"";
-    var mk="month-"+(d.month||"");
-    var html="";
-    (d.goals||[]).forEach(function(g){
-      var done=getDone(mk)[g.id];
-      html+='<div class="goal-item"><input type="checkbox" class="t-month" id="m'+g.id+'" '+(done?"checked":"")+
-        ' onchange="setDone(\''+mk+'\',\''+g.id+'\',this.checked);updateBar(\''+mk+'\',\'t-month\',\'month\')">'+
-        '<label class="goal-text" for="m'+g.id+'" style="'+(done?"text-decoration:line-through;color:#555":"")+'">'+(g.text||"")+
-        '<span class="cat-badge cat-'+(g.category||"")+'">'+(g.category||"")+'</span></label></div>';
-    });
-    document.getElementById("month-body").innerHTML=html||'<div class="empty">毎月1日朝9時に更新されます。</div>';
-    updateBar(mk,"t-month","month");
-  }).catch(function(){document.getElementById("month-body").innerHTML='<div class="empty">毎月1日朝9時に更新されます。</div>';
-    document.getElementById("month-plabel").textContent="";});
-
-// HISTORY
-var histLoaded=false;
-function loadHistory(){
-  if(histLoaded)return; histLoaded=true;
-  fetch(API+"/contents/data/archive")
-    .then(function(r){return r.json()}).then(function(files){
-      var items=(files||[]).filter(function(f){return f.name&&f.name.endsWith(".json")})
-        .sort(function(a,b){return b.name.localeCompare(a.name)});
-      if(!items.length){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';return;}
-      var html="";
-      items.forEach(function(f){
-        var date=f.name.replace(".json","");
-        var done=getDone(date);
-        var doneN=Object.values(done).filter(Boolean).length;
-        var totalN=Object.keys(done).length;
-        var pct=totalN?Math.round(doneN/totalN*100):null;
-        html+='<div class="history-item" onclick="location.href=\'history.html?date='+date+'\'">'+
-          '<span class="history-date">'+date+'</span>'+
-          '<span class="history-rate">'+(pct!==null?pct+"% 達成":"未記録")+'</span></div>';
-      });
-      document.getElementById("history-body").innerHTML=html;
-    }).catch(function(){document.getElementById("history-body").innerHTML='<div class="empty">履歴はまだありません。</div>';});
 }
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
