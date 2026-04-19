@@ -386,7 +386,7 @@ function loadToday(){
       tasksHtml+='</div>';
       tasks.forEach(function(t){
         var done=getDone(date)[t.id];
-        tasksHtml+='<div class="task-row" onclick="toggleTask(this,\''+date+'\',\''+t.id+'\')">';
+        tasksHtml+='<div class="task-row t-today" id="t'+t.id+'" onclick="toggleTask(this,\''+date+'\',\''+t.id+'\')">';
         tasksHtml+='<div class="task-check'+(done?' done':'')+'"></div>';
         tasksHtml+='<div class="task-info">';
         tasksHtml+='<div class="task-title'+(done?' done':'')+'">'+(t.title||t.text||'')+'</div>';
