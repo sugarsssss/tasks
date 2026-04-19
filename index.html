@@ -455,7 +455,7 @@ function loadToday(){
       rightHtml+='<div class="img-grid">';
       for(var i=0;i<d.images.length;i++){
         rightHtml+='<div class="img-cell">';
-        rightHtml+='<img src="'+d.images[i]+'?t='+Date.now()+'" alt="bg'+i+'" crossorigin="anonymous" onerror="this.parentNode.innerHTML=\'<div class=\\\"image-spinner\\\">生成中...</div>\'">';
+        rightHtml+='<img src="'+d.images[i]+'?t='+Date.now()+'" alt="bg'+i+'" crossorigin="anonymous" onerror="imgErr(this)">';
         rightHtml+='<div class="img-cell-overlay"><button class="img-dl-btn" data-idx="'+i+'">DL</button></div>';
         rightHtml+='</div>';
       }
@@ -768,6 +768,7 @@ function saveThumb(){
   }).catch(function(){btn.textContent="エラー。再試行";btn.disabled=false;});
 }
 
+function imgErr(img){ img.parentNode.innerHTML='<div class="image-spinner">生成中...</div>'; }
 var micRecognition=null,micActive=false;
 function toggleMic(){
   var btn=document.getElementById("qa-mic-btn");
